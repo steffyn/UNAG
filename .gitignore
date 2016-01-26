@@ -106,10 +106,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-
-#settings
-settings.py
-wsgi.py
-admin.py
-urls.py
