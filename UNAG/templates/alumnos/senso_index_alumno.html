@@ -1,0 +1,23 @@
+{% extends 'alumnos/menu_senso_alumno.html' %}
+
+{% block title %} Inicio - Bienvenidos {% endblock %}
+
+{% block container %} <br/> 
+<div class="row-fluid">
+	<div class="span4">
+		<blockquote>
+					<p>
+						Puede actualizar y verificar sus datos dando clic en las opciones del men&uacute; de la izquierda.<br>
+						Si tiene problemas al llenar los formularios comuníquese a los telefonos 222-xxxx, 222-xxxx.
+					</p> <small>Indicaciones</small>
+		</blockquote>
+	</div>
+
+</div>
+	{% if mensaje %}
+		<div class="{{alert}}">
+			<h1><span class="label label-success">{{header}}</span></h1>
+			<h3>{{mensaje}} </h3>
+		</div>
+	{% endif %}
+{% endblock %}

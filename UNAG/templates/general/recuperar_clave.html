@@ -1,0 +1,35 @@
+{% extends "general/menu_censo_administracion.html" %}
+
+{% block container %}
+<div class="container">
+	<div class="col-lg-12 well">
+		<h4>Recuperar Usuario y Clave de acceso</h4>			
+	</div>
+	<form id="clave" name="clave" method="POST">{% csrf_token %}
+		<div class="form-group">
+			<label for="id_identidad">Identidad: </label>
+			<input type="text" id="id_identidad" name="identidad" class="form-control" required="required" />
+		</div>
+		<div class="form-group">
+			<label for="id_registro">Número de registro: </label>
+			<input type="text" id="id_registro" name="registro" class="form-control" required="required" />
+		</div>
+		<button class="btn btn-primary"><span class="glyphicon glyphicon-retweet">&nbsp;</span>Recuperar</button>
+	</form>
+</br>
+	{% if username %}
+		<div class="{{alerta}}">
+			<h3>{{mensaje}}</h3>
+			<p>Tipo de usuario: <b>{{tipo}}</b></p>
+			<p>Usuario: <b>{{username}}</b></p>
+			<p>Contraseña: <b>{{password}}</b></p>
+		</div>
+	{% elif mensaje %}
+		<div class="{{alerta}}">
+			<h3>{{mensaje}}</h3>
+			<p>Verifique que el usuario y número de registro estén escritos correctamente.</p>
+			<p>Si la persona posee mas de un usuario deberá utilizar el administrador del sistema para modificar los datos de acceso.</p>
+		</div>
+	{% endif %}
+</div>
+{% endblock %}

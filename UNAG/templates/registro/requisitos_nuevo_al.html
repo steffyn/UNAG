@@ -1,0 +1,133 @@
+{% extends "general/administracion_index.html" %}
+
+{% block extrahead %}
+<script type="text/javascript">
+	
+	$(document).ready (function (){
+			
+			$('#guardar').attr('disabled', 'disabled');
+			$('#id_modulos').attr('class','multiple');
+			$('#id_modulos').attr('style','width:700px ; height:200px;');
+			$('#selectores').hide();
+			
+		});
+
+	function enviar(){
+			var id_asignatura=$("#id_asignatura").val();
+			var sendInfo = $('#frm_requisito_asignatura').serialize();
+			sendInfo+="&id="+id_asignatura;
+			$.post(
+            "{% url 'vista_requisitos_ajax_asignatura' %}",
+            sendInfo,
+            function(data){
+            	// var content = $( data ).find( "#content" );
+				//$( "#cant_uv" ).empty().append( data );
+				$('#cant_uv').html(data);
+				//$('#selectores').show()
+				$('#id_modulos').attr('style','width:700px ; height:200px;');
+
+				$("#id_modulos").multiselect({ selected: function(event, ui) { 
+				 var cant=new Array();
+				 cant= $('#id_modulos').multiselect('selectedValues')
+			 	uv=$("#vuv").val()
+			 	if(uv==cant.length){
+			 		//alert("Ha completado el numero de unidades valorativas") 
+			 	    $('#guardar').removeAttr("disabled");
+			 	}
+			 	  
+			 	 } },{deselected: function(event, ui) { 
+				 var cant=new Array();
+				 cant= $('#id_modulos').multiselect('selectedValues')
+			 	uv=$("#vuv").val()
+			 	
+			 	if(cant.length<uv)
+			 	  $('#guardar').attr('disabled', 'disabled') }});
+
+			});
+		}
+</script>
+
+
+{% endblock %}
+{% block container %}
+	<div class="container">
+		<legend>Nueva Asignacion de Requisitos<a href="{% url 'vista_administracion_requisito' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
+		<div class="col-lg-8">
+			<form id="frm_requisito_asignatura" name="frm_requisito_asignatura" action="." method="POST">{% csrf_token %}	
+				{% if formulario.errors %}				
+					<div class="alert alert-danger">
+							<h4>Formulario contiene errores!!</h4>
+					</div>
+				{% else %}
+					<!-- <div class="alert alert-success">
+							<p><h4>Último documento guardado!!</h4>
+							{% for c in ultimo %} <b>"{{ c.descripcion }}" el {{c.fecha_creacion}}</b> {% endfor %}<p>
+					</div> -->
+				{% endif %}
+				{{formulario.as_p}}
+
+
+				<label>Seleccione una asignatura: &nbsp;</label>
+				<select id="id_asignatura" name="asignatura" onchange="enviar();">
+					<option seleted="seleted" >----------</option>
+					{% for a in asigna %}
+						<option value="{{ a.id }}">{{ a.nombre_asignatura }}|{{a.tipo_asignatura}}</option>	
+					{% endfor %}
+				</select> 
+
+
+				<br/><br/>
+				<div id='cant_uv' name='cant_uv'></div>
+		
+
+			    <br/><br/>
+				<button type="submit" class="btn btn-primary" id="guardar">
+					<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+{% block extrajs %}
+	<link type="text/css" rel="stylesheet" href="/media/libs/multiselect/css/themes/smoothness/jquery-ui-1.7.1.custom.css" /> 
+	<link type="text/css" href="/media/libs/multiselect/css/ui.multiselect.css" rel="stylesheet" />
+	<script type="text/javascript" src="/media/libs/multiselect/js/plugins/localisation/jquery.localisation-min.js"></script>
+	<script type="text/javascript" src="/media/libs/multiselect/js/plugins/tmpl/jquery.tmpl.1.1.1.js"></script>
+	<script type="text/javascript" src="/media/libs/multiselect/js/plugins/blockUI/jquery.blockUI.js"></script>
+	<script type="text/javascript" src="/media/libs/multiselect/js/ui.multiselect.js"></script>
+
+
+	<script type="text/javascript">
+
+
+		$(function(){
+			$.localise('ui.multiselect', {language: 'es',path: '/media/libs/multiselect/js/locale/'});
+			//$("#id_modulos").multiselect()
+			// local
+			$("#id_modulos").multiselect({ selected: function(event, ui) { 
+				 var cant=new Array();
+				 cant= $('#id_modulos').multiselect('selectedValues')
+			 	uv=$("#vuv").val()
+			 	if(uv==cant.length){
+			 		//alert("Ha completado el numero de unidades valorativas") 
+			 	    $('#guardar').removeAttr("disabled");
+			 	}
+			 	  
+			  } },{deselected: function(event, ui) { 
+				 var cant=new Array();
+				 cant= $('#id_modulos').multiselect('selectedValues')
+			 	uv=$("#vuv").val()
+			 	
+			 	if(cant.length<uv)
+			 	  $('#guardar').attr('disabled', 'disabled') }});
+	
+			// only if the function is available...
+			if ($.fn.themeswitcher) {
+				$('#switcher')
+					.before('<h4>Use the themeroller to dynamically change look and feel</h4>')
+					.themeswitcher();
+			}
+		});
+
+	</script>
+{% endblock %}
+

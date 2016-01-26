@@ -1,0 +1,69 @@
+{% extends "general/administracion_index.html" %}
+
+{% block head%}
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+			$('#id_ocupados').hide()
+		});
+	</script>
+
+{% endblock %}
+
+{% block container %}
+	<div class="container">
+		<legend>Nuevo Espacio en Edificio <a href="{% url 'vista_administracion_dormitorios' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
+		<div class="col-lg-8">
+			<form id="frm_dormitorio" name="frm_dormitorio" action="." method="POST">{% csrf_token %}	
+				{% if formulario.errors %}				
+					<div class="alert alert-danger">
+							<h4>Formulario contiene errores!!</h4>
+					</div>
+				{% else %}
+					<div class="alert alert-success">
+							<p><h4>Último espacio guardado!!</h4>
+							{% for c in ultimo %} <b>"{{ c.descripcion }}" en el edificio "{{ c.edificio }}" el {{c.fecha_creacion}}</b> {% endfor %}<p>
+					</div>
+				{% endif %}
+				{{formulario.as_p}}
+				<button type="submit" class="btn btn-primary">
+					<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extrafooter %}
+<script type="text/javascript">
+	$('label[for="id_ocupados"]').hide();
+	$('#id_ocupados').hide();
+	$("#id_edificio").attr("onchange", "enviar();");
+	actualizaChosen();
+	$('#id_capacidad_personas').attr('onkeypress','return permite(event, "num");'); 
+	$('#id_ocupados').attr('onkeypress','return permite(event, "num");');
+
+	function enviar(){
+
+			var edificio=$("#id_edificio").val();
+			var sendInfo = $('#frm_dormitorio').serialize();
+			sendInfo+="&id="+edificio;
+			
+			$.post(
+            "{% url 'vista_ajax_dormitorio' %}",
+            sendInfo,
+            function(data){
+            	
+            	var valor = jQuery.parseJSON(data);
+            	if(valor.tipo=='3'){
+            		
+            		$('label[for="id_ocupados"]').show();
+					$('#id_ocupados').show();
+            	}else{
+            		$('label[for="id_ocupados"]').hide();
+					$('#id_ocupados').hide();
+            	}
+			});
+		}
+
+</script>
+{% endblock %}

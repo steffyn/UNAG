@@ -1,0 +1,48 @@
+{% extends "general/administracion_index.html" %}
+
+{% block container %}
+<div class="col-lg-12 well">
+		<h4>Detalle de Departamentos Académicos</h4>			
+	</div>
+	<form id="frm_campus" name="frm_campus" action="." method="POST">{% csrf_token %}
+		<div class="panel panel-default">
+			{% if perms.registro.change_departamento_academico %}
+			<div class="panel-heading">
+				<a title="Nuevo Departamento Acad&eacute;mico" class="btn btn-default" href="javascript:cambiarEstilo();">
+						<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar
+				</a>
+				<button type="submit" title="Nuevo Campus" id="btn_guardar" class="btn btn-default"disabled>
+						<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar
+				</button>
+
+				<a href="{% url 'vista_administracion_deptos_academics' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a>
+
+			</div>
+			{% endif %}
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-6">
+						{{formulario.as_p}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock %}
+{% block extrafooter %}
+	<script type="text/javascript">
+		function cambiarEstilo(){
+				$('input').removeAttr("disabled");
+				$('#btn_guardar').removeAttr("disabled");	
+				$('input').removeAttr("disabled");
+				$('textarea').removeAttr("disabled");
+				$('select').removeAttr("disabled");	
+
+				restaurarValor("id_id_campus");
+				restaurarValor("id_jefe");
+		}
+			
+		inhabilitar_controles();
+		actualizaChosen();
+	</script>
+{% endblock %}

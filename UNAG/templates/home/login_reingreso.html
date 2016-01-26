@@ -1,0 +1,24 @@
+{% extends "base_senso.html" %}
+
+{% block header %}
+	
+{% endblock %}
+
+{% block container %}
+<br>
+<br>
+	<legend>Iniciar Sesión Reingreso</legend>
+	<form action="." method="POST" class="form-signin">
+		{% csrf_token %}
+		{{mensaje}}
+		<div class = "row">
+			<div class="col-lg-8">
+				<div class="form-group">
+					{{form.as_p}}
+				</div>
+				<button class="btn btn-primary" type="submit">
+					<span class="glyphicon glyphicon-log-in">&nbsp;</span>Entrar</button>
+			</div>
+		</div>		
+	</form>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "general/administracion_index.html" %}
+
+{% block container %}
+	<div class="col-lg-12 well">
+		<h4>Detalle de Asignaturas</h4>			
+	</div>
+	<form id="frm_campus" name="frm_campus" action="." method="POST">{% csrf_token %}
+		<div class="panel panel-default">
+			{% if perms.registro.change_asignatura %}
+			<div class="panel-heading">
+				<a title="Editar Documento" class="btn btn-default" href="javascript:cambiarEstilo();">
+						<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar
+				</a>
+				<button type="submit" title="Guardar Documento" id="btn_guardar" class="btn btn-default"disabled>
+						<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar
+				</button>
+
+				<a href="{% url 'vista_administracion_asignaturas' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a>
+
+			</div>
+			{% endif %}
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-6">
+						{{formulario.as_p}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock %}
+
+{% block extrafooter %}
+	<script type="text/javascript">
+		function cambiarEstilo(){
+				$('input').removeAttr("disabled");
+				$('#btn_guardar').removeAttr("disabled");	
+				$('input').removeAttr("disabled");
+				$('textarea').removeAttr("disabled");
+				$('select').removeAttr("disabled");
+				restaurarValor("id_carrera");	
+				restaurarValor("id_tipo_asignatura");	
+		}
+			
+		inhabilitar_controles();
+		actualizaChosen();
+	</script>
+{% endblock %}

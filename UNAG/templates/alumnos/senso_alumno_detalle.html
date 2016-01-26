@@ -1,0 +1,59 @@
+{% extends "alumnos/menu_senso_alumno.html" %}
+
+{% block container %}
+	<div class="col-lg-12 well">
+		<h4>Detalle Datos Alumno</h4>			
+	</div>
+	<form id="frm_campus" name="frm_campus" action="." method="POST">{% csrf_token %}
+		<div class="panel panel-default">
+			{% if perms.alumnos.change_alumnos %}
+			<div class="panel-heading">
+				<a title="Nuevo Campus" class="btn btn-default" href="javascript:cambiarEstilo();">
+						<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar
+				</a>
+				<button type="submit" title="Nuevo Campus" id="btn_guardar" class="btn btn-default"disabled>
+						<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar
+				</button>
+			</div>
+			{% endif %}
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-10">
+						{% for field in formulario %}
+						{% if field.html_name == 'nombre_padre' %}
+							<legend>Datos de Familia</legend>
+						{% endif %}
+						<div class="form-group">
+				            {{ field.errors }}
+				            {{ field.label_tag }}
+				            <div id="{{ field.html_name }}">
+				            	
+				             		{{ field }}
+	
+				         	</div> <h5><span class="label label-danger">{{ field.help_text }}</span></h5>
+				        </div>
+					{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock %}
+
+{% block extrafooter %}
+	<script type="text/javascript">
+		function cambiarEstilo(){
+				$('input').removeAttr("disabled");
+				$('#btn_guardar').removeAttr("disabled");	
+				$('input').removeAttr("disabled");
+				$('textarea').removeAttr("disabled");
+				$('select').removeAttr("disabled");	
+
+				restaurarValor("id_asoc_campesina_padre");
+				restaurarValor("id_asoc_campesina_madre");
+		}
+			
+		inhabilitar_controles();
+		actualizaChosen();
+	</script>
+{% endblock %}

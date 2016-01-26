@@ -1,0 +1,100 @@
+{% extends "general/administracion_index.html" %}
+
+{% block extrahead %}
+
+	<script type="text/javascript">
+
+		function enviar(){
+
+			var id_laboratorio=$("#id_carrera").val();
+			var sendInfo = $('#frm_req').serialize();
+			sendInfo+="&id="+id_laboratorio;
+			
+			$.post(
+            "{% url 'vista_requisitos_ajax_listar' %}",
+            sendInfo,
+            function(data){
+				$('#listado').html(data);
+
+				$('#listar').dataTable( { //CONVERTIMOS NUESTRO LISTADO DE LA FORMA DEL JQUERY.DATATABLES- PASAMOS EL ID DE LA TABLA
+        			"sPaginationType": "full_numbers" //DAMOS FORMATO A LA PAGINACION(NUMEROS)
+    				} );
+				//$('#selectores').show()
+			});
+		}
+
+
+		function confirmar(id){
+			var valor=parseInt(id);
+			var cadena=String("{% url 'vista_borrar_requisitos'  0 %}")
+			var url = cadena.replace('0',valor);
+
+			if(confirm('¿Esta seguro que quiere eliminar los requisitos agregados a está asignatura?')) {	
+				window.location.href=url;
+				
+			}else{
+
+			}
+		}
+
+		function redirigir(id){
+			var valor=parseInt(id);
+			var cadena=String("{% url 'vista_detalle_requisitos'  0 %}")
+			var url = cadena.replace('0',valor);
+
+			window.location.href=url;
+		}
+
+	</script>
+
+{% endblock %}
+
+{% block container %}
+
+	<form id="frm_req" name="frm_req" action="." method="POST">{% csrf_token %}	
+	<div class="row">
+		{{formulario.as_p}}
+
+		<legend>Requisitos<a href="{% url 'vista_main_first' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
+		{% if perms.registro.add_carrera %}
+		<div class="col-lg-12 well">
+			<div class="btn-group btn-proup-sm">
+
+				<a title="Creacion de Requisitos" class="btn btn-default" href="{% url 'vista_nuevo_requisito' %}">
+					<span class="glyphicon glyphicon-plus">&nbsp;</span>Asignar modulos a laboratorios
+				</a>
+				
+			
+					<a title="CreacionA" class="btn btn-default" href="{% url 'vista_nuevo_requisito_asignatura' %}" >
+						<span class="glyphicon glyphicon-plus">&nbsp;</span>Asignar requisitos a asignaturas
+					</a>
+				
+			</div>
+		</div>
+		{% endif %}
+		
+		<div class="panel panel-default">
+			<div class="panel-heading"><h4>Busqueda de requisitos </h4></div>
+			<div class="panel-body">
+
+				<div id="scarreras" name="scarreras">
+						<label>Seleccione una carrera:</label>
+							<select id="id_carrera" name="carrera" onchange="enviar();">
+
+								<option seleted="seleted" >----------</option>
+								{% for c in carreras %}
+									<option value="{{ c.id }}">{{ c.nombre_carrera }}</option>
+						
+								{% endfor %}
+
+							</select>
+				</div>
+				<br/>
+				<div id="listado" name="listado">
+				</div>
+			</div>				
+		</div>
+
+	</div>
+   	</form>
+{% endblock %}

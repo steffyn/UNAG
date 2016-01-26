@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<HTML>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{% block title %} SARE-UNAG {% endblock %}</title>
+		<!--bootstrap-->
+		<link href="/media/libs/dist/css/bootstrap.css" rel="stylesheet" type="text/css" >
+		<!--fin bootstrap-->
+		<!--icono-->
+		<link rel="icon" type="image/ico" href="/media/images/favicon.ico" />
+		<!--icono-->
+		<style type="text/css" class="custom-css">
+
+			#jumbo {
+			  background-color: #486887;
+			  color: #eee;
+			}
+			#jumbo p {
+			  font-size: 16px;
+			  height: 20px;
+			}
+			#try-header {
+			  margin: 30px 0px;
+			}
+			#try-more {
+			  margin: 30px 0px;
+			  font-style: italic;
+			}
+			#pie {
+			  background-color: #333;
+			  color: #eee;
+			}
+		</style>
+		{% block extrahead %}
+		{% endblock %}
+	</head>
+	<body>
+			
+			{% block container %}
+			{% endblock %}		
+		
+			{% block footer %}
+			<footer>
+				<div class="jumbo" id="pie">
+					<div class="col-md-12">
+							<div class="col-md-12">
+								{% if user.is_authenticated %}
+									<p>
+										<center>Usted se Autentic&oacute; Como <strong>{{user.username}}</strong>
+										(<a href="{% url 'vista_logout' %}">Salir</a>)</center>
+									</p>
+								{% endif %}
+							</div>					
+							<div class="col-md-12">
+								<center>
+									<p>
+										Copyright &copy; 2013 Universidad Nacional de Agricultura. All Rights Reserved.
+									</p>
+								</center>
+							</div>
+						</div>
+					</div>	
+			</footer>
+			{% endblock %}
+		
+	</body>
+
+	<script type="text/javascript" src="/media/libs/jquery_1.10.2.js"></script>
+	<script type="text/javascript" src="/media/libs/dist/js/bootstrap.js"></script>
+{% block extrafooter %}
+{% endblock %}
+</HTML>

@@ -1,0 +1,54 @@
+{% extends "general/administracion_index.html" %}
+
+{% block container %}
+	<div class="col-lg-12 well">
+		<h4>Detalle de Carrera</h4>			
+	</div>
+	<form id="frm_campus" name="frm_campus" action="." method="POST">{% csrf_token %}
+		<div class="panel panel-default">
+			{% if perms.registro.change_carrera %}
+			<div class="panel-heading">
+				<a title="Nuevo Campus" class="btn btn-default" href="javascript:cambiarEstilo();">
+						<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar
+				</a>
+				<button type="submit" title="Nuevo Campus" id="btn_guardar" class="btn btn-default"disabled>
+						<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar
+				</button>
+
+				<a href="{% url 'vista_administracion_carreras' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a>
+				
+			</div>
+			{% endif %}
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-8">
+						{{formulario.as_p}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock %}
+
+{% block extrafooter %}
+	<script type="text/javascript">
+		
+		function cambiarEstilo(){
+				$('input').removeAttr("disabled");
+				$('#btn_guardar').removeAttr("disabled");	
+				$('input').removeAttr("disabled");
+				$('textarea').removeAttr("disabled");
+				$('select').removeAttr("disabled");	
+
+				//restaurarValor("id_modalidad");
+				restaurarValor("id_persona_responsable");
+				restaurarValor("id_campus");
+				restaurarValor("id_grado");
+				restaurarValor("id_depto_academico");
+		}
+		
+		inhabilitar_controles();
+		actualizaChosen();
+		$('input[id^=id_modalidad_]').attr('class','');
+	</script>
+{% endblock %}

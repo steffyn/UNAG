@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<HTML style="height: 100%;">
+	<head>
+		<title>{% block titlet %} SARE-UNAG {% endblock %}</title>
+		<link href="/media/libs/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
+		<link rel="stylesheet" type="text/css" href="/media/libs/multiwidget/jquery.multiselect.css" />
+		<link rel="stylesheet" type="text/css" href="/media/libs/multiwidget/jquery.multiselect.filter.css" />
+		<link rel="stylesheet" type="text/css" href="/media/libs/multiwidget/style.css" />
+		<!--fin bootstrap-->
+		<!--icono-->
+		<link rel="icon" type="image/ico" href="/media/images/favicon.ico" />
+		<!--icono-->
+  		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+<script type="text/javascript" src="/media/libs/dist/js/1.9.2/jquery-ui.js"></script>
+
+  		<script type="text/javascript" src="/media/libs/multiwidget/src/jquery.multiselect.js"></script>
+		<script type="text/javascript" src="/media/libs/multiwidget/src/jquery.multiselect.filter.js"></script>
+
+		<script type="text/javascript">
+			$(function(){
+				$('input[id^=id_fecha]').datepicker();
+				$('input[id^=id_fecha_nacimiento]').datepicker();
+			});
+
+			function onKeyDown() 
+			{    
+			    if((event.altKey) || ((event.keyCode == 8 || event.keyCode == 46) ||
+			        ((event.ctrlKey) && ((event.keyCode == 78) || (event.keyCode == 82)) ) || (event.keyCode == 116) )) {
+			    event.keyCode = 0;
+			    event.returnValue = false;}
+			 }
+		</script>
+		<div style='width:100%;'>
+			<center><img src="/media/images/banner.jpg" style='width:100%;'  border="0" alt="Null"></center>
+		</div>
+		<nav class="navbar navbar-default navbar-inverse" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="{% url 'vista_inicio_senso' %}">UNAG</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url 'vista_inicio_senso' %}"><span class="glyphicon glyphicon-home">&nbsp;</span>Inicio</a></li>
+                <li><a href="{% url 'vista_senso_logout' %}"><span class="glyphicon glyphicon-off">&nbsp;</span>Cerrar Sesión</a></li>
+               
+                
+              </ul>
+              
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  	{% if user.is_authenticated %}
+                  		Bienvenido {{user.first_name}}
+                  	{% else %} 
+                  		Usted no ha iniciado sesión
+                  	{% endif %}!<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                  	{% if user.is_authenticated %}
+	                    <li><a href="#"><span class="glyphicon glyphicon-cog">&nbsp;</span>Perfil</a></li>
+	                    <li><a href="#"><span class="glyphicon glyphicon-retweet">&nbsp;</span>Cambiar Contraseña</a></li>
+	                    <li class="divider"></li>
+	                    <li><a href="{% url 'vista_senso_logout' %}"><span class="glyphicon glyphicon-off">&nbsp;</span>Cerrar Sesión</a></li>
+                    {% else %}
+                    	<li><a href="{% url 'vista_login_docente' %}"><span class="glyphicon glyphicon-log-in">&nbsp;</span>Iniciar Sesión</a></li>
+                    {% endif %}
+                  </ul>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+		
+		{% block extrahead %}
+		{% endblock %}
+	</head>
+	<body>
+		
+		<div class="container" style="min-width: 100%;">
+			{% block header %}
+			{% endblock %}
+			<div class="row" style="width: 100%">
+			
+				<div class="col-lg-2">
+					{% block navlist %}
+						<ul  class = "nav nav-pills nav-stacked well" > 
+						  	<li class="active">
+						      <a href = "{% url 'vista_inicio_senso' %}">Men&uacute; Principal</a>
+						    </li>
+
+						    <li>
+						  		<a href = "{% url 'vista_nuevo_primer_ingreso' %}">
+						        <span class="glyphicon glyphicon-chevron-right">&nbsp;</span>Alumnos Primer Ingreso
+						      </a> 
+						    </li>
+
+						    <li>
+						  		<a href = "{% url 'vista_login_reingreso' %}">
+						             <span class="glyphicon glyphicon-chevron-right">&nbsp;</span>Alumnos Reingreso
+						      </a> 
+						    </li>
+
+						    <li>
+						  		<a href = "{% url 'vista_login_docente' %}">
+						          <span class="glyphicon glyphicon-chevron-right">&nbsp;</span>Docentes
+						      </a>
+						    </li>
+						</ul>
+					{% endblock %}
+				</div>
+				<script type="text/javascript" src="/media/libs/dist/js/bootstrap.js"></script>
+				<div class="col-lg-10">
+					<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					      <div class="modal-content">
+					        <div class="modal-body">
+					        	<center><img width="115px" height="115px" src="/media/images/loading.gif"></center>
+					        	<center>Espere...</center>
+					        </div>
+					      </div><!-- /.modal-content -->
+					    </div><!-- /.modal-dialog -->
+					 </div><!-- /.modal -->
+					 <script type="text/javascript">
+					  	$('#myModal2').modal('show')
+					 </script>
+					{% block container %}
+					{% endblock %}
+
+				</div>
+						
+			</div>
+		</div>
+				
+	</body>
+</HTML>
+	
+	<!--<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+	<script type="text/javascript" language="javascript" src="/media/libs/dist/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="/media/libs/chosen/chosen.jquery.js"></script>
+	<script type="text/javascript" src="/media/libs/chosen/docsupport/prism.js"></script>
+	-->
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+			
+			//$('ul li').removeClass("errorlist").addClass("alert-danger");
+			$('input[id^=id_fecha]').attr('onkeypress','return false;')
+			$('input').removeClass("errorlist").addClass("form-control");
+			$('input[id^=ui-multiselect-id_centros-option]').removeClass('form-control');
+			$('input[id^=ui-multiselect-id_titulos-option]').removeClass('form-control');
+			$('input[id^=ui-multiselect-id_jornada-option]').removeClass('form-control');
+			//$('input').attr('style','text-transform:uppercase;');
+			/*$("#id_titulos").attr('class','multiple');
+			$("#id_titulos").attr('style','width: 700px; height: 200px;');
+			$("#id_centros").attr('class','multiple');
+			$("#id_centros").attr('style','width: 700px; height: 200px;');
+			$("#id_jornada").attr('class','selector');
+			$("#id_jornada").attr('style','width: 700px; height: 200px;');*/
+			$('.errorlist').removeClass("errorlist").addClass("alert alert-danger");
+			$('#myModal2').modal('hide')
+		});
+
+		
+
+		function inhabilitar_controles(){
+			$('input').attr("disabled" ,"disabled");
+			$('textarea').attr("disabled" ,"disabled");
+			$('select').attr("disabled" ,"disabled");
+			$('input').removeClass("errorlist").addClass("form-control");
+
+			//$('select').attr('class',"chosen-select");
+			/*$("#id_titulos").attr('class','multiple');
+			$("#id_titulos").attr('style','width: 700px; height: 200px;');
+			$("#id_centros").attr('class','multiple');
+			$("#id_centros").attr('style','width: 700px; height: 200px;');*/
+		}
+
+	    function actualizaChosen(){
+	    	$('input').removeClass("errorlist").addClass("form-control");
+
+			$('select').attr('class',"chosen-select");
+			$('#id_titulos').removeClass("chosen-select").addClass(" ");
+	    	$('.default').attr('style','width: 160px; height: 30px;');
+	    	
+			    	var config = {
+			      '.chosen-select'           : {width:"50%", no_results_text:'Oops, sin resultados!'},
+			      '.chosen-select-deselect'  : {allow_single_deselect:true},
+			      '.chosen-select-no-single' : {disable_search_threshold:10},
+			      '.chosen-select-no-results': {no_results_text:'Oops, sin resultados!'},
+			      '.chosen-select-width'     : {width:"95%"}
+				    }
+				    for (var selector in config) {
+				      $(selector).chosen(config[selector]);
+				    }
+		}
+
+		/*function restaurarValor(id){
+			var valor=document.getElementById(id).value;
+			$("#"+id+" option[value="+ valor +"]").attr("selected",true);
+			$("#"+id).trigger("chosen:updated");
+		}*/
+		function restaurarValor(id){
+			var valor=document.getElementById(id).value;
+			$("#"+id+" option[value="+ valor +"]").attr("selected",true);
+			$("#"+id).multiselect('enable');
+		}
+
+	    
+    </script>  
+      
+{% block extrafooter %}
+{% endblock %}
+
+{% block datatable %}
+	
+	<!--<link type="text/css" rel="stylesheet" href="/media/libs/multiselect/css/themes/smoothness/jquery-ui-1.7.1.custom.css" /> 
+	<link type="text/css" href="/media/libs/multiselect/css/ui.multiselect.css" rel="stylesheet" />
+	<script type="text/javascript" src="/media/libs/multiselect/js/plugins/localisation/jquery.localisation-min.js"></script>
+	<script type="text/javascript" src="/media/libs/multiselect/js/plugins/tmpl/jquery.tmpl.1.1.1.js"></script>
+	<script type="text/javascript" src="/media/libs/multiselect/js/plugins/blockUI/jquery.blockUI.js"></script>
+	<script type="text/javascript" src="/media/libs/multiselect/js/ui.multiselect.js"></script>
+
+
+<script type="text/javascript">
+
+		$(function(){
+			$.localise('ui.multiselect', {language: 'es',path: '/media/libs/multiselect/js/locale/'});
+
+			// local
+			//$("#id_centros").multiselect();
+			$("#id_titulos").multiselect();
+			
+			$("#id_jornada").multiselect();
+			// only if the function is available...
+			if ($.fn.themeswitcher) {
+				$('#switcher')
+					.before('<h4>Use the themeroller to dynamically change look and feel</h4>')
+					.themeswitcher();
+			}
+		});
+	</script>-->
+	<script type="text/javascript">
+
+		$("#id_centros").multiselect({
+		   selectedList: 4,
+		   click: function(e){
+		       if( $(this).multiselect("widget").find("input:checked").length > 10 ){
+		           return false;
+		       } else {
+		           //nada
+		       }
+		   }
+		}).multiselectfilter();
+		$("#id_titulos").multiselect({
+		   selectedList: 4,
+		   click: function(e){
+		       if( $(this).multiselect("widget").find("input:checked").length > 10 ){
+		           return false;
+		       } else {
+		           //nada
+		       }
+		       
+		   }
+
+		}).multiselectfilter();
+		$("#id_jornada").multiselect({
+		   selectedList: 4,
+		   click: function(e){
+		       if( $(this).multiselect("widget").find("input:checked").length > 10 ){
+		           return false;
+		       } else {
+		           //nada
+		       }
+		   }
+		}).multiselectfilter();
+
+	</script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base_senso.html" %}
+
+
+{% block navlist %}
+	<ul  class = "nav nav-pills nav-stacked well" > 
+                <li class="active">
+                  <a href = "{% url 'vista_index_docente' %}">Men&uacute; Principal</a>
+                </li>
+                <li>
+                  <a href = "{% url 'vista_index_docente' %}">
+                    <span class="glyphicon glyphicon-home">&nbsp;</span>Inicio
+                  </a> 
+                </li>
+                <li>
+                  <a href = "{% url 'vista_persona_docente_detalle' %}">
+                    <span class="glyphicon glyphicon-hand-right">&nbsp;</span>Datos Personales
+                  </a> 
+                </li>
+                <li>
+                  <a href = "{% url 'vista_senso_docente_detalle' %}">
+                         <span class="glyphicon glyphicon-hand-right">&nbsp;</span>Datos Laborales
+                  </a> 
+                </li>
+            </ul>
+{% endblock %}
+
+{% block container %}
+
+{% endblock %}

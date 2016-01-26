@@ -1,0 +1,34 @@
+{% extends "general/administracion_index.html" %}
+
+{% block container %}
+	<div class="row">
+		<legend>Administración Recurso Humano<a href="{% url 'vista_main_first' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
+		<div class="panel panel-default">
+			<div class="panel-heading"><h4>Menú de opciones</h4></div>
+			<div class="panel-body">
+				<p>
+					<a href="{% url 'vista_nuevo_recursohumano_normal' %}" class="btn btn-default disabled">
+						<span class="glyphicon glyphicon-plus">&nbsp;</span>Personal Administrativo
+					</a>
+					<small>Registro de personal de Rectoría, Registro, Archivos y personal no docente.</small>
+				</p>
+				<p>
+					<a href="{% url 'vista_nuevo_recursohumano_docente' %}"  class="btn btn-default">
+						<span class="glyphicon glyphicon-plus">&nbsp;</span>Personal Académico/Administrativo
+					</a>
+					<small>Jefes de departamento, Coordinadores de carrera y personal docente con ó sin cargo administrativo.</small>
+					<p class="alert alert-warning">
+						<span class="glyphicon glyphicon-arrow-up">&nbsp;</span>
+					<b>Usar esta opción solo si se desea censar un docente desde la administración.</b>
+					</p<
+				</p>
+				<!--<p>
+					<a href="#" class="btn btn-default">
+						<span class="glyphicon glyphicon-plus">&nbsp;</span>Alumno
+					</a>
+					<small>Elija esta opción si la persona tendrá una función de alumno.</small>
+				</p>-->
+			</div>				
+		</div>
+	</div>
+{% endblock %}

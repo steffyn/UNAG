@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+
+{% block navlist %}
+	<ul  class = "nav nav-pills nav-stacked" > 
+  	<li class="active">
+      <a href = "#">Men&uacute; Principal</a>
+    </li>
+     <li>
+      <a href = "{% url 'vista_avance_censo' %}">
+        <span class="glyphicon glyphicon-tasks">&nbsp;</span>Avance del Censo
+      </a> 
+    </li>
+    <li>
+  		<a href = "{% url 'vista_recuperar_clave' %}">
+        <span class="glyphicon glyphicon-lock">&nbsp;</span>Recuperar Clave
+      </a> 
+    </li>
+	</ul>
+{% endblock %}
+
+{% block container %}
+     <div class="row">
+        <div class="col-lg-12">
+         
+            <br/><br/>
+             <legend><h1>Bienvenido :  {{user.username}} </h1></legend>
+              <div class="alert alert-info">
+              <h2>  <span class="label label-primary"> Descripción: </span> </h2> <h3>El modulo de administraci&oacute;n le ayudará a  realizar operaciones de mantenimiento en el sistema.</h3>
+             <br/>
+              
+             <div >
+             <h2> <span class="label label-primary">Informaci&oacute;n Adicional :</span></h2>
+                <h3>Utilice las opciones del Menu Izquierdo para ver o modificar informaci&oacute;n.</h3>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock %}
+

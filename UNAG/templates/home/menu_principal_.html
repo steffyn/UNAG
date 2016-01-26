@@ -1,0 +1,79 @@
+{% extends "base2.html" %}
+
+{% block titlet %} Menu Principal {% endblock %}
+{% block header %}
+	<div class="container">
+		<a class="pull-right" href="{% url 'vista_principal' %}">
+			Inicio 
+		</a>
+		<legend></legend>
+	</div>
+{% endblock %}
+{% block container %}
+	<div class="col-lg-12">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3  thumbnail">
+					<div class="row">
+							<div class="col-lg-4">
+								<a title="click para entrar a esta Secci&oacute;n" href="{% url 'vista_main_student' %}"><img src="/media/images/alumnos.png" height="64" width="64"/></a>
+							</div>
+							<div class="col-lg-8">
+								<h3>Alumnos</h3>
+							</div>
+					</div>
+					<p>Módulo que permite la gestión de actividades de los alumnos.</p>
+					<p class="pull-right">
+						<a href="{% url 'vista_main_student' %}" class="btn btn-primary">
+							<span class="glyphicon glyphicon-log-in">&nbsp;</span>Entrar</a>
+					</p>
+				</div>
+				<div class="col-lg-3 thumbnail">
+					<div class="row">
+						<div class="col-lg-4">
+							<a title="click para entrar a esta Secci&oacute;n" href="{% url 'vista_main_teacher' %}"><img src="/media/images/kuser.png" height="64" width="64"/></a>
+						</div>
+						<div class="col-lg-8">
+							<h3>Docentes</h3>
+						</div>
+					</div>
+					<p>Módulo que permite la gestión de actividades de los Docentes.</p>
+					<p class="pull-right">
+						<a href="{% url 'vista_main_teacher' %}" class="btn btn-primary">
+							<span class="glyphicon glyphicon-log-in">&nbsp;</span>Entrar</a>
+					</p>
+				</div>
+				<div class="col-lg-3 well">
+					<div class="row">
+						<div class="col-lg-4">
+							<a title="click para entrar a esta Secci&oacute;n" href="{% url 'vista_main_administration' %}"><img src="/media/images/Manager.png" height="64" width="64"/></a>
+						</div>
+						<div class="col-lg-8">
+							<h3>Administración</h3>
+						</div>
+					</div>
+					<p>Módulo que permite la gestión de actividades de administración de la Oficina de Registro y Rectoría.</p>
+					<p class="pull-right">
+						<a href="{% url 'vista_main_administration' %}" class="btn btn-primary">
+							<span class="glyphicon glyphicon-log-in">&nbsp;</span>Entrar</a>
+					</p>
+				</div>
+				<div class="col-lg-3 well">
+					<div class="row">
+						<div class="col-lg-4">
+							<a title="click para entrar a esta Secci&oacute;n" href="{% url 'vista_main_administration' %}"><img src="/media/images/Reporte.png" height="64" width="64"/></a>
+						</div>
+						<div class="col-lg-8">
+							<h3>Reportes</h3>
+						</div>
+					</div>
+					<p>Módulo que permite la gestión de actividades de los alumnos.</p>
+					<p class="pull-right">
+						<a href="{% url 'vista_main_administration' %}" class="btn btn-primary">
+							<span class="glyphicon glyphicon-log-in">&nbsp;</span>Entrar</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

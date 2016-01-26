@@ -1,0 +1,40 @@
+{% extends "base_senso.html" %}
+
+{% block navlist %}
+	
+{% endblock %}
+{% block container %}
+	<div class="container">
+		<!-- Modal -->
+	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	      	<div class="modal-header  alert-danger">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Error</h4>
+	      	</div>
+	        <div class="modal-body">
+	        	<span class="glyphicon glyphicon-thumbs-down"></span>
+	        	<h3>Lo sentimos!</h3>
+	        	<p>Ocurrió un error al procesar los datos enviados favor inténtelo nuevamente.</p>
+	        </div>
+	        <div class="modal-footer">
+	        	<a href="{{url}}" class="btn btn-primary">Reintentar</a>
+	        </div>
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	  </div><!-- /.modal -->
+		{% if mensaje %}
+			<p class="alert alert-danger">{{mensaje}}</p>
+		{% endif %}
+	</div>
+
+{% endblock %}
+
+{% block extrafooter %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#myModal').modal('show')
+		});
+	</script>
+{% endblock %}

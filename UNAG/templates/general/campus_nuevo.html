@@ -1,0 +1,33 @@
+{% extends "general/administracion_index.html" %}
+
+{% block container %}
+	<div class="container">
+		<legend>Nuevo Campus <a href="{% url 'vista_administracion_campus' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
+		<div class="col-lg-8">
+			<form id="frm_campus" name="frm_campus" action="." method="POST">{% csrf_token %}
+				{% if formulario.errors %}				
+					<div class="alert alert-danger">
+							<h4>Formulario contiene errores!!</h4>
+					</div>
+				{% else %}
+					<div class="alert alert-success">
+							<p><h4>Último Campus guardado!!</h4>
+							{% for c in ultimo %} <b>"{{ c.descripcion }}" el {{c.fecha_creacion}}</b> {% endfor %}<p>
+					</div>
+				{% endif %}	
+				{{formulario.as_p}}
+				<button type="submit" class="btn btn-primary">
+					<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extrafooter %}
+<script type="text/javascript">
+	actualizaChosen();
+	$('#id_telefono').attr('onkeypress','return permite(event, "num");');
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,49 @@
+{% extends "general/administracion_index.html" %}
+
+{% block extrahead %}
+	<script src="/media/libs/time/jquery-ui-sliderAccess.js"></script>
+	<script src="/media/libs/time/jquery-ui-timepicker-addon.min.js"></script>
+	<script src="/media/libs/time/jquery-ui-timepicker-addon.min.css"></script>
+{% endblock %}
+
+{% block container %}
+	<div class="container">
+		<legend>Nueva Horario <a href="{% url 'vista_administracion_secciones' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
+		<div class="col-lg-8">
+			<div class="alert alert-info">
+				{% for s in seccion %}
+					<p>Jornada: <b>{{s.jornada}}</b></p>
+					<p>Carrera: <b>{{s.carrera}}</b></p>
+					<p>Sección: <b>{{s.descripcion}}</b></p>
+					<p>Periodo: <b>{{s.periodo_clase}}</b></p>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-lg-8">
+			<form id="frm_carrea" name="frm_carrera" action="." method="POST">{% csrf_token %}	
+				{% if formulario.errors %}				
+					<div class="alert alert-danger">
+							<h4>Formulario contiene errores!!</h4>
+					</div>
+				{% else %}
+					<div class="alert alert-success">
+							<p><h4>Última sección guardada!!</h4>
+							{% for c in ultimo %} <b>"{{ c.descripcion }}" el {{c.fecha_creacion}}</b> {% endfor %}<p>
+					</div>
+				{% endif %}
+				{{form_horario.as_p}}
+				{{form_asignatura_seccion.as_p}}
+				<button type="submit" class="btn btn-primary">
+					<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extrajs %}
+	<script type="text/javascript">
+		//actualizaChosen()
+		$('#id_hora_inicial').timepicker();
+		$('#id_hora_final').timepicker();
+	</script>
+{% endblock %}

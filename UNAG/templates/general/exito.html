@@ -1,0 +1,46 @@
+{% extends "base_senso.html" %}
+
+{% block navlist %}
+	
+{% endblock %}
+{% block container %}
+	<div class="container">
+		<!-- Modal -->
+	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	      	<div class="modal-header  alert-success">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Éxito</h4>
+	      	</div>
+	        <div class="modal-body">
+	        	<span class="glyphicon glyphicon-thumbs-up"></span>
+	        	<h3>Muy bien el registro de <b>{{ nombre }}</b>!</h3>
+	        	<p>Ha finalizado exitosamente.</p>
+	        	{% if usuario %}
+					<div class="alert alert-success">
+						<p><b>Datos de acceso:</b></p>
+						<p>Usuario: <b>{{ usuario }}</b></p>
+						<p>Contraseña: <b>{{ password }}</b></p>
+					</div>
+				{% endif %}
+	        </div>
+	        <div class="modal-footer">
+	        	<a href="{% url 'vista_administracion_recursohumano' %}" class="btn btn-primary">Ir a la administración</a>
+	        	<a href="{{url}}" class="btn btn-primary">Ingresar otro</a>
+	        </div>
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	  </div><!-- /.modal -->
+		
+	</div>
+
+{% endblock %}
+
+{% block extrafooter %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#myModal').modal('show')
+		});
+	</script>
+{% endblock %}

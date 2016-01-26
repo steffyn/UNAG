@@ -1,0 +1,71 @@
+{% extends "base2.html" %}
+
+{% block title %} Menu Principal {% endblock %}
+{% block header %}
+	
+{% endblock %}
+{% block container %}
+	
+		<div style='width:100%;'>
+			<center><img src="/media/images/banner.jpg"  border="0" alt="Null"></center>
+		</div>
+
+	<div class="container" style="min-height: 300px;">
+		<!-- Modal -->
+	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	      	<div class="modal-header  alert-warning">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Información del sistema</h4>
+	      	</div>
+	        <div class="modal-body">
+	        	<span class="glyphicon glyphicon-thumbs-down"></span>
+	        	<h3>Lo sentimos!</h3>
+	        	<p>El período de matrícula esta deshabilitado.</p>
+	        </div>
+	        <div class="modal-footer">
+	        	<a href="javascript:Cerrarmodal();" class="btn btn-primary">Cerrar</a>
+	        </div>
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	  </div><!-- /.modal -->
+	  <a href="{% url 'vista_logout'  %}" class="label label-primary pull-right"><span class="glyphicon glyphicon-off">&nbsp;</span>Cerrar Sesión</a>
+		<h2 id="try-header">Menú de opciones</h2>
+
+		<div class="row">
+			<div class="col-md-4 well" style="height: 280px;">
+
+				<center>
+				<a href="{% url 'vista_main_administration' %}"><img src="/media/images/Windows Mobility Center.png" class="img-circle" width="120" height="120">
+				<h3>Administración</h3></a></center>
+				<p>Realice operaciones de mantenimiento de Recursos Humanos, Departamento
+            académico, Carreras, Asignaturas entre otras.</p>
+			</div>
+			<div class="col-md-4 well" style="height: 280px;">
+				<center>
+				<a href="javascript:Abrirmodal();"><img src="/media/images/Desktop.png" class="img-circle" width="120" height="120">
+				<h3>Sistema de Matrícula</h3></a></center>
+				<p>Matricule a los estudiantes registrados en el período y asígnelos a sus
+            respectivas secciones.</p>
+			</div>
+			<div class="col-md-4 well" style="height: 280px;">
+				<center>
+				<a href="{% url 'vista_administracion_censo' %}"><img src="/media/images/User Accounts.png" class="img-circle" width="120" height="120">
+				<h3>Censo</h3></a></center>
+				<p>Utilice esta opción si desea ver el avance del censo ó recuperar la clave de acceso de un usuario.</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block extrafooter %}
+	<script type="text/javascript">
+		function Abrirmodal(){
+			$('#myModal').modal('show')
+		}
+		function Cerrarmodal(){
+			$('#myModal').modal('hide')
+		}
+	</script>
+{% endblock %}

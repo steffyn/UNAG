@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+
+{% block navlist %}	
+	Menu Izq
+{% endblock %}
+
+{% block container %}
+	<div class="row">
+		<h3>Contenido del archivo</h3>
+		<form id='formulario' method='post' class="" enctype='multipart/form-data' action=''>{% csrf_token %}
+			{{formulario.as_p}}
+			<p><input type='submit' class='btn btn-primary' value='Leer'/></p>
+		</form>
+		{% for row in file %}
+			<p>Nombre: {{ row.nombre }}, Apellidos: {{ row.apellidos}}, Edad: {{ row.edad}}</p>
+		{% endfor %}
+	</div>
+{% endblock %}

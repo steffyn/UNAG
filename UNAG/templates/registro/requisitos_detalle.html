@@ -1,0 +1,160 @@
+{% extends "general/administracion_index.html" %}
+
+
+{% block extrahead %}
+	<script type="text/javascript">
+
+		$(document).ready (function (){			
+			$('#btn_guardar').attr('disabled', 'disabled');
+			$('select').removeAttr("disabled");
+			$('#id_requisitos').attr('class','multiple');
+			$('#id_requisitos').attr('style','width:700px ; height:200px;');
+		});
+	
+
+			function actualizar(){
+
+			var id_asignatura=$("#id_oculto").val();
+			var sendInfo = $('#frm_dr').serialize();
+			
+			sendInfo+="&id="+id_asignatura;
+
+			$.post(
+            "{% url 'vista_ajax_actualizar_requerimientos' %}",
+            sendInfo,
+            function(data){
+
+            	var cadena=String("{% url 'vista_administracion_requisito' %}")
+            	window.location.href=cadena;
+            	//alert(data);
+				/*$('#listado').html(data);*/
+				
+			});
+		}
+
+	</script>
+{% endblock %}
+
+
+{% block container %}
+	<div class="col-lg-12 well">
+		<h4>Detalle de Asignaturas</h4>			
+	</div>
+
+	<form id="frm_dr" name="frm_dr" action="." method="POST">
+		{% csrf_token %}
+		<div class="panel panel-default">
+			
+			<div class="panel-heading">
+				<!--<a title="Editar Documento" class="btn btn-default" href="javascript:cambiarEstilo();">
+						<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar
+				</a> -->
+				 <button type="button" title="Guardar Documento" id="btn_guardar" class="btn btn-default" onclick="actualizar();" class="glyphicon glyphicon-save" >
+						<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar
+				</button>
+			
+				<!--<div class="row">
+				<div class="col-lg-1">
+					<input type="button" title="Guardar Documento" id="btn_guardar" class="btn btn-primary btn-sm"  onclick="actualizar()"  value="Guardar" />
+				</div> 
+				</div> -->
+				
+				<a href="{% url 'vista_administracion_requisito' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a>
+				
+
+			</div>
+			
+
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-6">
+							
+	
+							<label>Código de registro</label> &nbsp; <input id="id_codigo" name="codigo" value="{{ asigbase.codigo_registro }}"/> <br/>
+							<label>Nombre asignatura</label> &nbsp; <input id="id_nombre" name="nombre" value="{{ asigbase.nombre_asignatura }}"/> <br/>
+							<label>Unidades Valorativas</label> &nbsp; <input id="id_uv" name="uv" value="{{ asigbase.uv }}"/> <br/>	
+							<input type="hidden" id="id_oculto" value="{{ asigbase.id }}" />
+							<label>Requisitos de la Asignatura</label>
+						
+						<select id="id_requisitos" name="id_requisitos" multiple="multiple" >
+
+								{% for r in requisitos %}
+									<option selected="selected" value="{{ r.id }}">{{ r.nombre_asignatura }}</option>
+								{% endfor %}
+
+								{% for asig in asigReq %}
+									<option  value="{{ asig.id }}">{{ asig.nombre_asignatura }}</option>
+								{% endfor %}
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock %}
+
+{% block extrafooter %}
+
+	<link type="text/css" rel="stylesheet" href="/media/libs/multiselect/css/themes/smoothness/jquery-ui-1.7.1.custom.css" /> 
+	<link type="text/css" href="/media/libs/multiselect/css/ui.multiselect.css" rel="stylesheet" />
+	<script type="text/javascript" src="/media/libs/multiselect/js/plugins/localisation/jquery.localisation-min.js"></script>
+	<script type="text/javascript" src="/media/libs/multiselect/js/plugins/tmpl/jquery.tmpl.1.1.1.js"></script>
+	<script type="text/javascript" src="/media/libs/multiselect/js/plugins/blockUI/jquery.blockUI.js"></script>
+	<script type="text/javascript" src="/media/libs/multiselect/js/ui.multiselect.js"></script>
+
+	<script type="text/javascript">
+
+
+	//$("#id_requisitos").multiselect()
+	$(function(){
+			$.localise('ui.multiselect', {language: 'es',path: '/media/libs/multiselect/js/locale/'});
+			//$("#id_modulos").multiselect()
+			// local
+			$("#id_requisitos").multiselect({ selected: function(event, ui) { 
+				 var cant=new Array();
+				//cant= $('#id_requisitos').multiselect('selectedValues')
+				var cant = parseInt($("#id_requisitos :selected").length) ;
+			 	uv=parseInt($("#id_uv").val());
+			 	//alert("cantidad: " +cant+"--- uv: " + uv );
+			 	if(uv==cant){
+			 		//alert("Ha completado el numero de unidades valorativas") 
+			 	    $('#btn_guardar').removeAttr("disabled");
+			 	}else{$('#btn_guardar').attr('disabled', 'disabled');}
+			 	  
+			  } },{deselected: function(event, ui) { 
+				 var cant=new Array();
+				 //cant= $('#id_requisitos').multiselect('selectedValues')
+				var cant = parseInt($("#id_requisitos :selected").length);
+			 	uv=parseInt($("#id_uv").val())
+			 	//alert("Cantidad --" +cant +"--- UV ---"+uv);
+
+			 	if(uv==cant){
+			 		//alert("Ha completado el numero de unidades valorativas") 
+			 	    $('#btn_guardar').removeAttr("disabled");
+			 	}else{$('#btn_guardar').attr('disabled', 'disabled');} }});
+	
+			// only if the function is available...
+			if ($.fn.themeswitcher) {
+				$('#switcher')
+					.before('<h4>Use the themeroller to dynamically change look and feel</h4>')
+					.themeswitcher();
+			}
+		});
+
+	  
+
+		function cambiarEstilo(){
+				//$('input').removeAttr("disabled");
+				//$('#btn_guardar').removeAttr("disabled");	
+				//$('input').removeAttr("disabled");
+				//$('textarea').removeAttr("disabled");
+				$('select').removeAttr("disabled");
+				//restaurarValor("id_carrera");	
+				//restaurarValor("id_tipo_asignatura");	
+		}
+			
+		inhabilitar_controles();
+		$('input[type="hidden"]').removeAttr("disabled");
+		//actualizaChosen();
+	</script>
+{% endblock %}

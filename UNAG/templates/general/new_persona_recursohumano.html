@@ -1,0 +1,129 @@
+{% extends "base_censo2.html" %}
+{% block extrahead %}
+
+	<script type="text/javascript">
+		/*$(document).ready(function(){
+			$('#myModal2').modal('hide')
+		});*/
+
+		function enviar(bandera){
+			var bandera=bandera;
+			var id_departamento=$("#id_departamento").val();
+			var id_municipio=$("#id_municipio").val();
+			var id_aldea=$("#id_aldea").val();
+			var id_caserio=$("#id_caserio").val();
+
+			var sendInfo = $('#frm_persona').serialize();
+
+			if (bandera=='d'){
+				name='municipio';
+				sendInfo+="&bandera="+bandera+"&id="+id_departamento+"&name="+name;
+			}else if(bandera=='m'){
+				name='aldea';
+				sendInfo+="&bandera="+bandera+"&id="+id_municipio+"&name="+name;
+			}else if(bandera=='a'){
+				name='caserio';
+				sendInfo+="&bandera="+bandera+"&id="+id_aldea+"&name="+name;
+			}else if(bandera=='c'){
+				name='barrio';
+				sendInfo+="&bandera="+bandera+"&id="+id_caserio+"&name="+name;
+			}
+			
+			//alert("id: "+id);
+			
+			
+			$('#myModal').modal('show')
+			$.post(
+            // url to post
+            "{% url 'vista_persona_ajax_municipio' %}",
+            // args
+            sendInfo,
+            // response callback
+            function(data){
+                // uncomment if you wanna to see objects on firebug console
+                //console.log(data,text,xhrobject)
+                var nada="";
+                //alert(data);
+                //$('#carga').html(nada);
+                $('#'+name).html(data);
+                //actualizaChosen();
+                $('#id_departamento').attr('onchange','enviar("d");');
+				$('#id_municipio').attr('onchange','enviar("m");');
+				$('#id_aldea').attr('onchange','enviar("a");');
+				$('#id_caserio').attr('onchange','enviar("c");');
+				$('#myModal').modal('hide')
+            });
+		}
+	</script>
+{% endblock %}
+{% block navlist %}
+	<div class="panel panel-primary">
+		<div class="panel-heading">Instrucciones</div>
+		  <div class="panel-body">
+		    	Llene atenta y cuidadosamente el siguiente formulario, completando todos los datos solicitados en el mismo.<br>
+		    	<p>
+					<a href="{% url 'vista_administracion_recursohumano' %}" class="btn btn-success">
+						<span class="glyphicon glyphicon-arrow-left">&nbsp;</span>Volver a la administración
+					</a>
+				</p>
+		  </div>
+	</div>
+{% endblock %}
+{% block container %}
+	<div class="container">
+		<!-- Modal -->
+	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-body">
+	        	<center><img width="235px" height="235px" src="/media/images/cargando.gif"></center>
+	        </div>
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	  </div><!-- /.modal -->
+		{% if mensaje %}
+			<p class="alert alert-danger">{{mensaje}}</p>
+		{% endif %}
+		<div class="col-lg-10">
+			<form id="frm_persona" role="form" name="frm_persona" method="POST">
+				{% csrf_token %}
+				<fieldset>
+						<legend>Formulario Registro de Personas</legend>
+					{% for field in formulario %}
+						{% if field.html_name == 'pais_nacimiento' %}
+							<legend>Localizaci&oacute;n</legend>
+						{% endif %}
+						{% if field.html_name == 'titulos' %}
+							<legend>Datos Profesionales</legend>
+						{% endif %}
+						<div class="form-group">
+				            {{ field.errors }}
+				            {{ field.label_tag }}
+				            <div id="{{ field.html_name }}">
+				            	
+				             		{{ field }}
+	
+				         	</div> {{ field.help_text }}
+				        </div>
+
+					{% endfor %}
+				</fieldset>
+				<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block extrafooter %}
+<script type="text/javascript">
+
+	    $('#id_departamento').attr('onchange','enviar("d");');
+		$('#id_municipio').attr('onchange','enviar("m");');
+		$('#id_aldea').attr('onchange','enviar("a");');
+		$('#id_caserio').attr('onchange','enviar("c");');
+	    //actualizaChosen(); 
+	    //$('.default').attr('style','width: 160px; height: 30px;');   
+</script>
+
+{% endblock %}
