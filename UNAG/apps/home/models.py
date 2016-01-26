@@ -6,9 +6,9 @@ from datetime import datetime
 class rol(models.Model):
 	descripcion=models.CharField(max_length=512)
 	usuario_creador=models.ForeignKey(User, related_name='rol_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='rol_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 	def __unicode__(self):
 		return self.descripcion
@@ -26,9 +26,9 @@ class rol(models.Model):
 class tipo_usuario(models.Model):
 	descripcion=models.CharField(max_length=512)
 	usuario_creador=models.ForeignKey(User, related_name='tu_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='tu_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 	def __unicode__(self):
 		return self.descripcion

@@ -20,9 +20,9 @@ class documentos(models.Model):
 	descripcion=models.CharField(max_length=1024)
 	observaciones=models.TextField()
 	usuario_creador=models.ForeignKey(User, related_name='doc_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='doc_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 	def __unicode__(self):
 		return self.descripcion
@@ -31,9 +31,9 @@ class  tipos_condiciones_matricula(models.Model):
 	descripcion=models.CharField(max_length=1024, unique=True)
 	acciones_condicion=models.CharField(max_length=2048)
 	usuario_creador=models.ForeignKey(User, related_name='cm_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='cm_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 	def __unicode__(self):
 		return self.descripcion
@@ -45,9 +45,9 @@ class departamento_academico(models.Model):
 	id_campus=models.ForeignKey(campus)
 	jefe=models.ForeignKey(persona, null=True, blank = True, default = None)
 	cod_usuario_creador=models.ForeignKey(User,related_name="fk_usuario_deptoa")
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	cod_usuario_modificador=models.ForeignKey(User,related_name="fk_usuario_deptoa_1")
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 	
 
 	class Meta:
@@ -82,9 +82,9 @@ class carrera(models.Model):
 	uv_laboratorios=models.IntegerField()
 	uv_pps=models.IntegerField()
 	usuario_creador=models.ForeignKey(User,related_name="fk_usuario_creador")
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User,related_name="fk_usuario_modificador")
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 	observaciones=models.TextField(max_length=1024)
 
 	class Meta:
@@ -106,9 +106,9 @@ class tipo_asignatura(models.Model):
 	nota_aprobatorio=models.DecimalField(max_digits=4, decimal_places=0)
 	observaciones=models.TextField()
 	usuario_creador=models.ForeignKey(User, related_name='tasi_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='tasi_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 	def __unicode__(self):
 		return self.descripcion
@@ -121,9 +121,9 @@ class asignatura(models.Model):
 	uv=models.IntegerField(verbose_name='Unidades valorativas')
 	observaciones=models.TextField()
 	usuario_creador=models.ForeignKey(User, related_name='asig_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='asig_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 	class Meta:
 		unique_together = ('codigo_registro','nombre_asignatura')
@@ -134,9 +134,9 @@ class asignatura(models.Model):
 class tipo_docente(models.Model):
 	descripcion=models.CharField(max_length=512)
 	usuario_creador=models.ForeignKey(User, related_name='tdoc_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='tdoc_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 	def __unicode__(self):
 		return self.descripcion
@@ -144,9 +144,9 @@ class tipo_docente(models.Model):
 class jornada_laboral(models.Model):
 	descripcion=models.CharField(max_length=512)
 	usuario_creador=models.ForeignKey(User, related_name='jlab_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='jlab_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 	def __unicode__(self):
 		return self.descripcion
@@ -158,12 +158,12 @@ class docente_departamento(models.Model):
 	jornada_laboral=models.ForeignKey(jornada_laboral)
 	departamento_academico=models.ForeignKey(departamento_academico, verbose_name='Departamento académico al que pertenece')
 	tipo_docente=models.ForeignKey(tipo_docente)
-	fecha_inicio_laboral=models.DateField(default=datetime.now() ,verbose_name='Fecha en que inició a laborar')
+	fecha_inicio_laboral=models.DateField(auto_now_add=True ,verbose_name='Fecha en que inició a laborar')
 	activo=models.BooleanField()
 	usuario_creador=models.ForeignKey(User, related_name='ddep_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='ddep_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 	def __unicode__(self):
 		return self.persona
@@ -174,9 +174,9 @@ class modulo(models.Model):
 	periodo_clase=models.ForeignKey(periodo_clase)
 	docente_carrera=models.ForeignKey(docente_departamento)
 	usuario_creador=models.ForeignKey(User, related_name='mod_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='mod_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 class seccion(models.Model):
 	descripcion=models.CharField(max_length=512)
@@ -185,9 +185,9 @@ class seccion(models.Model):
 	carrera=models.ForeignKey(carrera)
 	aula=models.ForeignKey(estructura_edificio)
 	usuario_creador=models.ForeignKey(User, related_name='sec_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='sec_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 	def _get_full_seccion(self):
 		"Returns the person's full name."
@@ -213,9 +213,9 @@ class horario(models.Model):
 	seccion=models.ForeignKey(seccion)
 	descripcion=models.CharField(max_length=128)
 	usuario_creador=models.ForeignKey(User, related_name="fk_usuario_horario")
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User,related_name="fk_usuario_horario_1")
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 	def __unicode__(self):
 		return self.descripcion
@@ -225,9 +225,9 @@ class horario_hora(models.Model):
 	hora_inicial=models.TimeField()
 	hora_final=models.TimeField()
 	usuario_creador=models.ForeignKey(User, related_name='hhor_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='hhor_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 class asignatura_seccion(models.Model):
 	Dias_CHOICES = (('Lun', 'Lunes'),('Mar', 'Martes'),('Mie', 'Miercoles'),('Jue', 'Jueves'),('Vie', 'Viernes'),('Sab', 'Sabado'),('Dom', 'Domingo'))
@@ -239,26 +239,26 @@ class asignatura_seccion(models.Model):
 	#seccion=models.ForeignKey(seccion)
 	docente_carrera=models.ForeignKey(docente_departamento, verbose_name='Docente')
 	usuario_creador=models.ForeignKey(User, related_name='asec_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='asec_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 
 class asignatura_bloque(models.Model):
 	asignatura=models.ForeignKey(asignatura)
 	bloque=models.CharField(max_length=1024)
 	usuario_creador=models.ForeignKey(User, related_name='ablo_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='ablo_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 class parcial(models.Model):
 	periodo_clase=models.ForeignKey(periodo_clase)
 	descripcion=models.CharField(max_length=512)
 	usuario_creador=models.ForeignKey(User, related_name='parc_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='parc_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())
+	fecha_modificacion=models.DateField(auto_now=True)
 
 
 #by ciloe 04 - octubre -2013 creacion de la tabla requisito
@@ -266,6 +266,6 @@ class requisito(models.Model):
 	asignatura_base=models.ForeignKey(asignatura,related_name='req_asignatura_base')
 	asignatura_requisito=models.ForeignKey(asignatura,related_name='req_asignatura_requisito')
 	usuario_creador=models.ForeignKey(User, related_name='req_usuario_creador')
-	fecha_creacion=models.DateField(default=datetime.now())
+	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='req_usuario_modificador')
-	fecha_modificacion=models.DateField(default=datetime.now())		
+	fecha_modificacion=models.DateField(auto_now=True)		

@@ -8,7 +8,7 @@ from django.core.mail import EmailMultiAlternatives #enviamos HTML
 from django.contrib.auth import login, logout, authenticate
 from django.conf.global_settings import PASSWORD_HASHERS as default_hashers
 from django.contrib.auth.hashers import (is_password_usable, 
-    check_password, make_password, PBKDF2PasswordHasher, load_hashers,
+    check_password, make_password, PBKDF2PasswordHasher, 
     PBKDF2SHA1PasswordHasher, get_hasher)
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse

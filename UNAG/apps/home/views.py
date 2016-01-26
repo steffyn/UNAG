@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.conf.global_settings import PASSWORD_HASHERS as default_hashers
 from django.contrib.auth.hashers import (is_password_usable, 
-    check_password, make_password, PBKDF2PasswordHasher, load_hashers,
+    check_password, make_password, PBKDF2PasswordHasher, 
     PBKDF2SHA1PasswordHasher, get_hasher)
 from django.contrib.auth.decorators import permission_required, login_required
 import csv
