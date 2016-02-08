@@ -104,7 +104,6 @@ class documentos_alumnos(models.Model):
 
 ####################
 class alumnos_becas(models.Model):
-
 	alumno = models.ForeignKey(alumnos)
 	matricula=models.ForeignKey(matricula)
 	tipo_beca=models.ForeignKey(tipo_beca)
@@ -115,9 +114,7 @@ class alumnos_becas(models.Model):
 	usuario_modificador=models.ForeignKey(User,related_name="ab_usuario_modificador")
 	fecha_modificacion=models.DateField(auto_now=True)
 	
-
 class estado_cuenta(models.Model):
-
 	codigo_registro = models.CharField(max_length=15)
 	descripcion= models.CharField(max_length=256)
 	valor_matricula=models.IntegerField()
@@ -128,3 +125,17 @@ class estado_cuenta(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User,related_name="ec_usuario_modificador")
 	fecha_modificacion=models.DateField(auto_now=True)
+
+class Promocion(models.Model):
+	alumno = models.ForeignKey(alumnos)
+	carrera=models.ForeignKey(carrera)
+	clase = models.CharField(max_length=25)
+	periodo_academico = models.IntegerField()
+	usuario_creador=models.ForeignKey(User,related_name="promocion_usuario_creador")
+	fecha_creacion=models.DateField(auto_now_add=True)
+	usuario_modificador=models.ForeignKey(User,related_name="promocion_usuario_modificador")
+	fecha_modificacion=models.DateField(auto_now=True)
+
+
+
+

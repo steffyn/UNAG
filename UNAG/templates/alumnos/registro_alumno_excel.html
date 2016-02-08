@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block container %}
+<form method="POST" enctype="multipart/form-data">
+	{% csrf_token %}
+	{{form}}
+	<button type="submit" class="btn btn-primary">Cargar Archivo</button>
+</form>
+
+<br>
+{% if errores %}
+	<div class="alert alert-danger">
+		<strong>El archivo tiene los siguientes error(es):</strong>
+		<br> <br>
+		{% for error in errores %}
+			<p> {{forloop.counter}}. {{error}} </p>
+		{% endfor %}
+	</div>
+{% endif %}
+
+<br><br><br>
+{% if bandera %}
+	<div>
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#ingresados" aria-controls="ingresados" role="tab" data-toggle="tab">Registros Ingresados</a></li>
+			<li role="presentation"><a href="#no_ingresados" aria-controls="no_ingresados" role="tab" data-toggle="tab">Registros no Ingresados</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="ingresados">
+		    	<table class="table table-bordered">
+			    	<thead>
+			    		<tr>
+				    		<th>N. Fila</th>
+				    		<th>Identidad</th>
+				    		<th>Nombre</th>
+			    		</tr>
+			    	</thead>
+			    	<tbody>
+			    	{% for registro in ingresan %}
+			    		<tr>
+			    			<td>{{registro.fila}}</td>
+			    			<td>{{registro.identidad}}</td>
+			    			<td>{{registro.nombres}} {{registro.apellidos}}</td>
+				    	</tr>
+				    {% endfor %}
+			    	</tbody>
+			    </table>
+	    	</div>
+	    	<div role="tabpanel" class="tab-pane" id="no_ingresados">
+			    <table class="table table-bordered">
+			    	<thead>
+			    		<tr>
+				    		<th>N. Fila</th>
+				    		<th>Identidad</th>
+				    		<th>Nombre</th>
+				    		<th>Motivos</th>
+			    		</tr>
+			    	</thead>
+			    	<tbody>
+			    	{% for registro in no_ingresan %}
+			    		<tr>
+			    			<td>{{registro.fila}}</td>
+			    			<td>{{registro.identidad}}</td>
+			    			<td>{{registro.nombres}} {{registro.apellidos}}</td>
+			    			<td>
+			    				<ul>
+			    					{% for motivo in  registro.motivos %}
+						    		 	<li>{{motivo}}</li>
+						    		{% endfor %}
+			    				</ul>
+					    	</td>
+				    	</tr>
+				    {% endfor %}
+			    	</tbody>
+			    </table>
+			</div>
+	  	</div>
+	</div>
+{% endif %}
+{% endblock %}
+
+

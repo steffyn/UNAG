@@ -131,9 +131,9 @@ INSTALLED_APPS = (
     'UNAG.apps.general',
     'UNAG.apps.registro',
     'UNAG.apps.alumnos',
+    'UNAG.apps.descargas',
     
     
-
 )
 
 # A sample logging configuration. The only tangible logging

@@ -45,7 +45,7 @@ class grupo_grado(models.Model):
 	def __unicode__(self):
 		return self.descripcion
 
-class titulos(models.Model):
+class Titulos(models.Model):
 	grupo_grado=models.ForeignKey(grupo_grado)
 	descripcion=models.CharField(max_length=512)
 	usuario_creador=models.ForeignKey(User, related_name='ti_usuario_creador')
@@ -276,7 +276,7 @@ class persona(models.Model):
 	barrio=models.ForeignKey(barrio, null = True, blank = True,default = None)
 	tipo_persona=models.ForeignKey(tipo_persona)
 	zona=models.ForeignKey(zona)
-	titulos=models.ManyToManyField(titulos, verbose_name = "Títulos Obtenidos", help_text=u'Seleccione en el lado derecho los títulos que desea agregar pulsando el boton (+),  ')
+	titulos=models.ManyToManyField(Titulos, verbose_name = "Títulos Obtenidos", help_text=u'Seleccione en el lado derecho los títulos que desea agregar pulsando el boton (+),  ')
 	centros=models.ManyToManyField(centro, verbose_name = "Centros de Estudio")
 	usuario=models.OneToOneField(User, related_name='person_usuario_posee')
 	usuario_creador=models.ForeignKey(User, related_name='per_usuario_creador')
@@ -393,3 +393,18 @@ class estructura_edificio(models.Model):
 			return 'Ya existe un Espacio con el mismo Código y Edificio.'
 		else:
 			return super(estructura_edificio, self).unique_error_message(model_class, unique_check)
+
+
+
+#Por Katherine
+def url(obj, filename):
+	    ruta = "media/documentos/%s/%s"%(obj.usuario_creador, obj.archivo)
+	    return ruta
+
+class archivos_guardados(models.Model):
+	archivo = models.FileField(upload_to=url)
+	usuario_creador = models.ForeignKey(User)
+	fecha_creacion = models.DateField(auto_now_add=True)
+
+	def __unicode__(self):
+		return self.archivo
