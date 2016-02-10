@@ -1,6 +1,6 @@
 from django.contrib import admin
 from models import *
-#comentario ADMIN
+
 class alumnosAdmin(admin.ModelAdmin):
 	def formfield_for_foreignkey(self, ac_usuario_creador, request, **kwargs):
 		if ac_usuario_creador.name == 'usuario_creador' or ac_usuario_creador.name == 'usuario_modificador':

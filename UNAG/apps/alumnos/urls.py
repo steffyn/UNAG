@@ -6,7 +6,7 @@ urlpatterns = patterns('UNAG.apps.alumnos.views',
 
 	#urls menu administracion persona alumno
 	url(r'^alumno/$', 'view_index_alumno', name='vista_index_alumno'),
-	url(r'^censo/primeringreso/add/$', 'view_add_people_alu', name='vista_nuevo_primer_ingreso'),
+	url(r'^censo/view_add_people_alu/$', 'view_add_people_alu', name='vista_nuevo_primer_ingreso'),
 	url(r'^censo/reingreso/add/$', 'view_add_alumno_rein', name='vista_nuevo_reingreso'),
 	url(r'^reingreso/login/$', 'view_login_reingreso', name='vista_login_reingreso'),
 	url(r'^censo/personaalumno/edit/$', 'view_persona_alumno_edit', name='vista_persona_alumno_detalle'),
