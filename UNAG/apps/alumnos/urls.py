@@ -11,5 +11,6 @@ urlpatterns = patterns('UNAG.apps.alumnos.views',
 	url(r'^reingreso/login/$', 'view_login_reingreso', name='vista_login_reingreso'),
 	url(r'^censo/personaalumno/edit/$', 'view_persona_alumno_edit', name='vista_persona_alumno_detalle'),
 	url(r'^censo/alumnoreingreso/edit/$', 'view_senso_alumno_edit', name='vista_senso_alumno_detalle'),
+	url(r'^registro/excel/$', 'registro_alumno_excel', name='registro_alumno_excel'),
 )
 

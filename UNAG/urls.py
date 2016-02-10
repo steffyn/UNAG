@@ -18,5 +18,7 @@ urlpatterns = patterns('',
     url(r'^alumnos/', include('UNAG.apps.alumnos.urls')),
     url(r'^general/', include('UNAG.apps.general.urls')),
     url(r'^registro/', include('UNAG.apps.registro.urls')),
+    url(r'^descargas/', include('UNAG.apps.descargas.urls')),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root':settings.MEDIA_ROOT}) #permite el acceso a carpeta media
+    
 )
