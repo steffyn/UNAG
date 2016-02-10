@@ -42,8 +42,15 @@ def profile_student_view(request):
 def view_add_people_alu(request):
 	#si esta autenticado desloguearlo porque entonces no es un aspirante el que ingresa
 	if request.user.is_authenticated():
-		logout(request)
-
+		user = User.objects.get(id=request.user.id)
+		if user.tipo_usuario.descripcion == 'alumno':
+			return HttpResponseRedirect(reverse('vista_main_administration')) 
+		else:
+			logout(request)
+			return HttpResponseRedirect(reverse('vista_nuevo_primer_ingreso')) 
+    #if request.user.is_authenticated():
+    	#logout(request)
+	
 	anio=datetime.now().strftime("%Y")
 	random_number_cuenta = User.objects.make_random_password(length=4, allowed_chars='0123456789')
 	url_error = '/censo/primeringreso/add/'
