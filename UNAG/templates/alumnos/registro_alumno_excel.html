@@ -1,11 +1,108 @@
 {% extends "base.html" %}
+{% block navlist %}
+	<ul  class = "nav nav-pills nav-stacked" > 
+  	<li class="active">
+      <a href = "#">Men&uacute; Principal</a>
+    </li>
+     <li>
+      <a href = "{% url 'registro_alumno_excel' %}">
+        <span class="glyphicon glyphicon-user">&nbsp;</span>Importar Alumnos desde Excel
+      </a> 
+    </li>
+     <li>
+      <a href = "{% url 'vista_administracion_recursohumano' %}">
+        <span class="glyphicon glyphicon-user">&nbsp;</span>Administrar recurso humano
+      </a> 
+    </li>
+    <li>
+  		<a href = "{% url 'vista_administracion_campus' %}">
+        <span class="glyphicon glyphicon-map-marker">&nbsp;</span>Campus
+      </a> 
+    </li>
+    <li>
+  		<a href = "{% url 'vista_administracion_deptos_academics' %}">
+             <span class="glyphicon glyphicon-list-alt">&nbsp;</span>Departamentos Acad&eacute;micos
+      </a> 
+    </li>
 
+    <li>
+      <a href = "{% url 'vista_administracion_carreras' %}">
+          <span class="glyphicon glyphicon-road">&nbsp;</span>Carreras
+      </a>
+    </li>
+
+    <li>
+      <a href = "{% url 'vista_administracion_tipo_asignaturas' %}">
+        <span class="glyphicon glyphicon-file">&nbsp;</span>Tipo Asignaturas
+      </a>
+    </li>
+
+    <li>
+      <a href = "{% url 'vista_administracion_asignaturas' %}">
+        <span class="glyphicon glyphicon-book">&nbsp;</span>Asignaturas
+      </a>
+    </li>
+    <!--
+     <li> 
+      <a href = "{% url 'vista_administracion_requisito' %}">     
+        <span class="glyphicon glyphicon-check">&nbsp;</span>Requisitos 
+      </a> 
+    </li>
+  -->
+    <li>
+      <a href="{% url 'vista_administracion_edificios' %}">
+        <span class="glyphicon glyphicon-leaf">&nbsp;</span>Edificios
+      </a>
+    </li>
+
+    <li>
+        <a href="{% url 'vista_administracion_dormitorios' %}">
+          <span class="glyphicon glyphicon-home">&nbsp;</span>Estructura del Edificio
+        </a>
+    </li>
+
+     <li>
+      <a href = "{% url 'vista_administracion_documentos' %}">
+        <span class="glyphicon glyphicon-file">&nbsp;</span>Documentos
+      </a>
+    </li>
+    
+     <li>
+      <a href = "{% url 'vista_administracion_tipo_cm' %}">
+             <span class="glyphicon glyphicon-warning-sign">&nbsp;</span> Tipos de Condiciones-Matricula
+      </a> 
+    </li>
+
+    
+    <li> 
+  		<a href = "{% url 'vista_administracion_centros' %}">     
+        <span class="glyphicon glyphicon-flag">&nbsp;</span>Centros de Estudio
+      </a> 
+    </li>
+	</ul>
+{% endblock %}
 {% block container %}
-<form method="POST" enctype="multipart/form-data">
-	{% csrf_token %}
-	{{form}}
-	<button type="submit" class="btn btn-primary">Cargar Archivo</button>
-</form>
+
+<div class="alert alert-info">
+  <h4>Si desea descargar la plantilla para registrar los alumnos, dar click en el botón <strong>Descargar Plantilla de Excel</strong></h4>
+  <a href="/media/documentos/RegistroAlumnos.xlsm" type="button" class="btn btn-primary">Descargar Plantilla de Excel</a>
+</div>
+
+<div class="well well-lg">
+  <form method="POST" class="form-inline" role="form" enctype="multipart/form-data" >
+    <fieldset>
+      <legend>Seleccionar un archivo que tenga extensión compatible con Excel</legend>
+    </fieldset>
+    <div class="form-group">
+      {% csrf_token %}
+      {{form.archivo}}
+      <br>
+      <button type="submit" class="btn btn-primary">Cargar Archivo</button>
+    </div>
+  </form>
+</div>
+
+
 
 <br>
 {% if errores %}

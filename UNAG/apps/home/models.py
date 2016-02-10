@@ -35,7 +35,7 @@ class tipo_usuario(models.Model):
 
 class User(User):
 	
-	#user = models.OneToOneField(User)
+	user = models.OneToOneField(User)
 	
 	tipo_usuario = models.ForeignKey(tipo_usuario, null = True, blank = True,default = None)
 	codigo_registro = models.CharField(max_length = 15, null = True, blank = True,default = None)
@@ -45,5 +45,5 @@ class User(User):
 	objects = UserManager()
 	#user = models.ForeignKey(User, unique=True)
 
-	# def __unicode__(self):
-	#	return self.user.username
+	def __unicode__(self):
+		return self.user.username

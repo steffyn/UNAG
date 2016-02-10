@@ -126,11 +126,13 @@ class estado_cuenta(models.Model):
 	usuario_modificador=models.ForeignKey(User,related_name="ec_usuario_modificador")
 	fecha_modificacion=models.DateField(auto_now=True)
 
+
+#Por Katherine
 class Promocion(models.Model):
 	alumno = models.ForeignKey(alumnos)
 	carrera=models.ForeignKey(carrera)
-	clase = models.CharField(max_length=25)
-	periodo_academico = models.IntegerField()
+	clase = models.IntegerField()
+	periodo_academico = models.CharField(max_length=25) 
 	usuario_creador=models.ForeignKey(User,related_name="promocion_usuario_creador")
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User,related_name="promocion_usuario_modificador")

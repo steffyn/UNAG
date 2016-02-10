@@ -295,7 +295,7 @@ class persona(models.Model):
 class campus(models.Model):
 	codigo =models.CharField(max_length=32, unique=True)
 	descripcion=models.CharField(max_length=128)
-	director_campus=models.ForeignKey(persona, null = True, blank = True, default = None, unique=True, error_messages={'unique':u'Este Director ya esta asignado a otro Campus.'})
+	director_campus=models.OneToOneField(persona, null = True, blank = True, default = None)
 	siglas=models.CharField(max_length=32, unique=True)
 	direccion=models.CharField(max_length=256)
 	telefono=models.CharField(max_length=8, help_text='Número de teléfono sin guiones (-)')
@@ -398,7 +398,7 @@ class estructura_edificio(models.Model):
 
 #Por Katherine
 def url(obj, filename):
-	    ruta = "media/documentos/%s/%s"%(obj.usuario_creador, obj.archivo)
+	    ruta = "documentos/%s/%s"%(obj.usuario_creador, obj.archivo)
 	    return ruta
 
 class archivos_guardados(models.Model):
