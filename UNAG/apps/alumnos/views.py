@@ -50,6 +50,7 @@ def profile_student_view(request):
 
 #vista administracion de personas alumnos para senso
 #vista nuevo alumno PRIMER INGRESO
+#Sarai
 def view_add_people_alu(request):
 	#si esta autenticado desloguearlo porque entonces no es un aspirante el que ingresa
 	if request.user.is_authenticated():
@@ -134,7 +135,7 @@ def view_add_people_alu(request):
 		formulario = AspirantePersonaForm()
 		formulario_alu = AlumnoForm()
 	return render_to_response('general/new_persona.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje}, context_instance=RequestContext(request))
-
+#Fin
 
 #vista nuevo alumno REINGRESO
 @permission_required('alumnos.add_alumnos', login_url='/censo/logout/')

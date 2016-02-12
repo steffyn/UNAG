@@ -356,6 +356,102 @@ def view_add_people_docente(request):
 		formulario_doc = DocenteForm()
 	return render_to_response('general/new_persona_docente.html', {'formulario':formulario, 'formulario_doc':formulario_doc, 'mensaje':mensaje, 'identidad':request.user.username[:-4], 'registro':user.codigo_registro}, context_instance=RequestContext(request))
 
+
+
+#Vista //Sarai
+def view_agregar_catedratico(request):	
+	anio=datetime.now().strftime("%Y")
+	random_number_cuenta = User.objects.make_random_password(length=4, allowed_chars='0123456789')
+	url_error = 'catedratico/agregar/'
+	random_number = User.objects.make_random_password(length=8, allowed_chars='0123456789%!#qwertyuiopasdfghjklzxcvbnm')
+	mensaje=''
+
+	try:
+		persona_id=persona.objects.get(usuario_id=request.user.id).id
+		return HttpResponseRedirect(reverse('vista_index_docente'))
+
+	except persona.DoesNotExist:
+		print 'no existe datos de persona'
+
+	user = User.objects.get(id=request.user.id)
+	if request.method == 'POST':
+		formulario = CatedraticoPersonaForm(request.POST, request.FILES)
+		formulario_doc = CatedraticoForm(request.POST, request.FILES)
+		if formulario.is_valid() and formulario_doc.is_valid():
+			#crear un objeto con el usuario logueado
+			user = User.objects.get(id=request.user.id)
+			try:
+				#crear persona
+				person = formulario.save(commit = False)
+				person.usuario=request.user
+				person.usuario_creador=request.user
+				person.fecha_creacion=datetime.now()
+				person.usuario_modificador=request.user
+				person.fecha_modificacion=datetime.now()
+				person.save() #guardar persona	
+				print 'se creo persona'
+				
+				#crear docente
+				form = formulario_doc.save(commit = False)
+				form.persona=person
+				form.activo=True
+				form.usuario_creador = request.user
+				form.fecha_creacion = datetime.now()
+				form.usuario_modificador = request.user
+				form.fecha_modificacion = datetime.now()
+				
+
+				td=request.POST.get('tipo_docente')
+				grupo=""				
+
+				if td=='4':
+					objT=tipo_usuario.objects.get(id=5)
+					grupo = Group.objects.get(id=4)
+					user.groups.add(grupo)
+					user.tipo_usuario=objT
+				elif td=='1':
+					objT=tipo_usuario.objects.get(id=12)
+					grupo = Group.objects.get(id=10)
+					user.groups.add(grupo)
+					user.tipo_usuario=objT
+				elif td=='3':
+					objT=tipo_usuario.objects.get(id=13)
+					grupo = Group.objects.get(id=11)
+					user.groups.add(grupo)
+					user.tipo_usuario=objT
+
+				user.first_name=formulario.cleaned_data['nombres']
+				user.last_name=formulario.cleaned_data['apellidos']
+				user.email=formulario.cleaned_data['correo_electronico']
+				user.save()
+
+				form.save()
+				print 'se creo docente'
+
+				# guardar many to many fields
+				formulario.save_m2m() 
+				formulario_doc.save_m2m()
+				print 'guardo titulos y centros y jornadas'
+
+			except Exception, e:
+				persona.objects.filter(pk=person.id).delete()
+				mensaje='Ocurrió un error al guardar favor inténtelo nuevamente'
+				print 'se ha generado un error al guardar revise sus datos'
+				return render_to_response('registro/senso_index_docente.html', {'url': url_error}, context_instance=RequestContext(request))
+						
+			mensaje='Datos actualizados correctamente!'
+
+			return HttpResponseRedirect(reverse('vista_index_docente'))
+		else:
+			mensaje="Formulario contiene errores"
+	else:
+		formulario = CatedraticoPersonaForm()
+		formulario_doc = CatedraticoForm()
+	return render_to_response('registro/nuevo_catedratico.html', {'formulario':formulario, 'formulario_doc':formulario_doc, 'mensaje':mensaje, 'identidad':request.user.username[:-4], 'registro':user.codigo_registro}, context_instance=RequestContext(request))
+#fin
+
+
+
 @permission_required('registro.change_docente_departamento', login_url='/censo/logout/')
 def view_persona_docente_edit(request):
 	try:
@@ -443,6 +539,7 @@ def view_senso_docente_edit(request):
 	except Exception, e:
 		print "Error al acceder a datos del usuario"
 		return HttpResponseRedirect(reverse('vista_index_docente'))
+
 
 def view_login_docente(request):
 	mensaje=""

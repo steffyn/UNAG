@@ -591,6 +591,7 @@ def view_add_recursohumano_docente(request):
 	return render_to_response('general/new_persona_recursohumano_docente.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
 
 
+
 #vista vericar si la identidad existe y retornar el numero de registro
 @permission_required('general.add_persona', login_url='/censo/logout/')
 def view_recuperar_registro(request):

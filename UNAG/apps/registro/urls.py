@@ -34,6 +34,8 @@ urlpatterns = patterns('UNAG.apps.registro.views',
 	url(r'^censo/docente/add/$', 'view_add_people_docente', name='vista_nuevo_docente'),
 	url(r'^censo/personadocente/edit/$', 'view_persona_docente_edit', name='vista_persona_docente_detalle'),
 	url(r'^censo/docente/edit/$', 'view_senso_docente_edit', name='vista_senso_docente_detalle'),
+	#Sarai
+	url(r'^catedratico/agregar/$', 'view_agregar_catedratico', name='vista_nuevo_catedratico'),
 
 	#urls menu administracion de tipo de asignaturas
 	url(r'^administration/tipo_asignatura/$', 'view_administration_type_subject', name='vista_administracion_tipo_asignaturas'),
