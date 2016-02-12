@@ -607,3 +607,20 @@ def view_recuperar_registro(request):
 			return HttpResponse("No se ha podido encontrar el número de registro")
 	else:
 		return HttpResponse(0)
+
+#Por Katherine
+def ajax_ubicacion(request):
+	if request.method == 'POST':
+		if request.POST.get('bandera') == 'd':
+			data = list(municipio.objects.filter(departamento=request.POST.get('id')).extra(select={'text': 'descripcion'}).values('text','id'))
+		elif request.POST.get('bandera') == 'm':
+			data = list(aldea.objects.filter(municipio=request.POST.get('id')).extra(select={'text': 'descripcion'}).values('text','id'))
+		elif request.POST.get('bandera') == 'a':
+			data= list(caserio.objects.filter(aldea=request.POST.get('id')).extra(select={'text': 'descripcion'}).values('text','id'))
+		elif request.POST.get('bandera') == 'c':
+			data= list(barrio.objects.filter(caserio=request.POST.get('id')).extra(select={'text': 'descripcion'}).values('text','id'))
+		print data
+
+		return HttpResponse(json.dumps(data))
+	else:
+		return HttpResponse(0)

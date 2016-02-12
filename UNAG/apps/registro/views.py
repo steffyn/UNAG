@@ -366,12 +366,7 @@ def view_agregar_catedratico(request):
 	random_number = User.objects.make_random_password(length=8, allowed_chars='0123456789%!#qwertyuiopasdfghjklzxcvbnm')
 	mensaje=''
 
-	try:
-		persona_id=persona.objects.get(usuario_id=request.user.id).id
-		return HttpResponseRedirect(reverse('vista_index_docente'))
 
-	except persona.DoesNotExist:
-		print 'no existe datos de persona'
 
 	user = User.objects.get(id=request.user.id)
 	if request.method == 'POST':

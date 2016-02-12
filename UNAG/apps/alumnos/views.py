@@ -135,7 +135,10 @@ def view_add_people_alu(request):
 		formulario = AspirantePersonaForm()
 		formulario_alu = AlumnoForm()
 	return render_to_response('general/new_persona.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje}, context_instance=RequestContext(request))
+<<<<<<< HEAD
 #Fin
+=======
+>>>>>>> 0d91ac16c09446bc776a50952ae08170022f4cfe
 
 #vista nuevo alumno REINGRESO
 @permission_required('alumnos.add_alumnos', login_url='/censo/logout/')
@@ -350,9 +353,8 @@ def view_index_alumno(request):
 
 
 #Incluida Katherine
-
 @permission_required('alumnos.add_alumnos', login_url='/censo/logout/')
-def registro_alumno_excel(request):
+def registro_excel(request):
 	#rarfile.UNRAR_TOOL = 'C:\Windows\unrar.exe' #esta configuracion es importante para el unrar
 	context = {}
 	if request.method == 'POST':
@@ -782,3 +784,71 @@ def registro_alumno_excel(request):
 		form = FormArchivosGuardados()
 		context = {'form':form}
 	return render(request, 'alumnos/registro_alumno_excel.html', context)
+
+
+def registro_primer_ingreso(request):
+	#si esta autenticado desloguearlo porque entonces no es un aspirante el que ingresa
+	if request.user.is_authenticated():
+		user = User.objects.get(id=request.user.id)
+		if user.tipo_usuario.descripcion == 'alumno':
+			return HttpResponseRedirect(reverse('vista_main_administration'))
+    #if request.user.is_authenticated():
+    	#logout(request)
+	
+	mensaje=''
+	exito = ''
+	if request.method == 'POST':
+		formulario = AspirantePersonaForm(request.POST, request.FILES)
+		formulario_alu = AlumnoForm(request.POST, request.FILES)
+		if formulario.is_valid() and formulario_alu.is_valid():
+			num_cuenta=formulario.cleaned_data['identidad']
+			#crear un usuario inactivo para la persona
+			user = User.objects.create_user(num_cuenta, formulario.cleaned_data['correo_electronico'], 'registro') #make_password(random_number, 'seasalt', 'pbkdf2_sha256')
+			try:
+				#crear persona
+				person = formulario.save(commit = False)
+				person.usuario=user
+				person.usuario_creador=user
+				person.fecha_creacion=datetime.now()
+				person.usuario_modificador=user
+				person.fecha_modificacion=datetime.now()
+				person.save() #guardar persona
+
+				#crear alumno
+				form = formulario_alu.save(commit = False)
+				form.persona=person
+				form.usuario_creador = user
+				form.fecha_creacion = datetime.now()
+				form.usuario_modificador = user
+				form.fecha_modificacion = datetime.now()
+				form.save()
+
+				# guardar many to many fields
+				formulario.save_m2m()
+				formulario_alu.save_m2m()
+
+				#actualizar datos de usuario
+				user.first_name=formulario.cleaned_data['nombres']
+				user.last_name=formulario.cleaned_data['apellidos']
+				user.is_staff=False
+				user.is_active=False
+				user.is_superuser=False
+				user.groups.add(Group.objects.get(id=2))
+				user.tipo_usuario=tipo_usuario.objects.get(id=10)
+				user.date_joined=datetime.now()
+				user.save()
+
+				exito = 'El Registro se guardó con éxito'
+
+			except Exception, e:
+				User.objects.filter(id=user.id).delete()
+				mensaje='Ocurrió un error al guardar favor inténtelo nuevamente'
+		else:
+			mensaje="Formulario contiene errores"
+	else:
+		formulario = AspirantePersonaForm()
+		formulario_alu = AlumnoForm()
+	return render_to_response('alumnos/registro_primer_ingreso.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje, 'exito':exito}, context_instance=RequestContext(request))
+
+def menu_principal(request):
+	return render(request,'alumnos/menu_principal.html')

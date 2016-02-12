@@ -31,7 +31,7 @@
 	    </div><!-- /.modal-dialog -->
 	  </div><!-- /.modal -->
 	  <a href="{% url 'vista_logout'  %}" class="label label-primary pull-right"><span class="glyphicon glyphicon-off">&nbsp;</span>Cerrar Sesión</a>
-		<h2 id="try-header">Menú de opciones</h2>
+		<h2 id="try-header">Menú de Opciones</h2>
 
 		<div class="row">
 			<div class="col-md-4 well" style="height: 280px;">
@@ -42,6 +42,19 @@
 				<p>Realice operaciones de mantenimiento de Recursos Humanos, Departamento
             académico, Carreras, Asignaturas entre otras.</p>
 			</div>
+			<div class="row">
+				<a href="{% url 'alumno_menu_principal' %}">
+					<div class="col-md-4 well" style="height: 280px;">
+						<center>
+							<img src="/media/images/student-icon.png" class="img-circle" width="120" height="120">
+							<h3>Alumnos</h3>
+						</center>
+						<p>Realice todas las operaciones que involucran a los estudiantes.</p>
+					</div>
+				</a>
+			</div>
+			<!--
+			
 			<div class="col-md-4 well" style="height: 280px;">
 				<center>
 				<a href="javascript:Abrirmodal();"><img src="/media/images/Desktop.png" class="img-circle" width="120" height="120">
@@ -55,6 +68,7 @@
 				<h3>Censo</h3></a></center>
 				<p>Utilice esta opción si desea ver el avance del censo ó recuperar la clave de acceso de un usuario.</p>
 			</div>
+			-->
 		</div>
 	</div>
 {% endblock %}
