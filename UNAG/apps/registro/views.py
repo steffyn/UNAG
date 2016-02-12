@@ -24,6 +24,9 @@ from UNAG.apps.registro.models import *
 from UNAG.apps.general.models import *
 from UNAG.apps.home.models import *
 
+#Sarai
+from django.shortcuts import render
+
 #vistas de administracion departamentos Academicos------------------------------------------
 @login_required
 def view_administration_deptos_academics(request):
@@ -365,9 +368,6 @@ def view_agregar_catedratico(request):
 	url_error = 'catedratico/agregar/'
 	random_number = User.objects.make_random_password(length=8, allowed_chars='0123456789%!#qwertyuiopasdfghjklzxcvbnm')
 	mensaje=''
-
-
-
 	user = User.objects.get(id=request.user.id)
 	if request.method == 'POST':
 		formulario = CatedraticoPersonaForm(request.POST, request.FILES)
@@ -1046,3 +1046,7 @@ def view_recuperar_clave(request):
 		
 	ctx = {'seccion': "hola"}	
 	return render_to_response('general/recuperar_clave.html', ctx, context_instance=RequestContext(request))	
+
+#Sarai
+def menu_principal(request):
+	return render(request,'registro/menu_principal_catedratico.html')

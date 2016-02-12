@@ -6,6 +6,9 @@ urlpatterns = patterns('UNAG.apps.registro.views',
 	url(r'^docente/$', 'view_index_docente', name='vista_index_docente'),
 	url(r'^docente/login/$', 'view_login_docente', name='vista_login_docente'),
 
+	#Sarai
+	url(r'^menu/principal$', 'menu_principal', name='catedratico_menu_principal'),
+
 	#urls menu administracion departamentos academicos
 	url(r'^administration/deptos_academics/$', 'view_administration_deptos_academics', name='vista_administracion_deptos_academics'),	
 	url(r'^administration/deptos_academics/add/$', 'view_depto_academic_add', name='vista_nuevo_depto_academic'),	
