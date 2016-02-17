@@ -135,6 +135,10 @@ def view_add_people_alu(request):
 		formulario = AspirantePersonaForm()
 		formulario_alu = AlumnoForm()
 	return render_to_response('general/new_persona.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje}, context_instance=RequestContext(request))
+<<<<<<< HEAD
+#Fin
+=======
+>>>>>>> 0d91ac16c09446bc776a50952ae08170022f4cfe
 
 #vista nuevo alumno REINGRESO
 @permission_required('alumnos.add_alumnos', login_url='/censo/logout/')

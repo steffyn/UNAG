@@ -24,9 +24,6 @@ from UNAG.apps.registro.models import *
 from UNAG.apps.general.models import *
 from UNAG.apps.home.models import *
 
-#Sarai
-from django.shortcuts import render
-
 #vistas de administracion departamentos Academicos------------------------------------------
 @login_required
 def view_administration_deptos_academics(request):
@@ -1074,5 +1071,3 @@ def view_recuperar_clave(request):
 		
 	ctx = {'seccion': "hola"}	
 	return render_to_response('general/recuperar_clave.html', ctx, context_instance=RequestContext(request))	
-
-
