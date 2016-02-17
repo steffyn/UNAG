@@ -68,7 +68,7 @@ def view_senso_logout(request):
 
 @permission_required('home.can_view_menu', login_url='/logout/')
 def view_main_first(request):
-	return render_to_response('home/menu_principal2.html', context_instance=RequestContext(request))
+	return render_to_response('home/menu_principal.html', context_instance=RequestContext(request))
 
 def view_main_student(request):	
 	return render_to_response('alumnos/alumnos_index.html', context_instance=RequestContext(request))

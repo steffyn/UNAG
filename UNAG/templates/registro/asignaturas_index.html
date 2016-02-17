@@ -1,64 +1,63 @@
-{% extends "general/administracion_index.html" %}
+{% extends "general/menu.html" %}
+{% block header %}
+  <h1>
+   Asignatura
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Asignatura</li>
+  </ol>
+{% endblock  %}
 
-{% block container %}
-	<div class="row">
-		<legend>Asignaturas<a href="{% url 'vista_main_first' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
-		{% if perms.registro.add_asignatura %}
-		<div class="col-lg-12 well">
-			<div class="btn-group btn-proup-sm">
-				
-				<a title="Nueva Asignatura" class="btn btn-default" href="{% url 'vista_nueva_asignatura' %}">
-					<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo
-				</a>
-				
-			</div>
-		</div>
-		{% endif %}
-		
-		<div class="panel panel-default">
-			<div class="panel-heading"><h4>Lista de Asignaturas</h4></div>
-			<div class="panel-body">
-				<table class="table table-striped table-bordered table-hover table-condensed">
-					<thead>
-						<tr>
-							<th>Código</th>
-							<th>Descripción</th>
-							<th>Carrera</th>
-							<th>UV</th>
-							<th>Tipo</th>
-							<th colspan="2">Acción</th>							
-						</tr>
-					</thead>
-					<tbody>
-						{% for d in asignatura %}
-							<tr>
-								<td>{{d.codigo_registro}}</td>
-								<td>{{d.nombre_asignatura}}</td>
-								<td>{{d.carrera}}</td>
-								<td>{{d.uv}}</td>
-								<td>{{d.tipo_asignatura}}</td>
-								<td>
-									<center>
-										<a title="Ver" href="{% url 'vista_detalle_asignaturas' d.pk %}" class="btn btn-success">
-											<span class="glyphicon glyphicon-eye-open"></span>
-										</a>
-									</center>
-								</td>								
-								<td>
-									{% if perms.registro.delete_asignatura %}
-									<center>
-										<a  href="{% url 'vista_borrar_asignaturas' d.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar la asignatura <<{{ d.nombre_asignatura }}>>?');">
-											<span class="glyphicon glyphicon-remove-circle"></span>
-										</a>
-									</center>
-									{% endif %}
-								</td>
-							</tr>
 
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>				
-		</div>
-	</div>
+{% block titulo_box %}
+	Lista de Asignatura
+{% endblock  %}
+
+{% block boton_box %}
+	<a title="Nueva Asignatura" class="btn btn-default" href="{% url 'vista_nueva_asignatura' %}">
+		<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo
+	</a>
+{% endblock  %}
+
+{% block contenido_box %}
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>Código</th>
+				<th>Descripción</th>
+				<th>Carrera</th>
+				<th>UV</th>
+				<th>Tipo</th>
+				<th colspan="2">Acción</th>							
+			</tr>
+		</thead>
+		<tbody>
+			{% for d in asignatura %}
+				<tr>
+					<td>{{d.codigo_registro}}</td>
+					<td>{{d.nombre_asignatura}}</td>
+					<td>{{d.carrera}}</td>
+					<td>{{d.uv}}</td>
+					<td>{{d.tipo_asignatura}}</td>
+					<td>
+						<center>
+							<a title="Ver" href="{% url 'vista_detalle_asignaturas' d.pk %}" class="btn btn-success">
+								<span class="glyphicon glyphicon-eye-open"></span>
+							</a>
+						</center>
+					</td>								
+					<td>
+						{% if perms.registro.delete_asignatura %}
+						<center>
+							<a  href="{% url 'vista_borrar_asignaturas' d.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar la asignatura <<{{ d.nombre_asignatura }}>>?');">
+								<span class="glyphicon glyphicon-remove-circle"></span>
+							</a>
+						</center>
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

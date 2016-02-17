@@ -1,30 +1,43 @@
-{% extends "general/administracion_index.html" %}
+{% extends "general/menu.html" %}
+{% block header %}
+  <h1>
+  Documentos
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Documentos</li>
+    <li>Agregar</li>
+  </ol>
+{% endblock  %}
 
-{% block container %}
-	<div class="container">
-		<legend>Nuevo Documento <a href="{% url 'vista_administracion_documentos' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
-		<div class="col-lg-8">
-			<form id="frm_carrea" name="frm_carrera" action="." method="POST">{% csrf_token %}	
-				{% if formulario.errors %}				
-					<div class="alert alert-danger">
-							<h4>Formulario contiene errores!!</h4>
-					</div>
-				{% else %}
-					<div class="alert alert-success">
-							<p><h4>Último documento guardado!!</h4>
-							{% for c in ultimo %} <b>"{{ c.descripcion }}" el {{c.fecha_creacion}}</b> {% endfor %}<p>
-					</div>
-				{% endif %}
-				{{formulario.as_p}}
-				<button type="submit" class="btn btn-primary">
-					<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
-			</form>
-		</div>
-	</div>
+
+{% block titulo_box %}
+	Agregar Documento
+{% endblock  %}
+
+{% block contenido_box %}
+	<form id="frm_carrea" name="frm_carrera" action="." method="POST">{% csrf_token %}	
+		{% if formulario.errors %}				
+			<div class="alert alert-danger">
+					<h4>Formulario contiene errores!!</h4>
+			</div>
+		{% else %}
+			<div class="alert alert-success">
+					<p><h4>Último documento guardado!!</h4>
+					{% for c in ultimo %} <b>"{{ c.descripcion }}" el {{c.fecha_creacion}}</b> {% endfor %}<p>
+			</div>
+		{% endif %}
+		{{formulario.as_p}}
+		<button type="submit" class="btn btn-primary">
+			<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+	</form>
 {% endblock %}
 
-{% block extrafooter %}
+{% block js %}
 <script type="text/javascript">
-	    actualizaChosen();    
+	$(':input').each(function( index, obj ) {
+		$(obj).addClass('form-control')
+	});
 </script>
 {% endblock %}
+

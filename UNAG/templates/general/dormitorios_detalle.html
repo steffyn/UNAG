@@ -1,37 +1,42 @@
-{% extends "general/administracion_index.html" %}
+{% extends "general/menu.html" %}
+{% block header %}
+  <h1>
+  Dormitorio
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Dormitorio</li>
+    <li>Detalle</li>
+  </ol>
+{% endblock  %}
 
-{% block container %}
-	<div class="col-lg-12 well">
-		<h4>Detalle de Estructura del Edificio</h4>			
-	</div>
+{% block titulo_box %}
+	Detalle Dormitorio
+{% endblock  %}
+
+{% block boton_box %}
+	{% if perms.general.change_dormitorio %}
+		<a title="Editar_dormitorio" class="btn btn-default" href="javascript:cambiarEstilo();">
+				<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar
+		</a>
+		<button type="submit" title="Nuevo_Dormitorio" form="frm_dormitorio_detalle" id="btn_guardar" class="btn btn-default"disabled>
+				<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar
+		</button>
+	{% endif %}
+{% endblock  %}
+
+{% block contenido_box %}
 	<form id="frm_dormitorio_detalle" name="frm_dormitorio_detalle" action="." method="POST">{% csrf_token %}
-		<div class="panel panel-default">
-			{% if perms.general.change_dormitorio %}
-			<div class="panel-heading">
-				<a title="Editar_dormitorio" class="btn btn-default" href="javascript:cambiarEstilo();">
-						<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar
-				</a>
-				<button type="submit" title="Nuevo_Dormitorio" id="btn_guardar" class="btn btn-default"disabled>
-						<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar
-				</button>
-
-				<a href="{% url 'vista_administracion_dormitorios' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a>
-
-			</div>
-			{% endif %}
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-lg-6">
-						{{formulario.as_p}}
-					</div>
-				</div>
-			</div>
-		</div>
+		{{formulario.as_p}}
 	</form>
 {% endblock %}
-{% block extrafooter %}
+{% block js %}
 	<script type="text/javascript">
-	cambiarEstilo()
+		$(':input').each(function( index, obj ) {
+			if (obj.id != 'btn_guardar'){
+				$(obj).prop('disabled', true).addClass('form-control');
+			}
+		});
 		enviar()
 		function cambiarEstilo(){
 				$('input').removeAttr("disabled");
@@ -39,12 +44,7 @@
 				$('input').removeAttr("disabled");
 				$('textarea').removeAttr("disabled");
 				$('select').removeAttr("disabled");	
-
-				restaurarValor("id_edificio");	
 		}
-			
-		inhabilitar_controles();
-		actualizaChosen();
 
 		$('label[for="id_ocupados"]').hide();
 		$('#id_ocupados').hide();
@@ -53,7 +53,6 @@
 		$('#id_ocupados').attr('onkeypress','return permite(event, "num");');
 
 		function enviar(){
-
 			var edificio=$("#id_edificio").val();
 			var sendInfo = $('#frm_dormitorio_detalle').serialize();
 			sendInfo+="&id="+edificio;
@@ -62,10 +61,8 @@
             "{% url 'vista_ajax_dormitorio' %}",
             sendInfo,
             function(data){
-            	
             	var valor = jQuery.parseJSON(data);
             	if(valor.tipo=='3'){
-            		
             		$('label[for="id_ocupados"]').show();
 					$('#id_ocupados').show();
             	}else{

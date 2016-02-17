@@ -35,6 +35,8 @@ def view_administration_deptos_academics(request):
 
 @permission_required('registro.add_departamento_academico', login_url='/administration/')
 def view_depto_academic_add(request):
+	formulario = CampusForm()
+	#print docente_departamento.objects.select_related('persona').filter(tipo_docente = 1).query
 	if request.method=='POST':
 		formulario = DepartamentoAcademicoForm(request.POST)		
 		if formulario.is_valid():
@@ -118,7 +120,8 @@ def view_carrera_edit(request, id_=None):
 
 		if request.method == 'POST':
 			objCarrera = carrera.objects.get(pk = id_)
-			formulario = CarreraForm(request.POST, instance = objCarrera)
+			print objCarrera
+			formulario = CarreraForm(data=request.POST, instance = objCarrera)
 			if formulario.is_valid():
 				form = formulario.save(commit = False)
 				form.usuario_modificador = request.user

@@ -30,7 +30,7 @@
 			</fieldset>
 				{% for field in formulario %}
 					{% if field.html_name == 'pais_nacimiento' %}
-						<legend>Localizaci&oacute;n</legend>
+						<legend>Localización</legend>
 					{% endif %}
 					{% if field.html_name == 'titulos' %}
 						<legend>Datos Profesionales</legend>
@@ -86,7 +86,6 @@
 			sendInfo+="&bandera="+bandera+"&id="+id_caserio+"&name="+name;
 		}
 		
-		//$('#myModal').modal('show')
 		$.post(
         "{% url 'ajax_ubicacion' %}", // url to post
         sendInfo, //argumentos
@@ -96,12 +95,8 @@
 			  data: data
 			})
 			width_select()
-			//$('#myModal').modal('hide')
         });
 	}
-	
-		
-
 
 	$(document).ready(function(){
 		$('input').removeClass("errorlist").addClass("form-control");

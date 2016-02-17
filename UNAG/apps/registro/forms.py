@@ -16,36 +16,34 @@ class MyCustomRenderer( RadioFieldRenderer ):
 class DepartamentoAcademicoForm(ModelForm):
 	class Meta:
 		model = departamento_academico
-		exclude = ('cod_usuario_creador', 'cod_usuario_modificador', 'fecha_modificacion')
-	codigo=forms.CharField(max_length=28,label=u'Código',help_text='Este código puede estar compuesto por numeros y letras')
+		exclude = ('cod_usuario_creador', 'cod_usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
+	codigo=forms.CharField(max_length=28,label=u'Código',help_text='Este código puede estar compuesto por numeros y letras', widget=forms.TextInput(attrs={'class': 'form-control'}))
 	descripcion = forms.CharField(max_length=128, label=u'Descripción', widget=forms.TextInput(attrs={'class': 'form-control'}))
-	fecha_creacion = forms.DateField(label=u'Fecha de Creación', widget=forms.TextInput(attrs={'class': 'form-control'}))
-	id_campus = forms.ModelChoiceField(queryset = campus.objects.all(), label=u'Campus', widget=forms.Select(attrs={'class': 'chosen-select'}))
-	jefe=forms.ModelChoiceField(queryset = persona.objects.select_related('docente_departamento__persona').filter(docente_departamento__tipo_docente = 1), label=u'Jefe de Departamento', required=False)
+	id_campus = forms.ModelChoiceField(queryset = campus.objects.all(), label=u'Campus', widget=forms.Select(attrs={'class': 'form-control'}))
+	jefe=forms.ModelChoiceField(queryset = persona.objects.filter(docente_departamento__tipo_docente = 1), label=u'Jefe de Departamento', required=False, widget=forms.Select(attrs={'class': 'form-control'}))
 
 class DepartamentoAcademicoEditForm(ModelForm):
 	class Meta:
 		model = departamento_academico
-		exclude = ('cod_usuario_creador', 'cod_usuario_modificador', 'fecha_modificacion')
-	codigo=forms.CharField(max_length=28, label=u'Código')
+		exclude = ('cod_usuario_creador', 'cod_usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
+	codigo=forms.CharField(max_length=28, label=u'Código', widget=forms.TextInput(attrs={'class': 'form-control', 'disabled':'disabled'}))
 	descripcion = forms.CharField(max_length=128, label=u'Descripción', widget=forms.TextInput(attrs={'class': 'form-control', 'disabled':'disabled'}))
-	fecha_creacion = forms.DateField(label=u'Fecha de Creación', widget=forms.TextInput(attrs={'class': 'form-control', 'disabled':'disabled' }))
-	id_campus = forms.ModelChoiceField(queryset = campus.objects.all(), label=u'Campus', widget=forms.Select(attrs={'class': 'chosen-select' , 'disabled':'disabled'}))
-	jefe=forms.ModelChoiceField(queryset = persona.objects.select_related('docente_departamento__persona').filter(docente_departamento__tipo_docente = 1), label=u'Jefe de Departamento')
+	id_campus = forms.ModelChoiceField(queryset = campus.objects.all(), label=u'Campus', widget=forms.Select(attrs={'class': 'form-control' , 'disabled':'disabled'}))
+	jefe=forms.ModelChoiceField(queryset = persona.objects.filter(docente_departamento__tipo_docente = 1), label=u'Jefe de Departamento', widget=forms.Select(attrs={'class': 'form-control', 'disabled':'disabled'}))
 
 class CarreraForm(ModelForm):
 	Modalidad_CHOICES = (('INTERNADO', 'Internado'),('EXTERNADO', 'Externado'))
 	class Meta:
 		model = carrera
 		exclude = ('usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
-	codigo=forms.CharField(label=u'Código')	
+	codigo=forms.CharField(label=u'Código',widget=forms.TextInput(attrs={'class': 'form-control'}))	
 	modalidad = forms.ChoiceField(choices= Modalidad_CHOICES, widget=forms.RadioSelect(renderer=MyCustomRenderer))
 	cant_uv=forms.IntegerField(label=u'Cantidad Unidades Valorativas')
 	cant_asignaturas=forms.IntegerField(label=u'Cantidad Asignaturas')
 	cant_laboratorios=forms.IntegerField(label=u'Cantidad Laboratorios')
 	uv_laboratorios=forms.IntegerField(label=u'Unidades Valorativas Laboratorios')
 	uv_pps=forms.IntegerField(label=u'Unidades Valorativas PPS')
-	persona_responsable = forms.ModelChoiceField(queryset = persona.objects.select_related('docente_departamento__persona').filter(docente_departamento__tipo_docente = 3), label=u'Coordinador de carrera')
+	persona_responsable = forms.ModelChoiceField(queryset = persona.objects.filter(docente_departamento__tipo_docente = 3), label=u'Coordinador de carrera')
 	depto_academico=forms.ModelChoiceField(departamento_academico.objects, label=u'Departamento Academico')
 
 class DocumentoForm(ModelForm):

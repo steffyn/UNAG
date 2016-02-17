@@ -1,57 +1,60 @@
-{% extends "general/administracion_index.html" %}
+{% extends "general/menu.html" %}
+{% block header %}
+  <h1>
+  Docuementos
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Docuementos</li>
+  </ol>
+{% endblock  %}
 
-{% block container %}
-	<div class="row">
-		<legend>Documentos<a href="{% url 'vista_administracion_documentos' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
-		{% if perms.registro.add_documentos %}
-		<div class="col-lg-12 well">
-			<div class="btn-group btn-proup-sm">
-				<a title="Nuevo Documento" class="btn btn-default" href="{% url 'vista_nuevo_documento' %}">
-					<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo
-				</a>
-			</div>
-		</div>
-		{% endif %}
-		<div class="panel panel-default">
-			<div class="panel-heading"><h4>Lista de Documentos</h4></div>
-			<div class="panel-body">
-				<table class="table table-striped table-bordered table-hover table-condensed">
-					<thead>
-						<tr>
-							<th>Código</th>
-							<th>Descripción</th>
-							<th>Observaciones</th>
-							<th colspan="2">Acción</th>							
-						</tr>
-					</thead>
-					<tbody>
-						{% for d in documento %}
-							<tr>
-								<td>{{d.cod_documento}}</td>
-								<td>{{d.descripcion}}</td>
-								<td>{{d.observaciones}}</td>
-								<td>
-									<center>
-										<a title="Ver" href="{% url 'vista_detalle_documentos' d.pk %}" class="btn btn-success">
-											<span class="glyphicon glyphicon-eye-open"></span>
-										</a>
-									</center>
-								</td>								
-								<td>
-									{% if perms.registro.delete_documentos %}
-									<center>
-										<a  href="{% url 'vista_borrar_documentos' d.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar el documento <<{{ d.descripcion }}>>?');">
-											<span class="glyphicon glyphicon-remove-circle"></span>
-										</a>
-									</center>
-									{% endif %}
-								</td>
-							</tr>
 
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>				
-		</div>
-	</div>
+{% block titulo_box %}
+	Detalles Docuementos
+{% endblock  %}
+
+{% block boton_box %}
+	<a title="Nuevo Documento" class="btn btn-default" href="{% url 'vista_nuevo_documento' %}">
+		<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo
+	</a>
+{% endblock  %}
+
+{% block contenido_box %}
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>Código</th>
+				<th>Descripción</th>
+				<th>Observaciones</th>
+				<th colspan="2">Acción</th>							
+			</tr>
+		</thead>
+		<tbody>
+			{% for d in documento %}
+				<tr>
+					<td>{{d.cod_documento}}</td>
+					<td>{{d.descripcion}}</td>
+					<td>{{d.observaciones}}</td>
+					<td>
+						<center>
+							<a title="Ver" href="{% url 'vista_detalle_documentos' d.pk %}" class="btn btn-success">
+								<span class="glyphicon glyphicon-eye-open"></span>
+							</a>
+						</center>
+					</td>								
+					<td>
+						{% if perms.registro.delete_documentos %}
+						<center>
+							<a  href="{% url 'vista_borrar_documentos' d.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar el documento <<{{ d.descripcion }}>>?');">
+								<span class="glyphicon glyphicon-remove-circle"></span>
+							</a>
+						</center>
+						{% endif %}
+					</td>
+				</tr>
+
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

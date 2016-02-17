@@ -1,54 +1,50 @@
-{% extends "general/administracion_index.html" %}
+{% extends "general/menu.html" %}
+{% block header %}
+  <h1>
+   Carrera
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Carrera</li>
+    <li>Detalle</li>
+  </ol>
+{% endblock  %}
 
-{% block container %}
-	<div class="col-lg-12 well">
-		<h4>Detalle de Carrera</h4>			
-	</div>
-	<form id="frm_campus" name="frm_campus" action="." method="POST">{% csrf_token %}
-		<div class="panel panel-default">
-			{% if perms.registro.change_carrera %}
-			<div class="panel-heading">
-				<a title="Nuevo Campus" class="btn btn-default" href="javascript:cambiarEstilo();">
-						<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar
-				</a>
-				<button type="submit" title="Nuevo Campus" id="btn_guardar" class="btn btn-default"disabled>
-						<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar
-				</button>
+{% block titulo_box %}
+	Detalle de Carrera
+{% endblock  %}
 
-				<a href="{% url 'vista_administracion_carreras' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a>
-				
-			</div>
-			{% endif %}
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-lg-8">
-						{{formulario.as_p}}
-					</div>
-				</div>
-			</div>
-		</div>
+{% block boton_box %}
+	{% if perms.registro.change_carrera %}
+		<a title="Nuevo Campus" class="btn btn-default" href="javascript:cambiarEstilo();">
+				<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar
+		</a>
+		<button type="submit" title="Nuevo Campus" form="frm_campus" id="btn_guardar" name="btn_guardar" class="btn btn-default"disabled>
+				<span class="glyphicon glyphicon-save" >&nbsp;</span>Guardar
+		</button>
+	{% endif %}
+{% endblock  %}
+
+{% block contenido_box %}
+	<form id="frm_campus" name="frm_campus" action="." method="POST">
+		{% csrf_token %}
+		{{formulario.as_p}}
 	</form>
 {% endblock %}
 
-{% block extrafooter %}
+{% block js %}
 	<script type="text/javascript">
-		
+		$(':input').each(function( index, obj ) {
+			if (obj.name != 'modalidad' && obj.name !='btn_guardar'){
+				$(obj).prop('disabled', true).addClass('form-control');
+			}
+		});
 		function cambiarEstilo(){
-				$('input').removeAttr("disabled");
-				$('#btn_guardar').removeAttr("disabled");	
-				$('input').removeAttr("disabled");
-				$('textarea').removeAttr("disabled");
-				$('select').removeAttr("disabled");	
-
-				//restaurarValor("id_modalidad");
-				restaurarValor("id_persona_responsable");
-				restaurarValor("id_campus");
-				restaurarValor("id_grado");
-				restaurarValor("id_depto_academico");
+			$('input').removeAttr("disabled");
+			$('#btn_guardar').removeAttr("disabled");	
+			$('input').removeAttr("disabled");
+			$('textarea').removeAttr("disabled");
+			$('select').removeAttr("disabled");	
 		}
-		
-		inhabilitar_controles();
-		actualizaChosen();
-		$('input[id^=id_modalidad_]').attr('class','');
 	</script>
 {% endblock %}
