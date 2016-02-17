@@ -1,13 +1,112 @@
-{% extends "base_senso.html" %}
+{% extends "general/menu.html" %}
+{% block header %}
+  <h1>
+   Asignatura
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Asignatura</li>
+  </ol>
+{% endblock  %}
 
-{% block navlist %}
-	<div class="panel panel-primary">
-		<div class="panel-heading">Instrucciones</div>
-		  <div class="panel-body">
-		    	Llene atenta y cuidadosamente el siguiente formulario, completando todos los datos solicitados en el mismo.
-		  </div>
+
+{% block titulo_box %}
+	Lista de Asignatura
+{% endblock  %}
+
+{% block boton_box %}
+	<a title="Nueva Asignatura" class="btn btn-default" href="{% url 'vista_nueva_asignatura' %}">
+		<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo
+	</a>
+{% endblock  %}
+
+{% block contenido_box %}
+	<div class="container">
+		<!-- Modal -->
+	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	      <div class="modal-content">
+	        <div class="modal-body">
+	        	<center><img width="235px" height="235px" src="/media/images/cargando.gif"></center>
+	        </div>
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	  </div><!-- /.modal -->
+		{% if mensaje %}
+			<p class="alert alert-danger">{{mensaje}}</p>
+		{% endif %}
+		<div class="col-lg-10">
+			<form id="frm_persona" role="form" name="frm_persona" action="." method="POST">
+				{% csrf_token %}
+				<fieldset>
+						<legend>Formulario Censo de Docentes</legend>
+						<div class="form-group">
+							<label for="id_codigo_registro">Número de registro</label>
+							<div id="codigo_registro">
+								<input id="id_codigo_registro" readonly="readonly" maxlength="15" name="codigo_registro" type="text" onkeydown="onKeyDown();" class="form-control">
+							</div>
+							<h5><span class="label label-danger">Verifique que el número de registro esté correcto. Si hay algún problema presentarse a la oficina de registro.</span></h5>
+						</div>
+					{% for field in formulario %}
+						{% if field.html_name == 'pais_nacimiento' %}
+							<legend>Localizaci&oacute;n</legend>
+						{% endif %}
+						
+						{% if field.html_name == 'titulos' %}
+							<legend>Datos Profesionales</legend>
+						{% endif %}
+						<div class="form-group">
+				            {{ field.errors }}
+				            
+				            <div id="{{ field.html_name }}">
+				            	{% if field.html_name == 'departamento' %}
+									<h4><span class="label label-danger">Indique su lugar de origen (Debe seleccionar Honduras como país de residencia).</span></h4>
+								{% endif %}
+				            		{{ field.label_tag }}
+				             		{{ field }}
+	
+				         	</div> 
+				         	<h5><span class="label label-danger">{{ field.help_text }}</span></h5>
+				        </div>
+
+					{% endfor %}
+					
+					<legend>Datos Laborales</legend>
+					{% for field in formulario_doc %}
+						<div class="form-group">
+				            {{ field.errors }}
+				            {{ field.label_tag }}
+				            <div id="{{ field.html_name }}">
+				            	
+				             		{{ field }}
+	
+				         	</div> <h5><span class="label label-danger">{{ field.help_text }}</span></h5>
+				        </div>
+					{% endfor %}
+				</fieldset>
+				<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+			</form>
+		</div>
 	</div>
+
 {% endblock %}
+
+{% block extrafooter %}
+<script type="text/javascript">
+	    $('#id_departamento').attr('onchange','enviar("d");');
+		//$('#id_municipio').attr('onchange','enviar("m");');
+		//$('#id_aldea').attr('onchange','enviar("a");');
+		//$('#id_caserio').attr('onchange','enviar("c");');
+	    //actualizaChosen(); 
+
+	    //valores requeridos
+	    $('input').attr('required', 'required')  
+	    $('select').attr('required', 'required') 
+
+</script>
+{% endblock %}
+
+
 
 {% block extrahead %}
 	<script type="text/javascript">
@@ -108,89 +207,4 @@
             });
 		}
 	</script>
-{% endblock %}
-{% block container %}
-	<div class="container">
-		<!-- Modal -->
-	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	    <div class="modal-dialog">
-	      <div class="modal-content">
-	        <div class="modal-body">
-	        	<center><img width="235px" height="235px" src="/media/images/cargando.gif"></center>
-	        </div>
-	      </div><!-- /.modal-content -->
-	    </div><!-- /.modal-dialog -->
-	  </div><!-- /.modal -->
-		{% if mensaje %}
-			<p class="alert alert-danger">{{mensaje}}</p>
-		{% endif %}
-		<div class="col-lg-10">
-			<form id="frm_persona" role="form" name="frm_persona" action="." method="POST">
-				{% csrf_token %}
-				<fieldset>
-						<legend>Formulario Censo de Docentes</legend>
-						<div class="form-group">
-							<label for="id_codigo_registro">Número de registro</label>
-							<div id="codigo_registro">
-								<input id="id_codigo_registro" readonly="readonly" maxlength="15" name="codigo_registro" type="text" onkeydown="onKeyDown();" class="form-control">
-							</div>
-							<h5><span class="label label-danger">Verifique que el número de registro esté correcto. Si hay algún problema presentarse a la oficina de registro.</span></h5>
-						</div>
-					{% for field in formulario %}
-						{% if field.html_name == 'pais_nacimiento' %}
-							<legend>Localizaci&oacute;n</legend>
-						{% endif %}
-						
-						{% if field.html_name == 'titulos' %}
-							<legend>Datos Profesionales</legend>
-						{% endif %}
-						<div class="form-group">
-				            {{ field.errors }}
-				            
-				            <div id="{{ field.html_name }}">
-				            	{% if field.html_name == 'departamento' %}
-									<h4><span class="label label-danger">Indique su lugar de origen (Debe seleccionar Honduras como país de residencia).</span></h4>
-								{% endif %}
-				            		{{ field.label_tag }}
-				             		{{ field }}
-	
-				         	</div> 
-				         	<h5><span class="label label-danger">{{ field.help_text }}</span></h5>
-				        </div>
-
-					{% endfor %}
-					
-					<legend>Datos Laborales</legend>
-					{% for field in formulario_doc %}
-						<div class="form-group">
-				            {{ field.errors }}
-				            {{ field.label_tag }}
-				            <div id="{{ field.html_name }}">
-				            	
-				             		{{ field }}
-	
-				         	</div> <h5><span class="label label-danger">{{ field.help_text }}</span></h5>
-				        </div>
-					{% endfor %}
-				</fieldset>
-				<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
-			</form>
-		</div>
-	</div>
-
-{% endblock %}
-
-{% block extrafooter %}
-<script type="text/javascript">
-	    $('#id_departamento').attr('onchange','enviar("d");');
-		//$('#id_municipio').attr('onchange','enviar("m");');
-		//$('#id_aldea').attr('onchange','enviar("a");');
-		//$('#id_caserio').attr('onchange','enviar("c");');
-	    //actualizaChosen(); 
-
-	    //valores requeridos
-	    $('input').attr('required', 'required')  
-	    $('select').attr('required', 'required') 
-
-</script>
 {% endblock %}

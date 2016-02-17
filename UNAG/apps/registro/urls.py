@@ -70,4 +70,6 @@ urlpatterns = patterns('UNAG.apps.registro.views',
 	url(r'^administration/censo/avance$', 'view_avance_censo', name='vista_avance_censo'),
 	url(r'^administration/censo/recuperar/clave$', 'view_recuperar_clave', name='vista_recuperar_clave'),
 
+	#Por Karla
+	url(r'^docente/nuevo/$', 'nuevo_docente', name='nuevo_docente'),
 )

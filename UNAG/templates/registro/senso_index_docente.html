@@ -1,8 +1,26 @@
-{% extends 'registro/menu_senso_docente.html' %}
+{% extends "general/menu.html" %}
+{% block header %}
+  <h1>
+   Asignatura
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Asignatura</li>
+  </ol>
+{% endblock  %}
 
-{% block title %} Inicio - Bienvenidos {% endblock %}
 
-{% block container %} <br/> 
+{% block titulo_box %}
+	Lista de Asignatura
+{% endblock  %}
+
+{% block boton_box %}
+	<a title="Nueva Asignatura" class="btn btn-default" href="{% url 'vista_nueva_asignatura' %}">
+		<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo
+	</a>
+{% endblock  %}
+
+{% block contenido_box %}
 <div class="row-fluid">
 	<div class="span4">
 		<blockquote>

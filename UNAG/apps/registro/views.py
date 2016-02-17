@@ -957,3 +957,84 @@ def view_recuperar_clave(request):
 		
 	ctx = {'seccion': "hola"}	
 	return render_to_response('general/recuperar_clave.html', ctx, context_instance=RequestContext(request))	
+
+
+#Por Karla
+
+def nuevo_docente(request):
+	mensaje=''
+	if request.method == 'POST':
+		formulario = DocenteAdministrativoForm(request.POST, request.FILES)
+		formulario_doc = DocenteForm(request.POST, request.FILES)
+		if formulario.is_valid() and formulario_doc.is_valid():
+			identidad=formulario.cleaned_data['identidad']
+			if User.objects.filter(username__istartswith=identidad).count() == 1:
+				user = User.objects.get(username__istartswith=identidad)
+			else:
+				user = User()
+				user.username = identidad
+				user.first_name = formulario.cleaned_data['nombres']
+				user.last_name = formulario.cleaned_data['apellidos']
+				user.is_staff=False
+				user.is_active=True
+				user.is_superuser=False
+				user.date_joined=datetime.now()
+				user.email=formulario.cleaned_data['correo_electronico']
+				user.set_password('registro')
+				user.save()
+			
+			#crear persona
+			person = formulario.save(commit = False)
+			person.usuario=user
+			person.usuario_creador=request.user
+			person.fecha_creacion=datetime.now()
+			person.usuario_modificador=request.user
+			person.fecha_modificacion=datetime.now()
+			person.save() #guardar persona
+			print 'se creo persona'
+
+			#crear docente
+			form = formulario_doc.save(commit = False)
+			form.persona=person
+			form.activo=True
+			form.usuario_creador = request.user
+			form.fecha_creacion = datetime.now()
+			form.usuario_modificador = request.user
+			form.fecha_modificacion = datetime.now()
+
+			#asignar grupo segun tipo de docente
+			td=request.POST.get('tipo_docente')
+			grupo=""				
+
+			if td=='4':
+				objT=tipo_usuario.objects.get(id=14)
+				grupo = Group.objects.get(id=4)
+				user.groups.add(grupo)
+				user.tipo_usuario=objT
+			elif td=='2':
+				objT=tipo_usuario.objects.get(id=3)
+				grupo = Group.objects.get(id=1)
+				user.groups.add(grupo)
+				user.tipo_usuario=objT
+			elif td=='1':
+				objT=tipo_usuario.objects.get(id=12)
+				grupo = Group.objects.get(id=10)
+				user.groups.add(grupo)
+				user.tipo_usuario=objT
+			elif td=='3':
+				objT=tipo_usuario.objects.get(id=13)
+				grupo = Group.objects.get(id=11)
+				user.groups.add(grupo)
+				user.tipo_usuario=objT
+
+			user.save()
+
+			formulario = DocentePersonaForm()
+			formulario_doc = DocenteForm()
+			return render_to_response('registro/docente_nuevo.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
+		else:
+			return render_to_response('registro/docente_nuevo.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
+	else:
+		formulario = DocentePersonaForm()
+		formulario_doc = DocenteForm()
+		return render_to_response('registro/docente_nuevo.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
