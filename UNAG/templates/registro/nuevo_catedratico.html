@@ -105,17 +105,16 @@
                 //actualizaChosen();
                 $('#id_departamento').attr('onchange','enviar("d");');
 				//$('#id_municipio').attr('onchange','enviar("m");');
-				//$('#id_aldea').attr('onchange','enviar("a");');
+				//$('#id_aldea').attr                      ('onchange','enviar("a");');
 				//$('#id_caserio').attr('onchange','enviar("c");');
 				$('#myModal').modal('hide')
             });
 		}
 	</script>
 {% endblock %}
-{% block container %}
-	<div class="container">
-		<!-- Modal -->
-	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+{% block container %}                                                                             
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-dialog">
 	      <div class="modal-content">
 	        <div class="modal-body">
@@ -127,11 +126,10 @@
 		{% if mensaje %}
 			<p class="alert alert-danger">{{mensaje}}</p>
 		{% endif %}
-		<div class="col-lg-10">
 			<form id="frm_persona" role="form" name="frm_persona" action="." method="POST">
 				{% csrf_token %}
 				<fieldset>
-						<legend>Formulario Catedrático</legend>
+						<legend>Formulario Nuevo Catedrático</legend>
 						<div class="form-group">
 							<label for="id_codigo_registro">Número de registro</label>
 							<div id="codigo_registro">
@@ -149,18 +147,11 @@
 						{% endif %}
 						<div class="form-group">
 				            {{ field.errors }}
-				            
+				            {{ field.label_tag }}
 				            <div id="{{ field.html_name }}">
-				            	{% if field.html_name == 'departamento' %}
-									<h4><span class="label label-danger">Indique su lugar de origen (Debe seleccionar Honduras como país de residencia).</span></h4>
-								{% endif %}
-				            		{{ field.label_tag }}
 				             		{{ field }}
-	
-				         	</div> 
-				         	<h5><span class="label label-danger">{{ field.help_text }}</span></h5>
-				        </div>
-
+				            </div> {{ field.help_text }}
+				        </div> 
 					{% endfor %}
 					
 					<legend>Datos Laborales</legend>
@@ -169,18 +160,14 @@
 				            {{ field.errors }}
 				            {{ field.label_tag }}
 				            <div id="{{ field.html_name }}">
-				            	
-				             		{{ field }}
-	
-				         	</div> <h5><span class="label label-danger">{{ field.help_text }}</span></h5>
-				        </div>
+				                {{ field }}
+				            </div> {{ field.help_text }}
+			            </div>
+			        
 					{% endfor %}
-				</fieldset>
 				<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
 			</form>
-		</div>
-	</div>
-
+				</fieldset>
 {% endblock %}
 
 {% block extrafooter %}

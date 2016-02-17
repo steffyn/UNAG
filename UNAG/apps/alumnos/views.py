@@ -74,7 +74,7 @@ def view_add_people_alu(request):
 		if formulario.is_valid() and formulario_alu.is_valid():
 			num_cuenta=formulario.cleaned_data['identidad']+str(random_number_cuenta)
 			#crear un usuario inactivo para la persona
-			user = User.objects.create_user(num_cuenta, formulario.cleaned_data['correo_electronico'], make_password(random_number, 'seasalt', 'pbkdf2_sha256'))
+			user = User.objects.create_user(num_cuenta, formulario.cleaned_data['correo_electronico'],  make_password(random_number, 'seasalt', 'pbkdf2_sha256'))
 			#crear persona
 
 			try:
