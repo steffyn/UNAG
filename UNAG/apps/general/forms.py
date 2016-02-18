@@ -9,12 +9,13 @@ class CampusForm(ModelForm):
 	class Meta:
 		model = campus
 		exclude = ('usuario_creador', 'fecha_creacion', 'usuario_modificador', 'fecha_modificacion')
-	codigo=forms.CharField(max_length=32, label=u'Código',help_text='Este código puede estar compuesto por numeros y letras')
+	director_campus=forms.CharField(widget=forms.Select(attrs={'class': 'form-control'}))
+	codigo=forms.CharField(max_length=32, label=u'Código',help_text='Este código puede estar compuesto por numeros y letras', widget=forms.TextInput(attrs={'class': 'form-control'}))
 	descripcion = telefono = forms.CharField(max_length=128, label=u'Descripción', widget=forms.TextInput(attrs={'class': 'form-control'}))
 	siglas = forms.CharField(max_length=15, label=u'Siglas', widget=forms.TextInput(attrs={'class': 'form-control'}))
 	direccion = forms.CharField(max_length=128, label=u'Dirección', widget=forms.TextInput(attrs={'class': 'form-control'}))
 	telefono = forms.CharField(max_length=9, label=u'Teléfono', help_text='Número de teléfono debe ingresarse sin guiones (-). Máx. 8 dígitos', widget=forms.TextInput(attrs={'placeholder':'', 'class': 'form-control'}))
-	director_campus = forms.ModelChoiceField(queryset = persona.objects.filter(tipo_persona__in = (5,7)),required=False, label=u'Rector/Director', widget=forms.Select(attrs={'class': 'chosen-select'}))
+	director_campus = forms.ModelChoiceField(queryset = persona.objects.filter(tipo_persona__in = (5,7)),required=False, label=u'Rector/Director', widget=forms.Select(attrs={'class': 'form-control'}))
 
 	def clean_descripcion(self):
 		return self.cleaned_data["descripcion"].upper()

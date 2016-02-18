@@ -336,8 +336,8 @@ def view_bedroom_add(request):
 def view_bedroom_ajax(request):
 	if request.method == 'POST':	
 		data= edificios.objects.filter(id=request.POST.get('id')).values_list('tipo_edificio',flat=True)
-		
-		return HttpResponse(simplejson.dumps('{"tipo":'+str(data)+'}'), mimetype='application/json')
+		print 'lakjsdlkajsdlasd---->', json.dumps('{"tipo":'+str(data)+'}')
+		return HttpResponse(json.dumps('{"tipo":'+str(data)+'}'), content_type='application/json')
 	else:
 		return HttpResponse(0)	
 

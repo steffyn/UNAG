@@ -1,57 +1,60 @@
-{% extends "general/administracion_index.html" %}
+{% extends "general/menu.html" %}
+{% block header %}
+  <h1>
+  Centros de Estudio
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Centros de Estudio</li>
+  </ol>
+{% endblock  %}
 
-{% block container %}
-	<div class="row">
-		<legend>Centros de Estudio<a href="{% url 'vista_main_first' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
-		{% if perms.general.add_centro %}
-		<div class="col-lg-12 well">
-			<div class="btn-group btn-proup-sm">
-				<a title="Nuevo Centro" class="btn btn-default" href="{% url 'vista_nuevo_centro' %}">
-					<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo
-				</a>
-			</div>
-		</div>
-		{% endif %}
-		<div class="panel panel-default">
-			<div class="panel-heading"><h4>Lista de Centros de estudio</h4></div>
-			<div class="panel-body">
-				<table class="table table-striped table-bordered table-hover table-condensed">
-					<thead>
-						<tr>
-							<th>Descripción</th>
-							<th>Tipo Centro</th>
-							<th>Zona</th>
-							<th colspan="2">Acción</th>							
-						</tr>
-					</thead>
-					<tbody>
-						{% for c in centro %}
-							<tr>
-								<td>{{c.descripcion}}</td>
-								<td>{{c.tipo_centro}}</td>
-								<td>{{c.zona}}</td>
-								<td>
-									<center>
-										<a title="Ver" href="{% url 'vista_detalle_centros' c.pk %}" class="btn btn-success">
-											<span class="glyphicon glyphicon-eye-open"></span>
-										</a>
-									</center>
-								</td>								
-								<td>
-									{% if perms.general.delete_centro %}
-									<center>
-										<a  href="{% url 'vista_borrar_centros' c.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar el centro <<{{ c.descripcion }}>>?');">
-											<span class="glyphicon glyphicon-remove-circle"></span>
-										</a>
-									</center>
-									{% endif %}
-								</td>
-							</tr>
+{% block titulo_box %}
+	Lista de Centros de Estudio
+{% endblock  %}
 
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>				
-		</div>
-	</div>
+{% block boton_box %}
+	{% if perms.general.add_centro %}
+		<a title="Nuevo Centro" class="btn btn-default" href="{% url 'vista_nuevo_centro' %}">
+			<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo
+		</a>
+	{% endif %}
+{% endblock  %}
+
+{% block contenido_box %}
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>Descripción</th>
+				<th>Tipo Centro</th>
+				<th>Zona</th>
+				<th colspan="2">Acción</th>							
+			</tr>
+		</thead>
+		<tbody>
+			{% for c in centro %}
+				<tr>
+					<td>{{c.descripcion}}</td>
+					<td>{{c.tipo_centro}}</td>
+					<td>{{c.zona}}</td>
+					<td>
+						<center>
+							<a title="Ver" href="{% url 'vista_detalle_centros' c.pk %}" class="btn btn-success">
+								<span class="glyphicon glyphicon-eye-open"></span>
+							</a>
+						</center>
+					</td>								
+					<td>
+						{% if perms.general.delete_centro %}
+						<center>
+							<a  href="{% url 'vista_borrar_centros' c.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar el centro <<{{ c.descripcion }}>>?');">
+								<span class="glyphicon glyphicon-remove-circle"></span>
+							</a>
+						</center>
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

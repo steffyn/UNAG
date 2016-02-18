@@ -1,0 +1,98 @@
+{% extends "general/base.html" %}
+
+{% block navlist_header %}
+    ADMINISTRACION
+{% endblock  %}
+
+{% block titulo %}
+    Administración
+{% endblock  %}
+
+{% block navlist %}
+
+    <li class="treeview">
+      <a href="#">
+        <i class="glyphicon glyphicon-user"></i> <span>Recursos Humanos</span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="{% url 'vista_nuevo_recursohumano_normal' %}"><i class="fa fa-circle-o"></i> Personal Administrativo</a></li>
+        <li><a href="{% url 'vista_nuevo_recursohumano_docente' %}"><i class="fa fa-circle-o"></i> Personal Académico</a></li>
+      </ul>
+    </li>
+    <li>
+  		<a href = "{% url 'vista_administracion_campus' %}">
+        <i class="glyphicon glyphicon-map-marker"></i> <span>Campus</span>
+      </a> 
+    </li>
+    <li>
+  		<a href = "{% url 'vista_administracion_deptos_academics' %}">
+             <i class="glyphicon glyphicon-list-alt"></i> <span>Departamentos Académicos</span>
+      </a> 
+    </li>
+
+    <li>
+      <a href = "{% url 'vista_administracion_carreras' %}">
+          <i class="glyphicon glyphicon-road"></i><span>Carreras</span>
+      </a>
+    </li>
+
+    <li>
+      <a href = "{% url 'vista_administracion_tipo_asignaturas' %}">
+        <i class="glyphicon glyphicon-file"></i><span>Tipo Asignaturas</span>
+      </a>
+    </li>
+
+    <li>
+      <a href = "{% url 'vista_administracion_asignaturas' %}">
+        <i class="glyphicon glyphicon-book"></i><span>Asignaturas</span>
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'vista_administracion_edificios' %}">
+        <i class="glyphicon glyphicon-leaf"></i><span>Edificios</span>
+      </a>
+    </li>
+
+    <li>
+        <a href="{% url 'vista_administracion_dormitorios' %}">
+          <i class="glyphicon glyphicon-home"></i><span>Estructura del Edificio</span>
+        </a>
+    </li>
+
+     <li>
+      <a href = "{% url 'vista_administracion_documentos' %}">
+        <i class="glyphicon glyphicon-file"></i><span>Documentos</span>
+      </a>
+    </li>
+    
+     <li>
+      <a href = "{% url 'vista_administracion_tipo_cm' %}">
+             <i class="glyphicon glyphicon-warning-sign"></i> <span>Tipos de Condiciones-Matricula</span>
+      </a> 
+    </li>
+
+    
+    <li> 
+  		<a href = "{% url 'vista_administracion_centros' %}">     
+        <i class="glyphicon glyphicon-flag"></i><span>Centros de Estudio</span>
+      </a> 
+    </li>
+
+{% endblock %}
+
+{% block container %}
+<div class="box box-default">
+	<div class="box-header with-border">
+		<h3 class="box-title"><strong>{% block titulo_box %} {% endblock  %}</strong></h3>
+
+		<div class="btn-group btn-proup-sm pull-right">
+			{% block boton_box %}  {% endblock  %}
+		</div>
+	</div>
+	<div class="box-body table-responsive">
+		{% block contenido_box  %} {% endblock  %}
+		
+	</div>
+</div>
+{% endblock  %}
+

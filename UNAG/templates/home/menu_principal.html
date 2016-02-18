@@ -1,205 +1,40 @@
-{% extends "base2.html" %}
+{% extends "home/base.html" %}
 
-{% block titlet %} Menu Principal {% endblock %}
-{% block header %}
-	<div class="container">
-		<a class="pull-right" href="{% url 'vista_principal' %}">
-			Inicio 
-		</a>
-		<legend></legend>
-	</div>
-{% endblock %}
+{% block titulo %} Menu Principal {% endblock %}
+
+{% block header %} <h1> Menú Principal </h1> {% endblock  %}
+
 {% block container %}
-	<div class="col-lg-12">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div  align="center">
-						<div class="alert alert-warning">
-  							<h1>SISTEMA DE REGISTRO<small><br/>Haga clic sobre el módulo que desea visualizar</small></h1>
-  						</div>
-					</div>
-				</div>	
-			</div>
-			<!--
-			<div class="row">
-				<div class="col-lg-3">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="thumbnail" align=""> 
-								<div class="alert alert-warning"> 
-									<div class="row">
-										<div class="col-lg-4">
-											<a title="click para entrar a esta Secci&oacute;n" href="{% url 'vista_main_student' %}"><img src="/media/images/alumnos.png" height="64" width="64"/></a>
-										</div>
-										<div class="col-lg-8">
-											<h3>Alumnos</h3>
-										</div>
-									</div>
-
-									<div class="row" style="text-align:justify">
-										<p>Módulo que permite la gestión de actividades de los alumnos.</p>
-										<p >
-										<div align="center"><a href="{% url 'vista_main_student' %}" class="btn btn-primary">
-											<span class="glyphicon glyphicon-log-in">&nbsp;</span>Entrar</a></div>
-										</p>
-									</div>
-									
-								</div>
-							</div>
-						</div>
-					</div>
-				</div> -->
-				<!--<div class="col-lg-3">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="thumbnail" align="center"> 
-								<div class="alert alert-warning"> 
-
-									<div class="row">
-											<div class="col-lg-4">
-												<a title="click para entrar a esta Secci&oacute;n" href="{% url 'vista_main_teacher' %}"><img src="/media/images/kuser.png" height="64" width="64"/></a>
-											</div>
-											
-											<div class="col-lg-8">
-												<h3>Docentes</h3>
-											</div>
-									</div>
-
-									<div class="row">
-											<p>Módulo que permite la gestión de actividades de los Docentes.</p>
-											<p>
-												<a href="{% url 'vista_main_teacher' %}" class="btn btn-primary">
-												<span class="glyphicon glyphicon-log-in">&nbsp;</span>Entrar</a>
-											</p>
-								    </div>
-								</div>	
-							</div>
-						</div>
-					</div>
-				</div>-->
-				<div class="col-lg-3">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="thumbnail" align="center"> 
-								<div class="alert alert-warning"> 
-									<div class="row">
-											<div class="col-lg-4">
-												<a title="click para entrar a esta Secci&oacute;n" href="{% url 'vista_main_administration' %}"><img src="/media/images/Manager.png" height="64" width="64"/></a>
-											</div>
-											
-											<div class="col-lg-8">
-												<h3>Administración</h3>
-											</div>
-									</div>
-
-									<div class="row">
-											<p>Módulo que permite la gestión de actividades de administración de la Oficina de Registro y Rectoría.</p>
-											<p>
-												<a href="{% url 'vista_main_administration' %}" class="btn btn-primary">
-												<span class="glyphicon glyphicon-log-in">&nbsp;</span>Entrar</a>
-											</p>
-									</div>
-
-								</div>
-							</div>	
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="thumbnail" align="center"> 
-								<div class="alert alert-warning"> 
-									<div class="row">
-											<div class="col-lg-4">
-												<a title="click para entrar a esta Secci&oacute;n" href="{% url 'vista_main_administration' %}"><img src="/media/images/Manager.png" height="64" width="64"/></a>
-											</div>
-											
-											<div class="col-lg-8">
-												<h3>Censo</h3>
-											</div>
-									</div>
-
-									<div class="row">
-											<p>Módulo que permite el censo de estudiantes y docentes.</p>
-											<p>
-												<a href="{% url 'vista_inicio_senso' %}" class="btn btn-primary">
-												<span class="glyphicon glyphicon-log-in">&nbsp;</span>Entrar</a>
-											</p>
-									</div>
-
-								</div>
-							</div>	
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="thumbnail" align="center"> 
-								
-							 	<div class="alert alert-warning"> 
-							 		
-							 		<div class="row">
-												<div class="col-lg-4">
-													<a title="click para entrar a esta Secci&oacute;n" href="{% url 'vista_main_administration' %}"><img src="/media/images/Reporte.png" height="64" width="64"/></a>
-												</div>
-												
-												<div class="col-lg-8">
-													<h3>Matrícula</h3>
-												</div>
-									</div>
-
-									<div class="row">
-												<p>Módulo que permite la gestión de actividades de los alumnos.</p>
-												
-												<p>
-													<a href="{% url 'vista_main_administration' %}" class="btn btn-primary">
-												<span class="glyphicon glyphicon-log-in">&nbsp;</span>Entrar</a>
-												</p>
-									</div>
-									
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--<div class="row">
-				<div class="col-lg-3">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="thumbnail" align="center"> 
-								<div class="alert alert-warning"> 
-									<div class="row">
-											<div class="col-lg-4">
-												<a title="click para entrar a esta Secci&oacute;n" href="{% url 'vista_main_administration' %}"><img src="/media/images/Manager.png" height="64" width="64"/></a>
-											</div>
-											
-											<div class="col-lg-8">
-												<h3>Censo</h3>
-											</div>
-									</div>
-
-									<div class="row">
-											<p>Módulo que permite el censo de estudiantes y docentes.</p>
-											<p>
-												<a href="{% url 'vista_inicio_senso' %}" class="btn btn-primary">
-												<span class="glyphicon glyphicon-log-in">&nbsp;</span>Entrar</a>
-											</p>
-									</div>
-
-								</div>
-							</div>	
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-9">
-				</div>
-			</div>
-		</div>-->
+<div class="row">
+	<div class="col-md-4"  style="vertical-align:middle;">
+		<div class="well">
+			<center>
+				<a href="{% url 'vista_main_administration' %}">
+					<img src="/media/images/setting.png" width="150" height="150">
+					<h3>Administración</h3>
+				</a>
+			</center>
+		</div>
 	</div>
-	
+	<div class="col-md-4"  style="vertical-align:middle;">
+		<div class="well">
+			<center>
+				<a href="{% url 'alumno_menu_principal' %}">
+					<img src="/media/images/student.png"  width="150" height="150">
+					<h3>Alumnos</h3>
+				</a>
+			</center>
+		</div>
+	</div>
+	<div class="col-md-4"  style="vertical-align:middle;">
+		<div class="well">
+			<center>
+				<a href="{% url 'nuevo_docente' %}">
+					<img src="/media/images/teacher.png"  width="150" height="150">
+					<h3>Catedrático</h3>
+				</a>
+			</center>
+		</div>
+	</div>
+</div>
 {% endblock %}
