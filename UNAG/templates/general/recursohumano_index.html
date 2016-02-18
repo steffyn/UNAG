@@ -27,6 +27,23 @@
 					<a href="{% url 'vista_nuevo_recursohumano_docente' %}"  class="btn btn-default">
 						<span class="glyphicon glyphicon-plus">&nbsp;</span>Personal Académico/Administrativo
 					</a>
+
+					<small>Jefes de departamento, Coordinadores de carrera y personal docente con ó sin cargo administrativo.</small><br><br>
+
+
+                    {% if user.is_authenticated %}
+					<a  href="{% url 'vista_nuevo_primer_ingreso' %}" class="btn btn-default"><span class="glyphicon glyphicon-plus">&nbsp;</span>Alumnos
+					</a>
+					{% endif %} 
+					<br><br>
+					
+					<a href="{% url 'vista_nuevo_catedratico' %}"  class="btn btn-default">
+						<span class="glyphicon glyphicon-plus">&nbsp;</span>Catedratico
+					</a>
+					<p class="alert alert-warning">
+						<span class="glyphicon glyphicon-arrow-up">&nbsp;</span>
+					<b>Usar esta opción solo si se desea censar un docente desde la administración.</b>
+					</p>
 					<small>Jefes de departamento, Coordinadores de carrera y personal docente con ó sin cargo administrativo.</small>
 				</p>
 				<!--<p>
