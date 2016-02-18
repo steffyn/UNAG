@@ -108,5 +108,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # settings
-UNAG/settings.py
+settings.py
 UNAG/media/documentos/
