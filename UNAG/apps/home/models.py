@@ -3,12 +3,14 @@ from django.contrib.auth.models import User, UserManager, AbstractBaseUser
 from datetime import datetime
 # Create your models here.
 
-class rol(models.Model):
+class Rol(models.Model):
 	descripcion=models.CharField(max_length=512)
 	usuario_creador=models.ForeignKey(User, related_name='rol_usuario_creador')
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='rol_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
+	class meta:
+		db_table='home_rol'
 
 	def __unicode__(self):
 		return self.descripcion
@@ -23,27 +25,35 @@ class rol(models.Model):
 			("can_view_menu_censo", "Puede ver el menu del censo"),
 		)
 
-class tipo_usuario(models.Model):
+class TipoUsuario(models.Model):
 	descripcion=models.CharField(max_length=512)
 	usuario_creador=models.ForeignKey(User, related_name='tu_usuario_creador')
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='tu_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
+	class meta:
+		db_table='home_tipo_usuario'
 
 	def __unicode__(self):
 		return self.descripcion
 
 class User(User):
 	
-	user = models.OneToOneField(User)
+	#user = models.OneToOneField(User)
 	
-	tipo_usuario = models.ForeignKey(tipo_usuario, null = True, blank = True,default = None)
+	tipo_usuario = models.ForeignKey(TipoUsuario, null = True, blank = True,default = None)
 	codigo_registro = models.CharField(max_length = 15, null = True, blank = True,default = None)
 	telefono = models.CharField(max_length = 10, null = True, blank = True,default = None)
 	direccion = models.CharField(max_length = 500, null = True, blank = True,default = None)
+	class meta:
+		db_table='home_user'
 	
 	objects = UserManager()
 	#user = models.ForeignKey(User, unique=True)
+
+	# def __unicode__(self):
+	#	return self.user.username
+
 
 	def __unicode__(self):
 		return self.user.username
