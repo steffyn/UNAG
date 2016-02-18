@@ -1,0 +1,15 @@
+<div id="preloader">
+    <div id="status">&nbsp;</div>
+</div>
+<script type="text/javascript">
+	$(window).load(function(){
+		$('#status, #preloader').fadeOut(); 
+	});
+	$(document).ajaxStart(function(){	
+		$('#status, #preloader').fadeIn(); 
+	});
+	$(document).ajaxStop(function(){
+		$('#status').fadeOut(); // will first fade out the loading animation
+    	$('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+	});
+</script>

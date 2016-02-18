@@ -1,7 +1,17 @@
-{% extends "registro/menu_senso_docente.html" %}
+{% extends "base_senso.html" %}
+
+{% block navlist %}
+	<div class="panel panel-primary">
+		<div class="panel-heading">Instrucciones</div>
+		  <div class="panel-body">
+		    	Llene atenta y cuidadosamente el siguiente formulario, completando todos los datos solicitados en el mismo.
+		  </div>
+	</div>
+{% endblock %}
 
 {% block extrahead %}
 	<script type="text/javascript">
+
 		$(document).ready(function(){
 			//$( "#id_identidad" ).on( "keypress", function(e) {
 					//return false;		
@@ -17,21 +27,25 @@
 			$( "#id_fecha_nacimiento" ).attr('onKeyDown','onKeyDown();');
 			//$( "#id_identidad" ).attr('readonly','readonly');
 			$( "#id_fecha_nacimiento" ).attr('readonly','readonly');
+			$( "#id_fecha_inicio_laboral" ).attr('readonly','readonly');
+			//$( "#id_codigo_registro" ).attr('onKeyDown','onKeyDown();');
+			//$( "#id_codigo_registro" ).attr('readonly','readonly');
+		    
 			//$("#id_identidad").val("{{identidad}}")
 			//$("#id_codigo_registro").val("{{registro}}")
 
-			//ocultar departamento y municipio si no es honduras
-			if ($( "#id_pais_residencia" ).val()==102){
-			  		$('#departamento').show('slow')
-					$('#municipio').show('slow')
-					$('#id_departamento').attr('required', 'required')
-					$('#id_municipio').attr('required', 'required')
-			  	}else{
-			  		$('#id_departamento').removeAttr('required')
-					$('#id_municipio').removeAttr('required')
-			  		$('#departamento').hide()
-					$('#municipio').hide()
-			  	}
+			//dejar identidad nacional por defecto en tipo de identificacion
+			$("#id_tipo_identificacion option[value="+ 1 +"]").attr("selected",true);
+
+			//dejar soltero por defecto en estado civil
+			$("#id_estado_civil option[value="+ 2 +"]").attr("selected",true);
+
+			//dejar Reingreso por defecto en tipo de persona
+			$("#id_tipo_persona option[value="+ 3 +"]").attr("selected",true);
+
+			 // ocultar departamento y municipio y mostrar solo si selecciono 
+			$('#departamento').hide()
+			$('#municipio').hide()
 
 			$( "#id_pais_residencia" ).on( "change", function() {
 			  	if ($( "#id_pais_residencia" ).val()==102){
@@ -46,8 +60,8 @@
 					$('#municipio').hide()
 			  	}
 			});
-			
 		});
+
 		function enviar(bandera){
 			var bandera=bandera;
 			var id_departamento=$("#id_departamento").val();
@@ -91,7 +105,7 @@
                 //actualizaChosen();
                 $('#id_departamento').attr('onchange','enviar("d");');
 				//$('#id_municipio').attr('onchange','enviar("m");');
-				//$('#id_aldea').attr('onchange','enviar("a");');
+				//$('#id_aldea').attr                      ('onchange','enviar("a");');
 				//$('#id_caserio').attr('onchange','enviar("c");');
 				$('#myModal').modal('hide')
             });
@@ -99,9 +113,8 @@
 	</script>
 {% endblock %}
 
-{% block container %}
-	<!-- Modal -->
-	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+{% block container %}                                                                             
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	    <div class="modal-dialog">
 	      <div class="modal-content">
 	        <div class="modal-body">
@@ -110,80 +123,64 @@
 	      </div><!-- /.modal-content -->
 	    </div><!-- /.modal-dialog -->
 	  </div><!-- /.modal -->
-
-	<div class="col-lg-12 well">
-		<h4>Detalle Datos Personales</h4>			
-	</div>
-	<form id="frm_persona" name="frm_persona" action="." method="POST">{% csrf_token %}
-		<div class="panel panel-default">
-			{% if perms.general.change_persona %}
-			<div class="panel-heading">
-				<a title="Nuevo Campus" class="btn btn-default" href="javascript:cambiarEstilo();">
-						<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar
-				</a>
-				<button type="submit" title="Nuevo Campus" id="btn_guardar" class="btn btn-default"disabled>
-						<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar
-				</button>
-			</div>
-			{% endif %}
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-lg-10">
-						<fieldset>
-							<div class="form-group">
-								<label for="id_codigo_registro">Número de registro</label>
-								<div id="codigo_registro">
-									<input id="id_codigo_registro"  maxlength="15" name="codigo_registro" type="text"  class="form-control">
-								</div>
+		{% if mensaje %}
+			<p class="alert alert-danger">{{mensaje}}</p>
+		{% endif %}
+			<form id="frm_persona" role="form" name="frm_persona" action="." method="POST">
+				{% csrf_token %}
+				<fieldset>
+						<legend>Formulario Nuevo Catedrático</legend>
+						<div class="form-group">
+							<label for="id_codigo_registro">Número de registro</label>
+							<div id="codigo_registro">
+								<input id="id_codigo_registro"  maxlength="15" name="codigo_registro" type="text"  class="form-control">
 							</div>
-							{% for field in formulario %}
-						{% if field.html_name == 'pais_nacimiento' %}
 							
+						</div>
+					{% for field in formulario %}
+						{% if field.html_name == 'pais_nacimiento' %}
+							<legend>Localizaci&oacute;n</legend>
 						{% endif %}
 						
 						{% if field.html_name == 'titulos' %}
-							
+							<legend>Datos Profesionales</legend>
 						{% endif %}
 						<div class="form-group">
 				            {{ field.errors }}
-				            
+				            {{ field.label_tag }}
 				            <div id="{{ field.html_name }}">
-				            	{% if field.html_name == 'departamento' %}
-									<!--<h4><span class="label label-danger">Indique su lugar de origen (Debe seleccionar Honduras como país de residencia).</span></h4>-->
-								{% endif %}
-				            		{{ field.label_tag }}
 				             		{{ field }}
-	
-				         	</div> 
-				         	<h5><span class="label label-danger">{{ field.help_text }}</span></h5>
-				        </div>
-
+				            </div> {{ field.help_text }}
+				        </div> 
 					{% endfor %}
+					
+					<legend>Datos Laborales</legend>
+					{% for field in formulario_doc %}
+						<div class="form-group">
+				            {{ field.errors }}
+				            {{ field.label_tag }}
+				            <div id="{{ field.html_name }}">
+				                {{ field }}
+				            </div> {{ field.help_text }}
+			            </div>
+			        
+					{% endfor %}
+				<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+			</form>
 				</fieldset>
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
 {% endblock %}
 
 {% block extrafooter %}
-	<script type="text/javascript">
-		function cambiarEstilo(){
-				$('input').removeAttr("disabled");
-				$('#btn_guardar').removeAttr("disabled");	
-				$('input').removeAttr("disabled");
-				$('textarea').removeAttr("disabled");
-				$('select').removeAttr("disabled");	
-				restaurarValor("id_titulos");
-				restaurarValor("id_centros");
-		}
-		$('#id_departamento').attr('onchange','enviar("d");');
+<script type="text/javascript">
+	    $('#id_departamento').attr('onchange','enviar("d");');
 		//$('#id_municipio').attr('onchange','enviar("m");');
 		//$('#id_aldea').attr('onchange','enviar("a");');
 		//$('#id_caserio').attr('onchange','enviar("c");');
-			
-		inhabilitar_controles();
-		//actualizaChosen();
-	</script>
+	    //actualizaChosen(); 
+
+	    //valores requeridos
+	    $('input').attr('required', 'required')  
+	    $('select').attr('required', 'required') 
+
+</script>
 {% endblock %}
