@@ -34,10 +34,12 @@ def view_login(request):
 		if request.method=="POST":
 			form = FormLogin(request.POST)
 			if form.is_valid():
+				print 'PASO POR AQUI 1'
 				username=form.cleaned_data['username']
 				password=form.cleaned_data['password']
 				usuario=authenticate(username=username, password=password)
 				if usuario is not None and usuario.is_active: #si el usuario no es nullo y esta activo
+					print 'PASO POR AQUI 2'
 					login(request, usuario) #crea la sesion
 					user = User.objects.get(id=request.user.id)
 					if user.tipo_usuario.descripcion == 'Superusuario':
@@ -45,6 +47,7 @@ def view_login(request):
 					elif user.tipo_usuario.id == 3 or user.tipo_usuario.id == 12 or user.tipo_usuario.id == 13 or user.tipo_usuario.id == 5 or user.tipo_usuario.id == 14:
 						return HttpResponseRedirect(reverse('vista_index_docente')) #redirige al censo de docentes
 					elif user.tipo_usuario.descripcion == 'Alumno':
+						print 'PASO POR AQUI 3'
 						return HttpResponseRedirect(reverse('vista_index_alumno')) #redirige a la raiz
 					else:
 						mensaje = 'El usuario <<  '+user.username[:-4]+'****  >> no tiene los permisos necesarios para ingresar al modulo o no existe en el sistema.'

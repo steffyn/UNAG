@@ -4,6 +4,7 @@ from UNAG.apps.alumnos.models import *
 from UNAG.apps.general.models import *
 from django.forms import ModelForm, formsets, fields
 from django.utils.safestring import mark_safe
+from UNAG.apps.general.models import archivos_guardados
 
 #metodo para que los radio botones sean de forma horizontal
 class HorizRadioRenderer(forms.RadioSelect.renderer):
@@ -21,3 +22,8 @@ class AlumnoForm(ModelForm):
 	SiNo_CHOICES = ((True, 'Si'),(False, 'No'))
 	tiene_hijos = forms.ChoiceField(label='¿Usted tiene hijos?:', widget=forms.RadioSelect(renderer=HorizRadioRenderer), required=True, choices=SiNo_CHOICES, initial=False)
 
+class FormArchivosGuardados(forms.ModelForm):
+	class Meta:
+		model = archivos_guardados
+		fields = '__all__'
+		exclude = ['fecha_creacion', 'usuario_creador']

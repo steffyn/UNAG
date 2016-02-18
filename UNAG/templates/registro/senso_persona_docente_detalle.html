@@ -3,22 +3,22 @@
 {% block extrahead %}
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$( "#id_identidad" ).on( "keypress", function(e) {
-					return false;		
-			});
-			$( "#id_codigo_registro" ).on( "keypress", function(e) {
-					return false;		
-			});
+			//$( "#id_identidad" ).on( "keypress", function(e) {
+					//return false;		
+			//});
+			//$( "#id_codigo_registro" ).on( "keypress", function(e) {
+					//return false;		
+			//});
 			$( "#id_fecha_nacimiento" ).on( "keypress", function(e) {
 					return false;		
 			});
 			
-			$( "#id_identidad" ).attr('onKeyDown','onKeyDown();');
+			//$( "#id_identidad" ).attr('onKeyDown','onKeyDown();');
 			$( "#id_fecha_nacimiento" ).attr('onKeyDown','onKeyDown();');
-			$( "#id_identidad" ).attr('readonly','readonly');
+			//$( "#id_identidad" ).attr('readonly','readonly');
 			$( "#id_fecha_nacimiento" ).attr('readonly','readonly');
-			$("#id_identidad").val("{{identidad}}")
-			$("#id_codigo_registro").val("{{registro}}")
+			//$("#id_identidad").val("{{identidad}}")
+			//$("#id_codigo_registro").val("{{registro}}")
 
 			//ocultar departamento y municipio si no es honduras
 			if ($( "#id_pais_residencia" ).val()==102){
@@ -133,9 +133,8 @@
 							<div class="form-group">
 								<label for="id_codigo_registro">Número de registro</label>
 								<div id="codigo_registro">
-									<input id="id_codigo_registro" readonly="readonly" maxlength="15" name="codigo_registro" type="text" onkeydown="onKeyDown();" class="form-control">
+									<input id="id_codigo_registro"  maxlength="15" name="codigo_registro" type="text"  class="form-control">
 								</div>
-								<h5><span class="label label-danger">Verifique que el número de registro esté correcto. Si hay algún problema presentarse a la oficina de registro.</span></h5>
 							</div>
 							{% for field in formulario %}
 						{% if field.html_name == 'pais_nacimiento' %}
@@ -150,7 +149,7 @@
 				            
 				            <div id="{{ field.html_name }}">
 				            	{% if field.html_name == 'departamento' %}
-									<h4><span class="label label-danger">Indique su lugar de origen (Debe seleccionar Honduras como país de residencia).</span></h4>
+									<!--<h4><span class="label label-danger">Indique su lugar de origen (Debe seleccionar Honduras como país de residencia).</span></h4>-->
 								{% endif %}
 				            		{{ field.label_tag }}
 				             		{{ field }}

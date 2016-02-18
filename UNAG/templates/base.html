@@ -1,91 +1,50 @@
 <!DOCTYPE HTML>
+<!-- Preloader -->
 <HTML style="height: 100%;">
-	<head>
-		<title>{% block titlet %} SARE-UNAG {% endblock %}</title>
-		<!--bootstrap-->
-		<!-- <link href="/media/libs/dist/css/bootstrap.css" rel="stylesheet" type="text/css" > -->
-		<link href="/media/libs/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
-		<link href="/media/libs/dist/css/jquery-ui.css" rel="stylesheet" type="text/css">
+<head>
+	<title>{% block titlet %} SARE-UNAG {% endblock %}</title>
 
-		<link rel="stylesheet" type="text/css" href="/media/libs/chosen/chosen.css">
-		<link type="text/css" href="/media/libs/dist/css/demo_table.css" rel="stylesheet" />
-		
-		<!--fin bootstrap-->
-		<!--icono-->
-		<link rel="icon" type="image/ico" href="/media/images/favicon.ico" />
-		<!--icono-->
-		<script src="/media/libs/dist/js/jquery-1.8.2.js"></script>
-		<script src="/media/libs/dist/js/1.9.2/jquery-ui.js"></script>
-		
-		<!--<link rel="stylesheet" type="text/css" href="/media/libs/dist/datepicker/css/datepicker.css">-->
 
-		<script type="text/javascript">
-			$(function(){
-				$('input[id^=id_fecha]').datepicker();
-				$('input[id^=id_fecha_nacimiento]').datepicker();
-			});
-		</script>
+	<link href="/media/libs/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="/media/libs/dist/css/jquery-ui.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="/media/libs/chosen/chosen.css">
+	<link type="text/css" href="/media/libs/dist/css/demo_table.css" rel="stylesheet" />
+	<link rel="icon" type="image/ico" href="/media/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="/media/css/jquery.fancybox.css">
 
-		<script type="text/javascript">
-			function permite(elEvento, permitidos) {
-				    // Variables que definen los caracteres permitidos
-				    var numeros = "0123456789";
-				    var caracteres = " abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-				    var numeros_caracteres = numeros + caracteres;
-				    //var teclas_especiales = [8, 37, 39, 46, 9, 45];
-				    var teclas_especiales = [8];
-				    var teclaguion=[45, 39, 37, 46];
-				    var puntoscomas=[44, 58, 59, 39, 37, 46, 15];
-				    var bloquear_todos=[];
-				    var num_guiones=numeros+teclaguion;
-				    num_car_pc=numeros_caracteres+puntoscomas;
-				    // 8 = BackSpace, 46 = Supr, 37 = flecha izquierda, 39 = flecha derecha, 45 -
-				    // Seleccionar los caracteres a partir del parámetro de la función, 15 shitf in
-				    switch(permitidos) {
-				        case 'num':
-				            permitidos = numeros;
-				            break;
-				        case 'car':
-				            permitidos = caracteres;
-				            break;
-				        case 'num_car':
-				            permitidos = numeros_caracteres;
-				            break;
-				        case 'num_g':
-				            permitidos=num_guiones;
-				            break;
-				        case 'car_pcoma':
-				            permitidos=num_car_pc;
-				            break;
-				        case 'bloquea':
-				            permitidos=bloquear_todos;
-				            break;
-				                    
-				    }
-				    // Obtener la tecla pulsada
-				    var evento = elEvento || window.event;
-				    var codigoCaracter = evento.charCode || evento.keyCode;
-				    var caracter = String.fromCharCode(codigoCaracter);
-				    // Comprobar si la tecla pulsada es alguna de las teclas especiales
-				    // (teclas de borrado y flechas horizontales)
-				    var tecla_especial = false;
-				    for(var i in teclas_especiales) {
-				        if(codigoCaracter == teclas_especiales[i]) {
-				            tecla_especial = true;
-				            break;
-				        }
-				    }
-				    // Comprobar si la tecla pulsada se encuentra en los caracteres permitidos
-				    // o si es una tecla especial
-				    return permitidos.indexOf(caracter) != -1 || tecla_especial;
-				}
-		</script>
+	<script src="/media/libs/dist/js/jquery-1.8.2.js"></script>
+	<script src="/media/libs/dist/js/1.9.2/jquery-ui.js"></script>
+	<script src="/media/js/jquery.fancybox.js"></script>
 
-		<!--<div style='width:100%;'>
-			<center><img src="/media/images/banner.jpg" style='width:100%;'  border="0" alt="Null"></center>
-		</div>
-	    -->
-		
+	<style type="text/css">
+	/* Preloader */
+	#preloader {
+	    position:fixed;
+	    top:0;
+	    left:0;
+	    right:0;
+	    bottom:0;
+	    background-color:#fff; /* change if the mask should have another color then white */
+	    z-index:99; /* makes sure it stays on top */
+	    opacity: 0.8;
+	}
+
+	#status {
+	    width:200px;
+	    height:200px;
+	    position:absolute;
+	    left:50%; /* centers the loading animation horizontally one the screen */
+	    top:50%; /* centers the loading animation vertically one the screen */
+	    background-image:url(/media/images/loading.gif); /* path to your loading animation */
+	    background-repeat:no-repeat;
+	    background-position:center;
+	    margin:-100px 0 0 -100px; /* is width and height divided by two */
+	}
+</style>
+
+	{% block css %} {% endblock %}
+</head>
+	<body>
 		<nav class="navbar navbar-inverse" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -120,8 +79,6 @@
 		
 		{% block extrahead %}
 		{% endblock %}
-	</head>
-	<body>
 		
 		<div class="container" style="min-width: 100%;">
 			{% block header %}
@@ -153,27 +110,14 @@
 						
 			</div>
 		</div>
-				
-	</body>
-</HTML>
-	<!--<script type="text/javascript" src="/media/libs/jquery_1.10.2.js"></script>
--->
+
+
 	<script type="text/javascript" src="/media/libs/dist/js/bootstrap.js"></script>
 	<script type="text/javascript" language="javascript" src="/media/libs/dist/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="/media/libs/chosen/chosen.jquery.js"></script>
 	<script type="text/javascript" src="/media/libs/chosen/docsupport/prism.js"></script>
-	<!--<script type="text/javascript" src="/media/libs/dist/datepicker/js/bootstrap-datepicker.js/"></script>-->
+
 	<script type="text/javascript">
-
-		$(document).ready(function(){
-			//$('ul li').removeClass("errorlist").addClass("alert-danger");
-			//$("#id_carrera").attr('class','multiple');
-			//$("#id_carrera").attr('style','width: 700px; height: 200px;');
-
-
-		});
-
-		
 
 		function inhabilitar_controles(){
 			$('input').attr("disabled" ,"disabled");
@@ -207,11 +151,65 @@
 			$("#"+id).trigger("chosen:updated");
 		}
 
-	    
-    </script>  
-      
-{% block extrafooter %}
-{% endblock %}
+
+		$(function(){
+			$('input[id^=id_fecha]').datepicker();
+			$('input[id^=id_fecha_nacimiento]').datepicker();
+		});
+		
+		function permite(elEvento, permitidos) {
+			    // Variables que definen los caracteres permitidos
+			    var numeros = "0123456789";
+			    var caracteres = " abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+			    var numeros_caracteres = numeros + caracteres;
+			    //var teclas_especiales = [8, 37, 39, 46, 9, 45];
+			    var teclas_especiales = [8];
+			    var teclaguion=[45, 39, 37, 46];
+			    var puntoscomas=[44, 58, 59, 39, 37, 46, 15];
+			    var bloquear_todos=[];
+			    var num_guiones=numeros+teclaguion;
+			    num_car_pc=numeros_caracteres+puntoscomas;
+			    // 8 = BackSpace, 46 = Supr, 37 = flecha izquierda, 39 = flecha derecha, 45 -
+			    // Seleccionar los caracteres a partir del parámetro de la función, 15 shitf in
+			    switch(permitidos) {
+			        case 'num':
+			            permitidos = numeros;
+			            break;
+			        case 'car':
+			            permitidos = caracteres;
+			            break;
+			        case 'num_car':
+			            permitidos = numeros_caracteres;
+			            break;
+			        case 'num_g':
+			            permitidos=num_guiones;
+			            break;
+			        case 'car_pcoma':
+			            permitidos=num_car_pc;
+			            break;
+			        case 'bloquea':
+			            permitidos=bloquear_todos;
+			            break;
+			                    
+			    }
+			    // Obtener la tecla pulsada
+			    var evento = elEvento || window.event;
+			    var codigoCaracter = evento.charCode || evento.keyCode;
+			    var caracter = String.fromCharCode(codigoCaracter);
+			    // Comprobar si la tecla pulsada es alguna de las teclas especiales
+			    // (teclas de borrado y flechas horizontales)
+			    var tecla_especial = false;
+			    for(var i in teclas_especiales) {
+			        if(codigoCaracter == teclas_especiales[i]) {
+			            tecla_especial = true;
+			            break;
+			        }
+			    }
+			    // Comprobar si la tecla pulsada se encuentra en los caracteres permitidos
+			    // o si es una tecla especial
+			    return permitidos.indexOf(caracter) != -1 || tecla_especial;
+			}
+	</script>
 
 {% block datatable %}
 	<script type="text/javascript">
@@ -225,5 +223,11 @@
 	</script>
 {% endblock %}
 
+{% block extrafooter %}
+{% endblock %}
+
+
 {% block extrajs %}
 {% endblock %}
+</body>
+</HTML>

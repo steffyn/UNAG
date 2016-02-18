@@ -67,6 +67,35 @@ class DocenteForm(ModelForm):
 		model = docente_departamento
 		exclude = ('persona', 'activo', 'usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
 
+
+#CATEDRATICO(Sarai)
+class CatedraticoPersonaForm(ModelForm):
+	class Meta:
+		model = persona
+		exclude = ('aldea', 'caserio', 'barrio','telefono_fijo', 'fax', 'usuario', 'usuario_creador', 'fecha_creacion', 'usuario_modificador', 'fecha_modificacion')
+	tipo_persona = forms.ModelChoiceField(queryset = tipo_persona.objects.filter(pk__in=[3]), label=u'Tipo persona', widget=forms.Select())
+	titulos = forms.ModelMultipleChoiceField(queryset = Titulos.objects.exclude(grupo_grado__id=1).distinct('descripcion'), label=u'Títulos')
+	centros = forms.ModelMultipleChoiceField(queryset = centro.objects.filter(tipo_centro__id__in=[2]).distinct('descripcion'), label=u'Centros de Estudio')
+
+class CatedraticoPersonaEditForm(ModelForm):
+	class Meta:
+		model = persona
+		exclude = ('aldea', 'caserio', 'barrio','telefono_fijo', 'fax', 'usuario', 'usuario_creador', 'fecha_creacion', 'usuario_modificador', 'fecha_modificacion')
+	tipo_persona = forms.ModelChoiceField(queryset = tipo_persona.objects.filter(pk__in=[3,8,9,12,5,6,7]), label=u'Tipo persona', widget=forms.Select())
+	titulos = forms.ModelMultipleChoiceField(queryset = Titulos.objects.exclude(grupo_grado__id=1).distinct('descripcion'), label=u'Títulos')
+	centros = forms.ModelMultipleChoiceField(queryset = centro.objects.filter(tipo_centro__id__in=[2]).distinct('descripcion'), label=u'Centros de Estudio')
+
+class CatedraticoForm(ModelForm):
+	class Meta:
+		model = docente_departamento
+		exclude = ('persona', 'activo', 'usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
+
+#FIN
+
+
+
+
+
 class TipoAsignaturaForm(ModelForm):
 	class Meta:
 		model = tipo_asignatura

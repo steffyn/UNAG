@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'unag',                      # Or path to database file if using sqlite3.
+        'NAME': 'unag_original',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'postgres',
         'PASSWORD': 'postgres',
@@ -131,9 +131,9 @@ INSTALLED_APPS = (
     'UNAG.apps.general',
     'UNAG.apps.registro',
     'UNAG.apps.alumnos',
+    'UNAG.apps.descargas',
     
     
-
 )
 
 # A sample logging configuration. The only tangible logging
