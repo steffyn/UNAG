@@ -37,7 +37,7 @@ class  TiposCondicionesMatricula(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 
 	class Meta:
-        db_table = 'registro_tipo_condiciones_matricula'
+		db_table = 'registro_tipo_condiciones_matricula'
 
 	def __unicode__(self):
 		return self.descripcion
@@ -54,7 +54,7 @@ class DepartamentoAcademico(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 	
 	class Meta:
-        db_table = 'registro_departamento_academico'
+		db_table = 'registro_departamento_academico'
 		unique_together = ('codigo','id_campus')
 
 	def __unicode__(self):
@@ -92,7 +92,7 @@ class Carrera(models.Model):
 	observaciones=models.TextField(max_length=1024)
 
 	class Meta:
-        db_table = 'registro_carrera'
+		db_table = 'registro_carrera'
 		unique_together = ('codigo','campus')
 
 	def __unicode__(self):
@@ -116,7 +116,7 @@ class TipoAsignatura(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 
 	class Meta:
-        db_table = 'registro_tipo_asignatura'
+		db_table = 'registro_tipo_asignatura'
 
 	def __unicode__(self):
 		return self.descripcion
@@ -134,7 +134,7 @@ class Asignatura(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 
 	class Meta:
-        db_table = 'registro_asignatura'
+		db_table = 'registro_asignatura'
 		unique_together = ('codigo_registro','nombre_asignatura')
 
 	def __unicode__(self):
@@ -148,7 +148,7 @@ class TipoDocente(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 
 	class Meta:
-        db_table = 'registro_tipo_docente'
+		db_table = 'registro_tipo_docente'
 
 	def __unicode__(self):
 		return self.descripcion
@@ -161,7 +161,7 @@ class JornadaLaboral(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 
 	class Meta:
-        db_table = 'registro_jornada_laboral'
+		db_table = 'registro_jornada_laboral'
 	
 	def __unicode__(self):
 		return self.descripcion
@@ -181,7 +181,7 @@ class docente_departamento(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 
 	class Meta:
-        db_table = 'registro_docente_departamento'
+		db_table = 'registro_docente_departamento'
 
 	def __unicode__(self):
 		return self.persona
@@ -197,7 +197,7 @@ class Modulo(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 
 	class Meta:
-        db_table = 'registro_modulo'
+		db_table = 'registro_modulo'
 
 class Seccion(models.Model):
 	descripcion=models.CharField(max_length=512)
@@ -219,7 +219,7 @@ class Seccion(models.Model):
 		return self.full_seccion
 
 	class Meta:
-        db_table = 'registro_seccion'
+		db_table = 'registro_seccion'
 		unique_together = ('descripcion', 'carrera', 'periodo_clase', 'jornada')
 		unique_together = ('descripcion', 'carrera', 'periodo_clase')
 		unique_together = ('jornada', 'carrera', 'periodo_clase', 'aula')
@@ -240,7 +240,7 @@ class Horario(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 
 	class Meta:
-        db_table = 'registro_horario'
+		db_table = 'registro_horario'
 
 	def __unicode__(self):
 		return self.descripcion
@@ -254,7 +254,7 @@ class HorarioHora(models.Model):
 	usuario_modificador=models.ForeignKey(User, related_name='hhor_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
 	class Meta:
-        db_table = 'registro_horario_hora'
+		db_table = 'registro_horario_hora'
 
 class AsignaturaSeccion(models.Model):
 	Dias_CHOICES = (('Lun', 'Lunes'),('Mar', 'Martes'),('Mie', 'Miercoles'),('Jue', 'Jueves'),('Vie', 'Viernes'),('Sab', 'Sabado'),('Dom', 'Domingo'))
@@ -271,7 +271,7 @@ class AsignaturaSeccion(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 
 	class Meta:
-        db_table = 'registro_asignatura_seccion'
+		db_table = 'registro_asignatura_seccion'
 
 
 class AsignaturaBloque(models.Model):
@@ -282,7 +282,7 @@ class AsignaturaBloque(models.Model):
 	usuario_modificador=models.ForeignKey(User, related_name='ablo_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
 	class Meta:
-        db_table = 'registro_asignatura'
+		db_table = 'registro_asignatura'
 
 class Parcial(models.Model):
 	periodo_clase=models.ForeignKey(PeriodoClase)
@@ -292,7 +292,7 @@ class Parcial(models.Model):
 	usuario_modificador=models.ForeignKey(User, related_name='parc_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
 	class Meta:
-        db_table = 'registro_parcial'
+		db_table = 'registro_parcial'
 
 #by ciloe 04 - octubre -2013 creacion de la tabla requisito
 class Requisito(models.Model):
@@ -303,4 +303,4 @@ class Requisito(models.Model):
 	usuario_modificador=models.ForeignKey(User, related_name='req_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)	
 	class Meta:
-        db_table = 'registro_requisito'	
+		db_table = 'registro_requisito'	
