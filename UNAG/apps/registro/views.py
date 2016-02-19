@@ -28,8 +28,8 @@ from UNAG.apps.home.models import *
 @login_required
 def view_administration_deptos_academics(request):
 	deptos_academicos_list = []
-	if departamento_academico.objects.all():
-		deptos_academicos_list = departamento_academico.objects.all()
+	if DepartamentoAcademico.objects.all():
+		deptos_academicos_list = DepartamentoAcademico.objects.all()
 	ctx = {'departamentos_academicos': deptos_academicos_list}
 	return render_to_response('registro/departamentos_academicos_index.html', ctx, context_instance=RequestContext(request))	
 
@@ -59,7 +59,7 @@ def view_depto_academic_add(request):
 def view_depto_academic_edit(request, idda=None):
 
 		if request.method == 'POST':
-			objDeptoA = departamento_academico.objects.get(pk = idda)
+			objDeptoA = DepartamentoAcademico.objects.get(pk = idda)
 			formulario = DepartamentoAcademicoEditForm(request.POST, instance = objDeptoA)
 			if formulario.is_valid():
 				form = formulario.save(commit = False)
@@ -72,7 +72,7 @@ def view_depto_academic_edit(request, idda=None):
 				return render_to_response('registro/departamento_academico_detalle.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
-			objDeptoA = departamento_academico.objects.get(pk=idda)
+			objDeptoA = DepartamentoAcademico.objects.get(pk=idda)
 			formulario = DepartamentoAcademicoEditForm(instance = objDeptoA)
 			ctx = {'formulario': formulario, 'idda':idda}
 			return render_to_response('registro/departamento_academico_detalle.html', ctx, context_instance=RequestContext(request))
@@ -81,7 +81,7 @@ def view_depto_academic_edit(request, idda=None):
 def view_delete_depto_academic(request,id_=None):
 
 	if id_:
-		departamento_academico.objects.filter(id=id_).delete()
+		DepartamentoAcademico.objects.filter(id=id_).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_deptos_academics'))
 
 
@@ -89,9 +89,9 @@ def view_delete_depto_academic(request,id_=None):
 @login_required
 def view_administration_carreras(request):
 	carreras_list = []
-	if carrera.objects.all():
+	if Carrera.objects.all():
 		print 'hay carreras'
-		carreras_list = carrera.objects.all()
+		carreras_list = Carrera.objects.all()
 	ctx = {'carrera': carreras_list}	
 	return render_to_response('registro/carreras_index.html', ctx, context_instance=RequestContext(request))	
 
@@ -113,13 +113,13 @@ def view_carrera_add(request):
 			return render_to_response('registro/carreras_nuevo.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = CarreraForm()
-		ctx = {'formulario': formulario, 'ultimo': carrera.objects.order_by('id').reverse()[:1]}
+		ctx = {'formulario': formulario, 'ultimo': Carrera.objects.order_by('id').reverse()[:1]}
 		return render_to_response('registro/carreras_nuevo.html', ctx, context_instance=RequestContext(request))		
 
 def view_carrera_edit(request, id_=None):
 
 		if request.method == 'POST':
-			objCarrera = carrera.objects.get(pk = id_)
+			objCarrera = Carrera.objects.get(pk = id_)
 			print objCarrera
 			formulario = CarreraForm(data=request.POST, instance = objCarrera)
 			if formulario.is_valid():
@@ -133,7 +133,7 @@ def view_carrera_edit(request, id_=None):
 				return render_to_response('registro/carreras_detalle.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
-			objCarrera = carrera.objects.get(pk=id_)
+			objCarrera = Carrera.objects.get(pk=id_)
 			formulario = CarreraForm(instance = objCarrera)
 			ctx = {'formulario': formulario, 'id':id_}
 			return render_to_response('registro/carreras_detalle.html', ctx, context_instance=RequestContext(request))
@@ -142,7 +142,7 @@ def view_carrera_edit(request, id_=None):
 def view_delete_carrera(request,id_=None):
 
 	if id_:
-		carrera.objects.filter(id=id_).delete()
+		Carrera.objects.filter(id=id_).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_carreras'))
 
 
@@ -150,9 +150,9 @@ def view_delete_carrera(request,id_=None):
 @login_required
 def view_administration_documentos(request):
 	documentos_list = []
-	if documentos.objects.all():
+	if Documentos.objects.all():
 		print 'hay documentos'
-		documentos_list = documentos.objects.all()
+		documentos_list = Documentos.objects.all()
 	ctx = {'documento': documentos_list}	
 	return render_to_response('registro/documentos_index.html', ctx, context_instance=RequestContext(request))	
 
@@ -174,13 +174,13 @@ def view_documento_add(request):
 			return render_to_response('registro/documentos_nuevo.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = DocumentoForm()
-		ctx = {'formulario': formulario, 'ultimo': documentos.objects.order_by('id').reverse()[:1]}
+		ctx = {'formulario': formulario, 'ultimo': Documentos.objects.order_by('id').reverse()[:1]}
 		return render_to_response('registro/documentos_nuevo.html', ctx, context_instance=RequestContext(request))	
 
 def view_documento_edit(request, id_=None):
 
 		if request.method == 'POST':
-			objDocumento = documentos.objects.get(pk = id_)
+			objDocumento = Documentos.objects.get(pk = id_)
 			formulario = DocumentoForm(request.POST, instance = objDocumento)
 			if formulario.is_valid():
 				form = formulario.save(commit = False)
@@ -193,7 +193,7 @@ def view_documento_edit(request, id_=None):
 				return render_to_response('registro/documentos_detalle.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
-			objDocumento = documentos.objects.get(pk=id_)
+			objDocumento = Documentos.objects.get(pk=id_)
 			formulario = DocumentoForm(instance = objDocumento)
 			ctx = {'formulario': formulario, 'id':id_}
 			return render_to_response('registro/documentos_detalle.html', ctx, context_instance=RequestContext(request))
@@ -202,7 +202,7 @@ def view_documento_edit(request, id_=None):
 def view_delete_documento(request,id_=None):
 
 	if id_:
-		documentos.objects.filter(id=id_).delete()
+		Documentos.objects.filter(id=id_).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_documentos'))
 
 
@@ -210,9 +210,9 @@ def view_delete_documento(request,id_=None):
 @login_required
 def view_administration_asignaturas(request):
 	asignaturas_list = []
-	if asignatura.objects.all():
+	if Asignatura.objects.all():
 		print 'hay asignaturas'
-		asignaturas_list = asignatura.objects.all()
+		asignaturas_list = Asignatura.objects.all()
 	ctx = {'asignatura': asignaturas_list}	
 	return render_to_response('registro/asignaturas_index.html', ctx, context_instance=RequestContext(request))	
 
@@ -235,14 +235,14 @@ def view_asignatura_add(request):
 			return render_to_response('registro/asignaturas_nuevo.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = AsignaturaForm()
-		ctx = {'formulario': formulario, 'ultimo': asignatura.objects.order_by('id').reverse()[:1]}
+		ctx = {'formulario': formulario, 'ultimo': Asignatura.objects.order_by('id').reverse()[:1]}
 		return render_to_response('registro/asignaturas_nuevo.html', ctx, context_instance=RequestContext(request))		
 
 
 def view_asignatura_edit(request, id_=None):
 
 		if request.method == 'POST':
-			objAsignatura = asignatura.objects.get(pk = id_)
+			objAsignatura = Asignatura.objects.get(pk = id_)
 			formulario = AsignaturaForm(request.POST, instance = objAsignatura)
 			if formulario.is_valid():
 				form = formulario.save(commit = False)
@@ -255,7 +255,7 @@ def view_asignatura_edit(request, id_=None):
 				return render_to_response('registro/asignaturas_detalle.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
-			objAsignatura = asignatura.objects.get(pk=id_)
+			objAsignatura = Asignatura.objects.get(pk=id_)
 			formulario = AsignaturaForm(instance = objAsignatura)
 			ctx = {'formulario': formulario, 'id':id_}
 			return render_to_response('registro/asignaturas_detalle.html', ctx, context_instance=RequestContext(request))
@@ -264,7 +264,7 @@ def view_asignatura_edit(request, id_=None):
 def view_delete_asignatura(request,id_=None):
 
 	if id_:
-		asignatura.objects.filter(id=id_).delete()
+		Asignatura.objects.filter(id=id_).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_asignaturas'))
 
 
@@ -278,7 +278,7 @@ def view_add_people_docente(request):
 	mensaje=''
 
 	try:
-		persona_id=persona.objects.get(usuario_id=request.user.id).id
+		persona_id=Persona.objects.get(usuario_id=request.user.id).id
 		return HttpResponseRedirect(reverse('vista_index_docente'))
 	except persona.DoesNotExist:
 		print 'no existe datos de persona'
@@ -315,17 +315,17 @@ def view_add_people_docente(request):
 				grupo=""				
 
 				if td=='4':
-					objT=tipo_usuario.objects.get(id=5)
+					objT=TipoUsuario.objects.get(id=5)
 					grupo = Group.objects.get(id=4)
 					user.groups.add(grupo)
 					user.tipo_usuario=objT
 				elif td=='1':
-					objT=tipo_usuario.objects.get(id=12)
+					objT=TipoUsuario.objects.get(id=12)
 					grupo = Group.objects.get(id=10)
 					user.groups.add(grupo)
 					user.tipo_usuario=objT
 				elif td=='3':
-					objT=tipo_usuario.objects.get(id=13)
+					objT=TipoUsuario.objects.get(id=13)
 					grupo = Group.objects.get(id=11)
 					user.groups.add(grupo)
 					user.tipo_usuario=objT
@@ -344,7 +344,7 @@ def view_add_people_docente(request):
 				print 'guardo titulos y centros y jornadas'
 
 			except Exception, e:
-				persona.objects.filter(pk=person.id).delete()
+				Persona.objects.filter(pk=person.id).delete()
 				mensaje='Ocurrió un error al guardar favor inténtelo nuevamente'
 				print 'se ha generado un error al guardar revise sus datos'
 				return render_to_response('alumnos/censo_error.html', {'url': url_error}, context_instance=RequestContext(request))
@@ -406,22 +406,22 @@ def view_agregar_catedratico(request):
 					grupo=""				
 
 					if td=='4':
-						objT=tipo_usuario.objects.get(id=14)
+						objT=TipoUsuario.objects.get(id=14)
 						grupo = Group.objects.get(id=4)
 						user.groups.add(grupo)
 						user.tipo_usuario=objT
 					elif td=='2':
-						objT=tipo_usuario.objects.get(id=3)
+						objT=TipoUsuario.objects.get(id=3)
 						grupo = Group.objects.get(id=1)
 						user.groups.add(grupo)
 						user.tipo_usuario=objT
 					elif td=='1':
-						objT=tipo_usuario.objects.get(id=12)
+						objT=TipoUsuario.objects.get(id=12)
 						grupo = Group.objects.get(id=10)
 						user.groups.add(grupo)
 						user.tipo_usuario=objT
 					elif td=='3':
-						objT=tipo_usuario.objects.get(id=13)
+						objT=TipoUsuario.objects.get(id=13)
 						grupo = Group.objects.get(id=11)
 						user.groups.add(grupo)
 						user.tipo_usuario=objT
@@ -480,7 +480,7 @@ def view_persona_docente_edit(request):
 	try:
 		user = User.objects.get(id=request.user.id)
 		if request.method == 'POST':
-			objPersona = persona.objects.get(usuario_id = request.user.id)
+			objPersona = Persona.objects.get(usuario_id = request.user.id)
 			formulario = DocentePersonaEditForm(request.POST, instance = objPersona)
 			if formulario.is_valid():
 				user = User.objects.get(id=request.user.id)
@@ -502,7 +502,7 @@ def view_persona_docente_edit(request):
 				return render_to_response('registro/senso_persona_docente_detalle.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
-			objPersona = persona.objects.get(usuario_id = request.user.id)
+			objPersona = Persona.objects.get(usuario_id = request.user.id)
 			formulario = DocentePersonaEditForm(instance = objPersona)
 			ctx = {'formulario': formulario, 'identidad':request.user.username[:-4], 'registro':user.codigo_registro}
 			return render_to_response('registro/senso_persona_docente_detalle.html',  ctx, context_instance=RequestContext(request))
@@ -515,7 +515,7 @@ def view_senso_docente_edit(request):
 	try:
 		user = User.objects.get(id=request.user.id)
 		if user.tipo_usuario.id == 3 or user.tipo_usuario.id == 12 or user.tipo_usuario.id == 13 or user.tipo_usuario.id == 5 or user.tipo_usuario.id == 14:
-			persona_id=persona.objects.get(usuario_id=request.user.id).id
+			persona_id=Persona.objects.get(usuario_id=request.user.id).id
 			if request.method == 'POST':
 				if docente_departamento.objects.filter(persona_id=persona_id): #si hay persona y docente
 					print "entro"
@@ -524,7 +524,7 @@ def view_senso_docente_edit(request):
 
 					if formulario.is_valid():
 						form = formulario.save(commit = False)
-						form.persona=persona.objects.get(usuario_id=request.user.id)
+						form.persona=Persona.objects.get(usuario_id=request.user.id)
 						form.usuario_modificador = request.user
 						form.fecha_modificacion = datetime.now()
 						form.save()
@@ -537,7 +537,7 @@ def view_senso_docente_edit(request):
 					formulario = DocenteForm(request.POST)
 					if formulario.is_valid():
 						form = formulario.save(commit = False)
-						form.persona=persona.objects.get(usuario_id=request.user.id)
+						form.persona=Persona.objects.get(usuario_id=request.user.id)
 						form.activo=True
 						form.usuario_creador = request.user
 						form.fecha_creacion = datetime.now()
@@ -598,13 +598,13 @@ def view_login_docente(request):
 @permission_required('registro.change_docente_departamento', login_url='/censo/logout/')
 def view_index_docente(request):
 	try:
-		persona_id=persona.objects.get(usuario_id=request.user.id).id
-	except persona.DoesNotExist:
+		persona_id=Persona.objects.get(usuario_id=request.user.id).id
+	except Persona.DoesNotExist:
 		return HttpResponseRedirect(reverse('vista_nuevo_docente'))
 
 	ctx=[]
 	try:
-		persona_id=persona.objects.get(usuario_id=request.user.id).id
+		persona_id=Persona.objects.get(usuario_id=request.user.id).id
 		print persona_id
 		docente=docente_departamento.objects.get(persona_id=persona_id)
 		header="Estado:"
@@ -623,9 +623,9 @@ def view_index_docente(request):
 @login_required
 def view_administration_type_subject(request):
 	typesubject_list = []
-	if tipo_asignatura.objects.all():
+	if TipoAsignatura.objects.all():
 		print 'hay asignaturas'
-		typesubject_list = tipo_asignatura.objects.all()
+		typesubject_list =TipoAsignatura.objects.all()
 	ctx = {'tipo_A': typesubject_list}	
 	return render_to_response('registro/tipo_asignatura_index.html', ctx, context_instance=RequestContext(request))	
 
@@ -647,13 +647,13 @@ def view_type_subject_add(request):
 			return render_to_response('registro/tipo_asignaturas_nuevo.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = TipoAsignaturaForm()
-		ctx = {'formulario': formulario, 'ultimo': tipo_asignatura.objects.order_by('id').reverse()[:1]}
+		ctx = {'formulario': formulario, 'ultimo': TipoAsignatura.objects.order_by('id').reverse()[:1]}
 		return render_to_response('registro/tipo_asignaturas_nuevo.html', ctx, context_instance=RequestContext(request))	
 			
 def view_type_subject_edit(request, idta=None):
 
 		if request.method == 'POST':
-			objAsignatura = tipo_asignatura.objects.get(pk = idta)
+			objAsignatura = TipoAsignatura.objects.get(pk = idta)
 			formulario = TipoAsignaturaForm(request.POST, instance = objAsignatura)
 			if formulario.is_valid():
 				form = formulario.save(commit = False)
@@ -666,7 +666,7 @@ def view_type_subject_edit(request, idta=None):
 				return render_to_response('registro/tipo_asignatura_detalle.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
-			objAsignatura = tipo_asignatura.objects.get(pk=idta)
+			objAsignatura = TipoAsignatura.objects.get(pk=idta)
 			formulario = TipoAsignaturaForm(instance = objAsignatura)
 			ctx = {'formulario': formulario, 'id':idta}
 			return render_to_response('registro/tipo_asignatura_detalle.html', ctx, context_instance=RequestContext(request))	
@@ -675,7 +675,7 @@ def view_type_subject_edit(request, idta=None):
 def view_type_subject_delete(request,idta=None):
 
 	if idta:
-		tipo_asignatura.objects.filter(id=idta).delete()
+		TipoAsignatura.objects.filter(id=idta).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_tipo_asignaturas'))
 
 #vistas de tipos_condiciones_matricula
@@ -684,9 +684,9 @@ def view_type_subject_delete(request,idta=None):
 @login_required
 def view_administration_enrollment_conditions(request):
 	enrollment_list = []
-	if tipos_condiciones_matricula.objects.all():
+	if  TiposCondicionesMatricula.objects.all():
 		print 'hay asignaturas'
-		enrollment_list = tipos_condiciones_matricula.objects.all()
+		enrollment_list =  TiposCondicionesMatricula.objects.all()
 	ctx = {'tipoCM': enrollment_list}	
 	return render_to_response('registro/tipos_condiciones_matricula_index.html', ctx, context_instance=RequestContext(request))	
 
@@ -709,13 +709,13 @@ def view__enrollment_conditions_add(request):
 			return render_to_response('registro/tipos_condiciones_matricula_nuevo.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = TipoCMForm()
-		ctx = {'formulario': formulario, 'ultimo': tipos_condiciones_matricula.objects.order_by('id').reverse()[:1]}
+		ctx = {'formulario': formulario, 'ultimo':  TiposCondicionesMatricula.objects.order_by('id').reverse()[:1]}
 		return render_to_response('registro/tipos_condiciones_matricula_nuevo.html', ctx, context_instance=RequestContext(request))	
 
 def view_enrollment_conditions_edit(request, idtcm=None):
 
 		if request.method == 'POST':
-			objTCM = tipos_condiciones_matricula.objects.get(pk = idtcm)
+			objTCM =  TiposCondicionesMatricula.objects.get(pk = idtcm)
 			formulario = TipoCMForm(request.POST, instance = objTCM)
 			if formulario.is_valid():
 				form = formulario.save(commit = False)
@@ -728,7 +728,7 @@ def view_enrollment_conditions_edit(request, idtcm=None):
 				return render_to_response('registro/tipos_condiciones_matricula_detalle.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
-			objTCM = tipos_condiciones_matricula.objects.get(pk=idtcm)
+			objTCM =  TiposCondicionesMatricula.objects.get(pk=idtcm)
 			formulario = TipoCMForm(instance = objTCM)
 			ctx = {'formulario': formulario, 'id':idtcm}
 			return render_to_response('registro/tipos_condiciones_matricula_detalle.html', ctx, context_instance=RequestContext(request))	
@@ -737,8 +737,8 @@ def view_enrollment_conditions_edit(request, idtcm=None):
 def view_enrollment_conditions_delete(request,idtcm=None):
 
 	if idtcm:
-		tipos_condiciones_matricula.objects.filter(id=idtcm).delete()
-		return HttpResponseRedirect(reverse('vista_administracion_tipo_cm'))
+		 TiposCondicionesMatricula.objects.filter(id=idtcm).delete()
+	return HttpResponseRedirect(reverse('vista_administracion_tipo_cm'))
 
 
 #administracion de Secciones
@@ -746,9 +746,9 @@ def view_enrollment_conditions_delete(request,idtcm=None):
 @login_required
 def view_administration_secciones(request):
 	secciones_list = []
-	if seccion.objects.all():
+	if Seccion.objects.all():
 		print 'hay secciones'
-		secciones_list = seccion.objects.all()
+		secciones_list = Seccion.objects.all()
 	ctx = {'seccion': secciones_list}	
 	return render_to_response('registro/seccion_index.html', ctx, context_instance=RequestContext(request))	
 
@@ -771,14 +771,14 @@ def view__secciones_add(request):
 			return render_to_response('registro/seccion_nuevo.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = SeccionForm()
-		ctx = {'formulario': formulario, 'seccion':seccion.objects.all(), 'ultimo': seccion.objects.order_by('id').reverse()[:1]}
+		ctx = {'formulario': formulario, 'seccion':Seccion.objects.all(), 'ultimo': Seccion.objects.order_by('id').reverse()[:1]}
 		return render_to_response('registro/seccion_nuevo.html', ctx, context_instance=RequestContext(request))	
 
 
 def view_secciones_edit(request, idtcm=None):
 
 		if request.method == 'POST':
-			objTCM = seccion.objects.get(pk = idtcm)
+			objTCM = Seccion.objects.get(pk = idtcm)
 			formulario = SeccionForm(request.POST, instance = objTCM)
 			if formulario.is_valid():
 				form = formulario.save(commit = False)
@@ -791,7 +791,7 @@ def view_secciones_edit(request, idtcm=None):
 				return render_to_response('registro/tipos_condiciones_matricula_detalle.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
-			objTCM = seccion.objects.get(pk=idtcm)
+			objTCM = Seccion.objects.get(pk=idtcm)
 			formulario = SeccionForm(instance = objTCM)
 			ctx = {'formulario': formulario, 'id':idtcm}
 			return render_to_response('registro/tipos_condiciones_matricula_detalle.html', ctx, context_instance=RequestContext(request))	
@@ -799,8 +799,8 @@ def view_secciones_edit(request, idtcm=None):
 @login_required
 def view_secciones_horario(request, idtcm=None):
 	seccion_list = []
-	if seccion.objects.filter(pk=idtcm):
-			seccion_list = seccion.objects.filter(pk=idtcm)
+	if Seccion.objects.filter(pk=idtcm):
+			seccion_list = Seccion.objects.filter(pk=idtcm)
 	if request.method == 'POST':
 		form_horario = HorarioHoraForm(request.POST)
 		form_asignatura_seccion = AsignaturaSeccionForm(request.POST)		
@@ -828,7 +828,7 @@ def view_secciones_horario(request, idtcm=None):
 def view_secciones_delete(request,idtcm=None):
 
 	if idtcm:
-		seccion.objects.filter(id=idtcm).delete()
+		Seccion.objects.filter(id=idtcm).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_secciones'))
 
 
@@ -844,8 +844,8 @@ def view_secciones_delete(request,idtcm=None):
 def view_administration_requirements(request):
 	
 	requirements_list = []
-	if carrera.objects.all():
-		requirements_list=carrera.objects.all()
+	if Carrera.objects.all():
+		requirements_list=Carrera.objects.all()
 
 	formulario = RequisitoForm()
 	ctx = {'formulario':formulario ,'carreras': requirements_list}
@@ -871,7 +871,7 @@ def view_requirements_ajax_list(request):
 		html+='<tbody>'
 						
 
-		for a in asignatura.objects.filter(carrera_id=request.POST.get('id'), id__in=requisito.objects.values('asignatura_base').distinct()) :
+		for a in Asignatura.objects.filter(carrera_id=request.POST.get('id'), id__in=Requisito.objects.values('asignatura_base').distinct()) :
 			html+='<tr>'
 			html+='<td>'+(a.codigo_registro).encode("utf-8")+'</td>'
 			html+='<td>'
@@ -882,7 +882,7 @@ def view_requirements_ajax_list(request):
 			html+='<td>'+str(a.tipo_asignatura) +'</td>'
 			html+='<td>'
 
-			for r in requisito.objects.filter(asignatura_base=a.id):
+			for r in Requisito.objects.filter(asignatura_base=a.id):
 				html+=(r.asignatura_requisito.codigo_registro).encode("utf-8")
 				html+='--'
 				html+=(r.asignatura_requisito.nombre_asignatura).encode("utf-8")
@@ -909,9 +909,9 @@ def view_requirements_add(request):
 		if formulario.is_valid():
 		
 			for m in request.POST.getlist('modulos'):
-				r=requisito.objects.create(
-						asignatura_base=asignatura.objects.get(pk=request.POST.get('laboratorios')), 
-						asignatura_requisito=asignatura.objects.get(pk=m), 
+				r=Requisito.objects.create(
+						asignatura_base=Asignatura.objects.get(pk=request.POST.get('laboratorios')), 
+						asignatura_requisito=Asignatura.objects.get(pk=m), 
 						usuario_creador=request.user, 
 						fecha_creacion=datetime.now(), 
 						usuario_modificador=request.user, 
@@ -924,7 +924,7 @@ def view_requirements_add(request):
 			return render_to_response('registro/requisitos_nuevo.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = RequisitoForm()
-		ctx = {'formulario': formulario, 'labs': asignatura.objects.filter(tipo_asignatura_id=3).exclude(id__in=requisito.objects.filter(asignatura_requisito__tipo_asignatura=2).values_list('asignatura_base',flat=True)), 'modulos':asignatura.objects.filter(tipo_asignatura=2).exclude(id__in = requisito.objects.filter().values_list('asignatura_requisito', flat=True) )}
+		ctx = {'formulario': formulario, 'labs': Asignatura.objects.filter(tipo_asignatura_id=3).exclude(id__in=Requisito.objects.filter(asignatura_requisito__tipo_asignatura=2).values_list('asignatura_base',flat=True)), 'modulos':Asignatura.objects.filter(tipo_asignatura=2).exclude(id__in = Requisito.objects.filter().values_list('asignatura_requisito', flat=True) )}
 		return render_to_response('registro/requisitos_nuevo.html', ctx, context_instance=RequestContext(request))	
 
 
@@ -932,7 +932,7 @@ def view_requirements_add(request):
 #by ciloe 5-Octubre-2013
 def view_requirements_ajax_uv(request):
 	if request.method == 'POST':	
-		for c in asignatura.objects.filter(id=request.POST.get('id')):
+		for c in Asignatura.objects.filter(id=request.POST.get('id')):
 			html='<label> Univades Valorativas:' + str(c.uv)+'</label> <input type="hidden" id="vuv" value="'+str(c.uv)+'"/>'
 		return HttpResponse(html)
 	else:
@@ -945,9 +945,9 @@ def view_requirements_add_subjects(request):
 		if formulario.is_valid():
 		
 			for m in request.POST.getlist('modulos'):
-				r=requisito.objects.create(
-						asignatura_base=asignatura.objects.get(pk=request.POST.get('asignatura')), 
-						asignatura_requisito=asignatura.objects.get(pk=m), 
+				r=Requisito.objects.create(
+						asignatura_base=Asignatura.objects.get(pk=request.POST.get('asignatura')), 
+						asignatura_requisito=Asignatura.objects.get(pk=m), 
 						usuario_creador=request.user, 
 						fecha_creacion=datetime.now(), 
 						usuario_modificador=request.user, 
@@ -960,7 +960,7 @@ def view_requirements_add_subjects(request):
 			return render_to_response('registro/requisitos_nuevo_al.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = RequisitoForm()
-		ctx = {'formulario': formulario, 'asigna': asignatura.objects.filter(tipo_asignatura__in=(5,3)).exclude(id__in =requisito.objects.filter(asignatura_base__tipo_asignatura=5).values_list('asignatura_base',flat=True)).exclude(id__in =requisito.objects.filter(asignatura_requisito__tipo_asignatura=5, asignatura_base__tipo_asignatura=3).values_list('asignatura_base',flat=True)) }
+		ctx = {'formulario': formulario, 'asigna': Asignatura.objects.filter(tipo_asignatura__in=(5,3)).exclude(id__in =Requisito.objects.filter(asignatura_base__tipo_asignatura=5).values_list('asignatura_base',flat=True)).exclude(id__in =Requisito.objects.filter(asignatura_requisito__tipo_asignatura=5, asignatura_base__tipo_asignatura=3).values_list('asignatura_base',flat=True)) }
 		
 		return render_to_response('registro/requisitos_nuevo_al.html', ctx, context_instance=RequestContext(request))	
 
@@ -968,7 +968,7 @@ def view_requirements_add_subjects(request):
 def view_requirements_ajax_uv_subjects(request):
 	if request.method == 'POST':
 
-		for c in asignatura.objects.filter(id=request.POST.get('id')):
+		for c in Asignatura.objects.filter(id=request.POST.get('id')):
 			html=""
 			html+=' <label> Univades Valorativas:' + str(c.uv)+'</label> <input type="hidden" id="vuv" value="'+str(c.uv)+'"/>'
 			html+='	<br/><br/>'
@@ -976,7 +976,7 @@ def view_requirements_ajax_uv_subjects(request):
 			html+=' <label>Seleccione: &nbsp;</label>'
 			html+=' <select id="id_modulos" name="modulos" multiple="multiple">'	
 					
-			for a in asignatura.objects.filter(tipo_asignatura__in=(5,3), carrera__in=asignatura.objects.filter(id=request.POST.get('id')).values_list('carrera')).exclude(id=request.POST.get('id')):
+			for a in Asignatura.objects.filter(tipo_asignatura__in=(5,3), carrera__in=Asignatura.objects.filter(id=request.POST.get('id')).values_list('carrera')).exclude(id=request.POST.get('id')):
 				html+='<option value="'+ str(a.id) +'">'+ a.nombre_asignatura +' </option>'
 			html+='</select></div>'
 
@@ -989,16 +989,16 @@ def view_requirements_delete(request,idtcm=None):
 
 	if idtcm:
 		print('Entro A borrar requisito')
-		requisito.objects.filter(asignatura_base=idtcm).delete()
+		Requisito.objects.filter(asignatura_base=idtcm).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_requisito'))			
 
 #by ciloe 17-Octubre-2013
 
 def view_requirements_edit(request,idtcm=None):
 
-			objrequisitos = asignatura.objects.filter(id__in = requisito.objects.filter(asignatura_base=idtcm).values_list('asignatura_requisito'))
-			objAsigBase= asignatura.objects.get(id=idtcm)
-			objAsigRe=asignatura.objects.filter(tipo_asignatura__in=(5,3)).exclude(id__in =requisito.objects.filter(asignatura_base=idtcm).values_list('asignatura_requisito')).exclude(id=idtcm)
+			objrequisitos = Asignatura.objects.filter(id__in = Requisito.objects.filter(asignatura_base=idtcm).values_list('asignatura_requisito'))
+			objAsigBase= Asignatura.objects.get(id=idtcm)
+			objAsigRe=Asignatura.objects.filter(tipo_asignatura__in=(5,3)).exclude(id__in =Requisito.objects.filter(asignatura_base=idtcm).values_list('asignatura_requisito')).exclude(id=idtcm)
 			formulario=RequisitoForm()
 			ctx = {'formulario': formulario,'requisitos':objrequisitos,'asigbase': objAsigBase, 'asigReq': objAsigRe }
 			return render_to_response('registro/requisitos_detalle.html', ctx, context_instance=RequestContext(request))
@@ -1007,12 +1007,12 @@ def view_requirements_edit(request,idtcm=None):
 #by ciloe 22 de octubre-2013 // Horrible esto
 def view_requirements_ajax_update(request):
 		if request.method == 'POST':
-			requisito.objects.filter(asignatura_base=request.POST.get('id')).delete()
+			Requisito.objects.filter(asignatura_base=request.POST.get('id')).delete()
 			
 			for m in request.POST.getlist('id_requisitos'):
-				r=requisito.objects.create(
-						asignatura_base=asignatura.objects.get(pk=request.POST.get('id')), 
-						asignatura_requisito=asignatura.objects.get(pk=m), 
+				r=Requisito.objects.create(
+						asignatura_base=Asignatura.objects.get(pk=request.POST.get('id')), 
+						asignatura_requisito=Asignatura.objects.get(pk=m), 
 						usuario_creador=request.user, 
 						fecha_creacion=datetime.now(), 
 						usuario_modificador=request.user, 
@@ -1027,15 +1027,15 @@ def view_requirements_ajax_update(request):
 @permission_required('home.can_view_menu_censo', login_url='/main_first/')
 def view_administration_censo(request):
 	secciones_list = []
-	if seccion.objects.all():
+	if Seccion.objects.all():
 		print 'hay secciones'
-		secciones_list = seccion.objects.all()
+		secciones_list = Seccion.objects.all()
 	ctx = {'seccion': secciones_list}	
 	return render_to_response('general/menu_censo_administracion.html', ctx, context_instance=RequestContext(request))	
 
 @permission_required('home.can_view_avance_censo', login_url='/administration/censo/')
 def view_avance_censo(request):
-	alumnos_censados = alumnos.objects.filter(persona__tipo_persona__descripcion__iexact='estudiante reingreso').count()
+	alumnos_censados = Alumnos.objects.filter(persona__tipo_persona__descripcion__iexact='estudiante reingreso').count()
 	alumnos_no_censados = User.objects.filter(tipo_usuario__descripcion__iexact='alumno').count() - alumnos_censados - 1
 	docentes_censados = docente_departamento.objects.filter(persona__tipo_persona__descripcion__iexact='docente').count()
 	docentes_no_censados = User.objects.filter(tipo_usuario__in=[3,12,13,5]).count() - docentes_censados - 1
@@ -1124,22 +1124,22 @@ def nuevo_docente(request):
 			grupo=""				
 
 			if td=='4':
-				objT=tipo_usuario.objects.get(id=14)
+				objT=TipoUsuario.objects.get(id=14)
 				grupo = Group.objects.get(id=4)
 				user.groups.add(grupo)
 				user.tipo_usuario=objT
 			elif td=='2':
-				objT=tipo_usuario.objects.get(id=3)
+				objT=TipoUsuario.objects.get(id=3)
 				grupo = Group.objects.get(id=1)
 				user.groups.add(grupo)
 				user.tipo_usuario=objT
 			elif td=='1':
-				objT=tipo_usuario.objects.get(id=12)
+				objT=TipoUsuario.objects.get(id=12)
 				grupo = Group.objects.get(id=10)
 				user.groups.add(grupo)
 				user.tipo_usuario=objT
 			elif td=='3':
-				objT=tipo_usuario.objects.get(id=13)
+				objT=TipoUsuario.objects.get(id=13)
 				grupo = Group.objects.get(id=11)
 				user.groups.add(grupo)
 				user.tipo_usuario=objT

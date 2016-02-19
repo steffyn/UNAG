@@ -80,11 +80,11 @@ def view_main_teacher(request):
 def view_main_administration(request):
 	campuslen = 0; depto_academico = 0; carreraslen = 0; asociacionesCamplen = 0; centrosRegionaleslen = 0;
 
-	campuslen = len(campus.objects.all())
-	depto_academicoslen = len(departamento_academico.objects.all())
-	carreraslen = len(carrera.objects.all())
-	asociacionesCamplen = len(asoc_campesina.objects.all())
-	centrosRegionaleslen = len(centro.objects.all())
+	campuslen = len(Campus.objects.all())
+	depto_academicoslen = len(DepartamentoAcademico.objects.all())
+	carreraslen = len(Carrera.objects.all())
+	asociacionesCamplen = len( AsocCampesina.objects.all())
+	centrosRegionaleslen = len(Centro.objects.all())
 
 	ctx = {'campuslen':campuslen, 'depto_academicoslen': depto_academicoslen, 
 	'carreraslen': carreraslen, 'asociacionesCamplen': asociacionesCamplen,
@@ -96,9 +96,9 @@ def view_main_administration(request):
 @permission_required('home.can_view_home_censo', login_url='/logout/')
 def view_home_senso(request):
 	centros_list = []
-	if centro.objects.all():
+	if Centro.objects.all():
 		print 'hay centros'
-		centros_list = centro.objects.all()
+		centros_list = Centro.objects.all()
 	ctx = {'centro': centros_list}	
 	return render_to_response('senso/inicio.html', ctx, context_instance=RequestContext(request))	
 
@@ -128,7 +128,7 @@ def view_excel(request):
 				random_number_cuenta = User.objects.make_random_password(length=4, allowed_chars='0123456789')
 				random_number = User.objects.make_random_password(length=8, allowed_chars='0123456789%!#qwertyuiopasdfghjklzxcvbnm')
 				num_cuenta=sh.cell_value(rowx=row,colx=0)+str(random_number_cuenta)
-				objT=tipo_usuario.objects.get(id=4)
+				objT=TipoUsuario.objects.get(id=4)
 				#print objT
 				grupo = Group.objects.get(id=2)
 				#password=make_password(random_number, 'seasalt', 'pbkdf2_sha256')
@@ -190,7 +190,7 @@ def view_excel_docente(request):
 				random_number_cuenta = User.objects.make_random_password(length=4, allowed_chars='0123456789')
 				random_number = User.objects.make_random_password(length=8, allowed_chars='0123456789%!#qwertyuiopasdfghjklzxcvbnm')
 				num_cuenta=sh.cell_value(rowx=row,colx=0)+str(random_number_cuenta)
-				objT=tipo_usuario.objects.get(id=3)
+				objT=TipoUsuario.objects.get(id=3)
 				#print objT
 				grupo = Group.objects.get(id=1)
 				#password=make_password(random_number, 'seasalt', 'pbkdf2_sha256')

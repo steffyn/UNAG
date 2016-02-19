@@ -12,4 +12,4 @@ class alumnosAdmin(admin.ModelAdmin):
 	list_display = ['persona', 'codigo_registro']
 	search_fields = ('persona__identidad', 'persona__nombres', 'persona__apellidos', 'codigo_registro')
 
-admin.site.register(alumnos, alumnosAdmin)
+admin.site.register(Alumnos, alumnosAdmin)

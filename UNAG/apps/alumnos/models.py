@@ -36,7 +36,7 @@ class Alumnos(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 	
 	class Meta:
-        db_table = 'alumnos_alumnos'
+		db_table = 'alumnos_alumnos'
 
 class PreMatricula(models.Model):
 	persona=models.ForeignKey(Persona)
@@ -48,7 +48,7 @@ class PreMatricula(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 	
 	class Meta:
-        db_table = 'alumnos_pre_matricula'
+		db_table = 'alumnos_pre_matricula'
 
 class Matricula(models.Model):
 	alumno= models.ForeignKey(Alumnos)
@@ -67,7 +67,7 @@ class Matricula(models.Model):
 	pre_matricula=models.ForeignKey(PreMatricula)
 
 	class Meta:
-        db_table = 'alumnos_matricula'
+		db_table = 'alumnos_matricula'
 
 class MatriculaClases(models.Model):
 	matricula=models.ForeignKey(Matricula)
@@ -80,7 +80,7 @@ class MatriculaClases(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 
 	class Meta:
-        db_table = 'alumnos_matricula_clases'
+		db_table = 'alumnos_matricula_clases'
 
 ## 23/08 cindy
 
@@ -94,7 +94,7 @@ class PreMatriculaClases(models.Model):
 	usuario_modificador=models.ForeignKey(User, related_name='pmc_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
 	class Meta:
-        db_table = 'alumnos_pre_matricula_clases'
+		db_table = 'alumnos_pre_matricula_clases'
 
 #################### de registro alumnos
 class Notas(models.Model):
@@ -107,7 +107,7 @@ class Notas(models.Model):
 	usuario_modificador=models.ForeignKey(User, related_name='nota_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
 	class Meta:
-        db_table = 'alumnos_notas'
+		db_table = 'alumnos_notas'
 
 class DocumentosAlumnos(models.Model):
 	estado=models.IntegerField()
@@ -119,7 +119,7 @@ class DocumentosAlumnos(models.Model):
 	usuario_modificador=models.ForeignKey(User, related_name='da_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
 	class Meta:
-        db_table = 'alumnos_documentos_alumnos'
+		db_table = 'alumnos_documentos_alumnos'
 
 ####################
 class AlumnosBecas(models.Model):
@@ -135,7 +135,7 @@ class AlumnosBecas(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)
 
 	class Meta:
-        db_table = 'alumnos_alumnos_becas'
+		db_table = 'alumnos_alumnos_becas'
 	
 
 class EstadoCuenta(models.Model):
@@ -150,7 +150,7 @@ class EstadoCuenta(models.Model):
 	usuario_modificador=models.ForeignKey(User,related_name="ec_usuario_modificador")
 	fecha_modificacion=models.DateField(auto_now=True)
 	class Meta:
-        db_table = 'alumnos_estado_cuenta'
+		db_table = 'alumnos_estado_cuenta'
 
 
 #Por Katherine

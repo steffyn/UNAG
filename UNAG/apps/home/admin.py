@@ -23,5 +23,5 @@ class userAdmin(admin.ModelAdmin):
 			ac_usuario_creador, request, **kwargs
 		)
 
-admin.site.register(rol, MyModelAdmin)
-admin.site.register(tipo_usuario, MyModelAdmin)
+admin.site.register(Rol, MyModelAdmin)
+admin.site.register(TipoUsuario, MyModelAdmin)
