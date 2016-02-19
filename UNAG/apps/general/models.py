@@ -20,11 +20,12 @@ class TipoPersona(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='tp_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
-		db_table='general_tipo_persona'
 
 	def __unicode__(self):
 		return self.descripcion
+
+	class Meta:
+		db_table='general_tipo_persona'
 
 class TipoIdentificacion(models.Model):
 	descripcion=models.CharField(max_length=512)
@@ -32,7 +33,7 @@ class TipoIdentificacion(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='td_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_tipo_identificacion'
 
 	def __unicode__(self):
@@ -45,7 +46,7 @@ class GrupoGrado(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_grupo_grado'
 
 	def __unicode__(self):
@@ -58,7 +59,7 @@ class Titulos(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='ti_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_titulos'
 
 	def __unicode__(self):
@@ -70,7 +71,7 @@ class TipoAdministracion(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='ta_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_tipo_adinistracion'
 
 	def __unicode__(self):
@@ -82,7 +83,7 @@ class EstadoCivil(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='ecs_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_estado_civil'
 
 	def __unicode__(self):
@@ -94,7 +95,7 @@ class Zona(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='zona_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_zona'
 
 	def __unicode__(self):
@@ -106,7 +107,7 @@ class Pais(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='pais_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_pais'
 
 	def __unicode__(self):
@@ -119,7 +120,7 @@ class TipoCentro(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='tc_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_tipo_centro'
 
 	def __unicode__(self):
@@ -133,7 +134,7 @@ class Centro(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='ce_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_centro'
 
 	def __unicode__(self):
@@ -145,7 +146,8 @@ class AsocCampesina(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='ac_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	
+	class Meta:
 		db_table='general_asoc_campesina'
 
 	def __unicode__(self):
@@ -161,7 +163,7 @@ class  Departamento(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='dep_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_departamento'
 
 	def __unicode__(self):
@@ -176,7 +178,7 @@ class Municipio(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='mun_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_municipio'
 
 	def __unicode__(self):
@@ -190,7 +192,7 @@ class Aldea(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='al_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_aldea'
 
 
@@ -204,7 +206,7 @@ class Caserio(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='cas_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_caserio'
 
 
@@ -218,7 +220,7 @@ class Barrio(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='bo_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_barrio'
 
 	def __unicode__(self):
@@ -231,7 +233,7 @@ class Periodo(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='pr_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_periodo'
 
 	def __unicode__(self):
@@ -244,7 +246,7 @@ class PeriodoClase(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='pc_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_periodo_clase'
 
 	def __unicode__(self):
@@ -262,7 +264,7 @@ class Financiador(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='fin_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_financiador'
 
 	def __unicode__(self):
@@ -276,7 +278,7 @@ class Jornada(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='jor_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_jornada'
 	
 	def __unicode__(self):
@@ -290,7 +292,7 @@ class TipoBeca(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='tb_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_tipo_beca'
 
 	def __unicode__(self):
@@ -326,7 +328,7 @@ class Persona(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='per_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_persona'
 
 	def _get_full_name(self):
@@ -348,13 +350,12 @@ class Campus(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='cam_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
-		db_table='general_campus'
 
 	def __unicode__(self):
 		return self.descripcion
 
 	class Meta:
+		db_table='general_campus'
 		unique_together = ('codigo','siglas')
 
 	def unique_error_message(self, model_class, unique_check):
@@ -371,7 +372,7 @@ class TipoEdificios(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='tedi_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_tipo_edificios'
 
 	def __unicode__(self):
@@ -390,13 +391,12 @@ class Edificios(models.Model):
 	usuario_modificador=models.ForeignKey(User, related_name='edi_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
 	campus=models.ForeignKey(Campus)
-	class meta:
-		db_table='general_edificios'
 
 	def __unicode__(self):
 		return  '%s | %s' % (self.nombre, self.tipo_edificio)
 
 	class Meta:
+		db_table='general_edificios'
 		unique_together = ('codigo','campus')
 
 	def _get_full_info(self):
@@ -417,7 +417,7 @@ class Modalidades(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='moda_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
+	class Meta:
 		db_table='general_modalidades'
 
 	def __unicode__(self):
@@ -434,10 +434,8 @@ class EstructuraEdificio(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User,related_name="fk_usuario_carrera_1")
 	fecha_modificacion=models.DateField(auto_now=True)
-	class meta:
-		db_table='general_estructura_edificio'
-
 	class Meta:
+		db_table='general_estructura_edificio'
 		unique_together = ('codigo','edificio')
 
 	def __unicode__(self):
