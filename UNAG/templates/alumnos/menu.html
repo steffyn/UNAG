@@ -1,0 +1,43 @@
+{% extends "alumnos/base.html" %}
+
+{% block navlist_header %}
+    ALUMNOS
+{% endblock  %}
+
+{% block titulo %}
+    Alumnos
+{% endblock  %}
+
+{% block navlist %}
+    <li>
+      <a href="{% url 'alumno_menu_principal' %}">
+        <i class="glyphicon glyphicon-user"></i> <span>Alumnos</span>
+      </a>
+    </li>
+    <li class="treeview">
+      <a href="#">
+        <i class="glyphicon glyphicon-user"></i> <span>Ingreso de Alumnos</span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="{% url 'registro_primer_ingreso' %}"><i class="fa fa-circle-o"></i>Ingreso en línea</a></li>
+        <li><a href="{% url 'alumno_registro_excel' %}"><i class="fa fa-circle-o"></i> Importar desde Excel</a></li>
+      </ul>
+    </li>
+{% endblock %}
+
+{% block container %}
+<div class="box box-default">
+	<div class="box-header with-border">
+		<h3 class="box-title"><strong>{% block titulo_box %} {% endblock  %}</strong></h3>
+
+		<div class="btn-group btn-proup-sm pull-right">
+			{% block boton_box %}  {% endblock  %}
+		</div>
+	</div>
+	<div class="box-body table-responsive">
+		{% block contenido_box  %} {% endblock  %}
+		
+	</div>
+</div>
+{% endblock  %}
+

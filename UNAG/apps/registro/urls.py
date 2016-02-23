@@ -75,4 +75,8 @@ urlpatterns = patterns('UNAG.apps.registro.views',
 
 	#Por Karla
 	url(r'^docente/nuevo/$', 'nuevo_docente', name='nuevo_docente'),
+
+	#Por Katherine
+	url(r'^$', 'registro_inicio', name='registro_inicio'),
+
 )

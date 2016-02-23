@@ -304,7 +304,7 @@ class Persona(models.Model):
 	tipo_identificacion=models.ForeignKey(TipoIdentificacion, verbose_name = "Tipo de identificación")
 	nombres=models.CharField(max_length=256)
 	apellidos=models.CharField(max_length=256)
-	fecha_nacimiento=models.DateField(auto_now_add=True, verbose_name = "Fecha de nacimiento")
+	fecha_nacimiento=models.DateField(verbose_name = "Fecha de nacimiento")
 	genero=models.CharField(max_length=2, verbose_name = "Género", choices=Sexo_CHOICES)
 	estado_civil=models.ForeignKey(EstadoCivil)
 	direccion=models.CharField(max_length=2024, verbose_name = "Dirección")
@@ -342,7 +342,7 @@ class Persona(models.Model):
 class Campus(models.Model):
 	codigo =models.CharField(max_length=32, unique=True)
 	descripcion=models.CharField(max_length=128)
-	director_campus=models.ForeignKey(Persona, null = True, blank = True, default = None, unique=True, error_messages={'unique':u'Este Director ya esta asignado a otro Campus.'})
+	director_campus=models.OneToOneField(Persona, null = True, blank = True, default = None, unique=True, error_messages={'unique':u'Este Director ya esta asignado a otro Campus.'})
 	siglas=models.CharField(max_length=32, unique=True)
 	direccion=models.CharField(max_length=256)
 	telefono=models.CharField(max_length=8, help_text='Número de teléfono sin guiones (-)')

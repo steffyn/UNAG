@@ -1,33 +1,42 @@
-{% extends "alumnos/menu_principal.html" %}
+{% extends "alumnos/menu.html" %}
 
 {% block css %}
-		{% include "utilidades/waiting_ajax.html" %}
-		<link rel="stylesheet" type="text/css" href="/media/css/select2.min.css">
-		<script src="/media/js/select2.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/media/css/select2.min.css">
 {% endblock css %}
 
 
+{% block header %}
+  <h1>
+   Alumnos
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Alumnos</li>
+    <li>En línea</li>
+  </ol>
+{% endblock  %}
 
-{% block container %}
-		<!-- Modal -->
-	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	    <div class="modal-dialog">
-	      <div class="modal-content">
-	        <div class="modal-body">
-	        	<center><img width="235px" height="235px" src="/media/images/cargando.gif"></center>
-	        </div>
-	      </div>
-	    </div>
-	  </div>
+
+{% block titulo_box %}
+	Formulario de Inscripción - Alumnos de Primer Ingreso
+{% endblock  %}
+
+{% block contenido_box %}
+	{% if exito %}
+		<div class="well">
+			<div align="center"> 
+				<strong>{{exito}}</strong> <br><br>
+
+				Usuario: <strong> {{alumno.identidad}} </strong> <br>
+				Contresaña: <strong> registro </strong> <br> <br>
+
+				<strong class="text-center"> Nota: La primera vez que el alumno ingrese al sistema, le pedirá cambio de contraseña </strong> 
+			</div>
+	{% else %}
 		{% if mensaje %}
 			<p class="alert alert-danger">{{mensaje}}</p>
 		{% endif %}
 		<form id="frm_persona" role="form" name="frm_persona" action="." method="POST">
 			{% csrf_token %}
-			<fieldset>
-				<legend>Formulario de Inscripción - Alumnos de Primer Ingreso</legend>
-
-			</fieldset>
 				{% for field in formulario %}
 					{% if field.html_name == 'pais_nacimiento' %}
 						<legend>Localización</legend>
@@ -43,17 +52,46 @@
 			         	</div> {{ field.help_text }}
 			        </div>
 
+			        {% if field.html_name == 'departamento' %}
+				        <div class="form-group">
+				        	<label> Municipio: </label>
+				        	<select name="municipio" id="id_municipio" class="form-control">
+				        		<option value="">------------</option>
+				        	</select>
+				        </div>
+				        <div class="form-group">
+				        	<label> Aldea: </label>
+				        	<select name="aldea" id="id_aldea" class="form-control">
+				        		<option value="">------------</option>
+				        	</select>
+				        </div>
+				        <div class="form-group">
+				        	<label> Caserio: </label>
+				        	<select name="caserio" id="id_caserio" class="form-control">
+				        		<option value="">------------</option>
+				        	</select>
+				        </div>
+				        <div class="form-group">
+				        	<label> Barrio: </label>
+				        	<select name="barrio" id="id_barrio" class="form-control">
+				        		<option value="">------------</option>
+				        	</select>
+				        </div>
+			        {% endif %}
+
 				{% endfor %}
 				<legend>Datos de Familia</legend>
 				{{formulario_alu.as_p}}
 			<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
 		</form>
-
-
+	{% endif %}
 {% endblock %}
-{% block extrafooter %}
-<script type="text/javascript">
 
+{% block js %}
+{% include "utilidades/waiting_ajax.html" %}
+<script src="/media/js/select2.min.js"></script>
+<script type="text/javascript">
+	
 	function width_select(){
 		$( ".select2" ).each(function( index ) {
 	 		$( this ).css('width', '100%'); // Aqui lo que hace es seleccionar todos los SELECTs con clase de 'select2', si le quita esto, en el modal los SELECTs salen super pequenios.
@@ -75,12 +113,18 @@
 		if (bandera=='d'){
 			name='municipio';
 			sendInfo+="&bandera="+bandera+"&id="+id_departamento+"&name="+name;
+			$('#id_aldea, #id_caserio, #id_barrio').empty();
+
 		}else if(bandera=='m'){
 			name='aldea';
 			sendInfo+="&bandera="+bandera+"&id="+id_municipio+"&name="+name;
+
+			$('#id_aldea, #id_caserio, #id_barrio').empty();
 		}else if(bandera=='a'){
 			name='caserio';
 			sendInfo+="&bandera="+bandera+"&id="+id_aldea+"&name="+name;
+
+			$(' #id_caserio, #id_barrio').empty();
 		}else if(bandera=='c'){
 			name='barrio';
 			sendInfo+="&bandera="+bandera+"&id="+id_caserio+"&name="+name;
@@ -102,12 +146,11 @@
 		$('input').removeClass("errorlist").addClass("form-control");
 		$('.errorlist').removeClass("errorlist").addClass("alert alert-danger");
 		$('#myModal2').modal('hide')
+		$('input[name=tiene_hijos]').removeAttr("class")
+		$('textarea').addClass('form-control')
 	});
 
-	$('#id_municipio, #id_aldea, #id_caserio').select2("val", ""); 
-	$('#id_municipio, #id_aldea, #id_caserio').empty();
-	$('#id_municipio, #id_aldea, #id_caserio').append("<option value=''>---------------</option>");
-
+	
     $('#id_departamento').attr('onchange','enviar("d");');
 	$('#id_municipio').attr('onchange','enviar("m");');
 	$('#id_aldea').attr('onchange','enviar("a");');

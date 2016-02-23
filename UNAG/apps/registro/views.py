@@ -2,7 +2,7 @@
 # -*- encoding: utf-8 -*-
 
 # Create your views here.
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext #permite el envio de datos hacia la plantilla
 from django.core.mail import EmailMultiAlternatives #enviamos HTML
 from django.contrib.auth import login, logout, authenticate
@@ -1156,3 +1156,6 @@ def nuevo_docente(request):
 		formulario_doc = DocenteForm()
 		return render_to_response('registro/docente_nuevo.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
 
+@login_required
+def registro_inicio(request):
+	return render(request, 'registro/menu.html')	

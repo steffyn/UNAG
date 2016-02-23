@@ -1,41 +1,85 @@
-{% extends "base.html" %}
-
-{% block extrahead %}
-	<!--bootstrap-datepicker-->
-	<link rel="stylesheet" type="text/css" href="/media/libs/dist/datepicker/css/datepicker.css">
-	<!--fin bootstrap-datepicker-->
-{% endblock %}
-
+{% extends "alumnos/menu.html" %}
+{% block css %}
+	<link rel="stylesheet" href="/media/css/dataTables.bootstrap.css">
+{% endblock  %}
 {% block header %}
-	<div class="container">
-		<a class="pull-right" href="{% url 'vista_main_first' %}">
-			Volver al Men&uacute;
-		</a>
-		<legend></legend>
-	</div>
+  <h1>
+   Alumnos
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Alumnos</li>
+    <li>Lista</li>
+  </ol>
+{% endblock  %}
+
+{% block titulo_box %}
+	Lista de Alumnos
+{% endblock  %}
+
+{% block boton_box %}
+	<a title="Nuevo Campus" class="btn btn-default" href="{% url 'vista_nuevo_campus' %}">
+		<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo 
+	</a>
+{% endblock  %}
+
+{% block contenido_box %}
+		{% if perms.general.add_campus %}
+		<table id="tabla" class="table table-hover table-condensed">
+			<thead>
+				<tr>
+					<th>Código de Registro</th>
+					<th>Identidad</th>
+					<th>Nombres</th>
+					<th>Apellidos</th>
+					<th>Telefono</th>
+					<th colspan="2">Acción</th>							
+				</tr>
+			</thead>
+			<tbody>
+				{% for alumno in alumnos %}
+					<tr>
+						<td>{{alumno.codigo_registro|upper}}</td>
+						<td>{{alumno.persona.identidad}}</td>
+						<td>{{alumno.persona.nombres|upper}}</td>
+						<td>{{alumno.persona.apellidos}}</td>
+						<td>{{alumno.persona.telefono}}</td>
+						<td>
+							<center>
+								<a title="Ver" href="{% url 'vista_detalle_campus' alumno.pk %}" class="btn btn-success">
+									<span class="glyphicon glyphicon-eye-open"></span>
+								</a>
+							</center>
+						</td>								
+						<td>
+							{% if perms.general.delete_campus %}
+							<center>
+								<a title="Borrar" href="{% url 'vista_borrar_campus' alumno.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar el campus <<{{ alumno.descripcion }}>>?');" class="btn btn-danger">
+									<span class="glyphicon glyphicon-remove-circle"></span>
+								</a>
+							</center>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% endif %}
 {% endblock %}
 
-{% block navlist %}
-	<div  class = "list-group" > 
-  		<a href = "#"  class = "list-group-item active">Men&uacute; Principal</a> 
-  		<a href = "{% url 'vista_perfil_estudiante' %}" class = "list-group-item"> Perfil </a> 
-  		<a href = "#" class = "list-group-item">Historial</a> 
-  		<a href = "#" class = "list-group-item">Documentaci&oacute;n</a> 
-  		<a href = "#" class = "list-group-item">Pre-Matricula</a> 
-	</div>
-{% endblock %}
-
-{% block container %}
-{% endblock %}
-
-{% block extrafooter %}
-	<script type="text/javascript" src="/media/libs/dist/datepicker/js/bootstrap-datepicker.js">
-	</script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('input[id^=id_fecha]').datepicker({
-				format:'dd/mm/yyyy'
-			});
-		});
-	</script>
-{% endblock %}
+{% block js %}
+    <script src="/media/js/jquery.dataTables.min.js"></script>
+    <script src="/media/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#tabla').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false
+        });
+})
+	
+</script>
+{% endblock  %}

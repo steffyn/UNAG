@@ -47,11 +47,6 @@ class User(User):
 		db_table='home_user'
 	
 	objects = UserManager()
-	#user = models.ForeignKey(User, unique=True)
-
-	# def __unicode__(self):
-	#	return self.user.username
-
 
 	def __unicode__(self):
 		return self.user.username

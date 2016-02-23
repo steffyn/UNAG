@@ -63,10 +63,10 @@ class PersonaEditForm(ModelForm):
 
 #form persona alumno primer ingreso
 class AspirantePersonaForm(ModelForm):
+	tipo_persona = forms.ModelChoiceField(queryset = TipoPersona.objects.filter(descripcion__iexact='candidato'), label=u'Tipo persona', widget=forms.Select())
 	class Meta:
 		model = Persona
-		exclude = ('usuario', 'usuario_creador', 'fecha_creacion', 'usuario_modificador', 'fecha_modificacion')
-	tipo_persona = forms.ModelChoiceField(queryset = TipoPersona.objects.filter(descripcion__iexact='candidato'), label=u'Tipo persona', widget=forms.Select())
+		exclude = ('usuario', 'usuario_creador', 'fecha_creacion', 'usuario_modificador', 'fecha_modificacion', 'municipio', 'aldea', 'caserio', 'barrio')
 
 class AspirantePersonaEditForm(ModelForm):
 	class Meta:
