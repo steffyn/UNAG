@@ -37,6 +37,17 @@
 		{% endif %}
 		<form id="frm_persona" role="form" name="frm_persona" action="." method="POST">
 			{% csrf_token %}
+				<div class="form-group">
+		            {{ formulario_alu.codigo_registro.errors }}
+		            {{ formulario_alu.codigo_registro.label_tag }}
+		            <div id="{{ formulario_alu.codigo_registro.html_name }}">
+		             		{{formulario_alu.codigo_registro}}
+		         	</div> {{ formulario_alu.codigo_registro.help_text }}
+		        </div>
+
+		        <legend>
+		        </legend>
+				
 				{% for field in formulario %}
 					{% if field.html_name == 'pais_nacimiento' %}
 						<legend>Localización</legend>
@@ -81,7 +92,17 @@
 
 				{% endfor %}
 				<legend>Datos de Familia</legend>
-				{{formulario_alu.as_p}}
+				{% for field in formulario_alu %}
+					{% if field.html_name != 'codigo_registro' %}
+						<div class="form-group">
+				            {{ field.errors }}
+				            {{ field.label_tag }}
+				            <div id="{{ field.html_name }}">
+				             		{{ field }}
+				         	</div> {{ field.help_text }}
+				        </div>
+				    {% endif %}
+			    {% endfor %}
 			<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
 		</form>
 	{% endif %}

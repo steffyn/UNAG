@@ -1,0 +1,71 @@
+{% extends "alumnos/menu.html" %}
+{% block header %}
+  <h1>
+   Alumnos
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Alumnos</li>
+    <li>Detalle</li>
+  </ol>
+{% endblock  %}
+
+{% block titulo_box %}
+	Detalle de Campus
+{% endblock  %}
+
+{% block boton_box %}
+	{% if perms.general.change_campus %}
+		<a title="Nuevo Campus" class="btn btn-default" href="javascript:cambiarEstilo();">
+				<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar
+		</a>
+		<button type="submit" form="formulario" title="Nuevo Campus" name="btn_guardar" id="btn_guardar" class="btn btn-default"disabled>
+				<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar
+		</button>
+	{% endif %}
+{% endblock  %}
+
+
+
+{% block contenido_box %}
+	<form method="POST" name="formulario" id="formulario" accept-charset="utf-8">
+	{% csrf_token %}
+		{% for field in persona %}
+			{% if field.html_name == 'pais_nacimiento' %}
+				<legend>Localización</legend>
+			{% endif %}
+			{% if field.html_name == 'titulos' %}
+				<legend>Datos Profesionales</legend>
+			{% endif %}
+			<div class="form-group">
+	            {{ field.errors }}
+	            {{ field.label_tag }}
+	            <div id="{{ field.html_name }}">
+	             		{{ field }}
+	         	</div> {{ field.help_text }}
+	        </div>
+
+		{% endfor %}
+		<legend>Datos de Familia</legend>
+		{{alumno.as_p}}
+	</form>
+	
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+	function cambiarEstilo(){
+		$('input').removeAttr("disabled");
+		$('#btn_guardar').removeAttr("disabled");	
+		$('input').removeAttr("disabled");
+		$('textarea').removeAttr("disabled");
+		$('select').removeAttr("disabled");	
+	}
+	$('input[name=tiene_hijos]').removeAttr('class')
+	$(':input').each(function( index, obj ) {
+		$(obj).prop('disabled', true)
+		if (obj.name != 'tiene_hijos' && obj.name != 'btn_guardar'){
+			$(obj).addClass('form-control')
+		}
+	});
+</script>
+{% endblock %}
