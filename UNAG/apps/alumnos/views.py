@@ -351,7 +351,7 @@ def view_index_alumno(request):
 
 #Incluida Katherine
 @permission_required('alumnos.add_alumnos', login_url='/censo/logout/')
-def registro_excel(request):
+def alumno_registro_excel(request):
 	#rarfile.UNRAR_TOOL = 'C:\Windows\unrar.exe' #esta configuracion es importante para el unrar
 	context = {}
 	if request.method == 'POST':
@@ -780,10 +780,10 @@ def registro_excel(request):
 	else:
 		form = FormArchivosGuardados()
 		context = {'form':form}
-	return render(request, 'alumnos/registro_alumno_excel.html', context)
+	return render(request, 'alumnos/registro_excel.html', context)
 
 
-def registro_primer_ingreso(request):
+def alumno_registro(request):
 	#si esta autenticado desloguearlo porque entonces no es un aspirante el que ingresa
 	if request.user.is_authenticated():
 		user = User.objects.get(id=request.user.id)
@@ -794,21 +794,40 @@ def registro_primer_ingreso(request):
 	
 	mensaje=''
 	exito = ''
+	alumno = ''
 	if request.method == 'POST':
 		formulario = AspirantePersonaForm(request.POST, request.FILES)
 		formulario_alu = AlumnoForm(request.POST, request.FILES)
 		if formulario.is_valid() and formulario_alu.is_valid():
 			num_cuenta=formulario.cleaned_data['identidad']
-			#crear un usuario inactivo para la persona
+			#crear un usuario inact ivo para la persona
 			user = User.objects.create_user(num_cuenta, formulario.cleaned_data['correo_electronico'], 'registro') #make_password(random_number, 'seasalt', 'pbkdf2_sha256')
 			try:
 				#crear persona
 				person = formulario.save(commit = False)
-				person.usuario=user
-				person.usuario_creador=user
-				person.fecha_creacion=datetime.now()
-				person.usuario_modificador=user
-				person.fecha_modificacion=datetime.now()
+
+				try:
+					person.municipio = Municipio.objects.get(pk=request.POST['municipio'])
+				except Exception, e:
+					pass
+				try:
+					person.aldea =  Aldea.objects.get(pk=request.POST['aldea'])
+				except Exception, e:
+					pass
+				try:
+					person.caserio =  Caserio.objects.get(pk=request.POST['caserio'])
+				except Exception, e:
+					pass
+				try:
+					person.barrio = Barrio.objects.get(pk=request.POST['barrio'])
+				except Exception, e:
+					pass
+		
+				person.usuario = user
+				person.usuario_creador = user
+				person.fecha_creacion = datetime.now()
+				person.usuario_modificador = user
+				person.fecha_modificacion = datetime.now()
 				person.save() #guardar persona
 
 				#crear alumno
@@ -831,21 +850,61 @@ def registro_primer_ingreso(request):
 				user.is_active=False
 				user.is_superuser=False
 				user.groups.add(Group.objects.get(id=2))
-				user.tipo_usuario=tipo_usuario.objects.get(id=10)
+				user.tipo_usuario=TipoUsuario.objects.get(id=10)
 				user.date_joined=datetime.now()
 				user.save()
 
 				exito = 'El Registro se guardó con éxito'
+				alumno = person
 
 			except Exception, e:
 				User.objects.filter(id=user.id).delete()
+				person.delete()
 				mensaje='Ocurrió un error al guardar favor inténtelo nuevamente'
+				raise e
 		else:
 			mensaje="Formulario contiene errores"
 	else:
 		formulario = AspirantePersonaForm()
 		formulario_alu = AlumnoForm()
-	return render_to_response('alumnos/registro_primer_ingreso.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje, 'exito':exito}, context_instance=RequestContext(request))
+	return render_to_response('alumnos/registro.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje, 'exito':exito, 'alumno':alumno}, context_instance=RequestContext(request))
 
-def menu_principal(request):
-	return render(request,'alumnos/menu_principal.html')
+def alumno_lista(request):
+	contexto = { 'alumnos' : Alumnos.objects.filter(estado=True) }
+	return render(request,'alumnos/lista.html', contexto)
+
+
+def alumno_editar(request, id=None):
+	alumno = Alumnos.objects.get(pk=id)
+	if request.method == 'POST':
+		formulario_persona = PersonaAlumnoEditForm(request.POST,instance = alumno.persona)
+		formulario_alumno = AlumnoForm(request.POST,instance = alumno)
+		if formulario_persona.is_valid() and formulario_alumno.is_valid():
+			formulario_persona.save()
+			formulario_alumno.save()
+			return HttpResponseRedirect(reverse('alumno_lista'))
+		else:
+			ctx = {'persona': formulario_persona, 'alumno': formulario_alumno, 'id':id}
+			return render(request, 'alumnos/editar.html', ctx)
+	else:
+		formulario_persona = PersonaAlumnoEditForm(instance = alumno.persona)
+		formulario_alumno = AlumnoForm(instance = alumno)
+		ctx = {'persona': formulario_persona, 'alumno': formulario_alumno, 'id':id}
+		return render(request, 'alumnos/editar.html', ctx)
+
+def alumno_eliminar(request, id=None):
+	if id:
+		try:
+			alumno = Alumnos.objects.get(pk=id)
+			alumno.estado = False
+			alumno.save()
+
+			usuario = User.objects.get(username = alumno.persona.identidad)
+			usuario.is_active = False
+			usuario.save()
+		except Exception, e:
+			raise e
+		
+
+		print 'PASO POR AQUI'
+		return HttpResponseRedirect(reverse('alumno_lista'))	

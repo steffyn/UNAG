@@ -2,7 +2,7 @@
 # -*- encoding: utf-8 -*-
 
 # Create your views here.
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext #permite el envio de datos hacia la plantilla
 from django.core.mail import EmailMultiAlternatives #enviamos HTML
 from django.contrib.auth import login, logout, authenticate
@@ -1057,6 +1057,7 @@ def docente_eliminar(request,id_=None):
 		Persona.objects.filter(id=id_).delete()
 		return HttpResponseRedirect(reverse('docente_inicio'))
 
+<<<<<<< HEAD
 
 def docente_editar(request, id_=None):
     
@@ -1079,3 +1080,8 @@ def docente_editar(request, id_=None):
 			ctx = {'formulario': formulario}
 			return render_to_response('docentes/editar.html',  ctx, context_instance=RequestContext(request))
 	
+=======
+@login_required
+def registro_inicio(request):
+	return render(request, 'registro/menu.html')	
+>>>>>>> 4354d7e6a4b067c8d7f221752036a8804ec7805a

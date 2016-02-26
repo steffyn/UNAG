@@ -100,3 +100,11 @@ class RequisitoForm(ModelForm):
 	class Meta:
 		model = Requisito
 		exclude = ('asignatura_requisito','asignatura_base','usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
+
+
+#Por Katherine
+class PersonaAlumnoEditForm(ModelForm):
+	class Meta:
+		model = Persona
+		exclude = ('aldea', 'caserio', 'barrio','telefono_fijo', 'fax', 'usuario', 'usuario_creador', 'fecha_creacion', 'usuario_modificador', 'fecha_modificacion')
+	

@@ -116,7 +116,7 @@
 	</div>
 	<form id="frm_persona" name="frm_persona" action="." method="POST">{% csrf_token %}
 		<div class="panel panel-default">
-			{% if perms.general.change_persona %}
+			{% if perms.registro.change_persona %}
 			<div class="panel-heading">
 				<a title="Nuevo Campus" class="btn btn-default" href="javascript:cambiarEstilo();">
 						<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar

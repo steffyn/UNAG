@@ -18,9 +18,9 @@ class HorizRadioRenderer(forms.RadioSelect.renderer):
 class AlumnoForm(ModelForm):
 	class Meta:
 		model = Alumnos
-		exclude = ('nombre_madre', 'profesion_madre', 'telefono_madre', 'telefono_madre', 'asoc_campesina_madre', 'persona','correo_electronico','codigo_registro','usuario_creador', 'fecha_creacion', 'usuario_modificador', 'fecha_modificacion')
+		exclude = ('nombre_madre', 'profesion_madre', 'telefono_madre', 'telefono_madre', 'asoc_campesina_madre', 'persona','correo_electronico','usuario_creador', 'fecha_creacion', 'usuario_modificador', 'fecha_modificacion', 'estado')
 	SiNo_CHOICES = ((True, 'Si'),(False, 'No'))
-	tiene_hijos = forms.ChoiceField(label='¿Usted tiene hijos?:', widget=forms.RadioSelect(renderer=HorizRadioRenderer), required=True, choices=SiNo_CHOICES, initial=False)
+	tiene_hijos = forms.ChoiceField(label='¿Usted tiene hijos?:', widget=forms.RadioSelect(renderer=HorizRadioRenderer, attrs={'class': 'form-control'}), required=True, choices=SiNo_CHOICES, initial=False)
 
 class FormArchivosGuardados(forms.ModelForm):
 	class Meta:

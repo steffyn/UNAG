@@ -1,0 +1,78 @@
+{% extends "alumnos/menu.html" %}
+{% block css %}
+	<link rel="stylesheet" href="/media/css/dataTables.bootstrap.css">
+{% endblock  %}
+{% block header %}
+  <h1>
+   Alumnos
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Alumnos</li>
+    <li>Lista</li>
+  </ol>
+{% endblock  %}
+
+{% block titulo_box %}
+	Lista de Alumnos
+{% endblock  %}
+
+{% block boton_box %}
+	<a title="Nuevo Campus" class="btn btn-default" href="{% url 'alumno_registro' %}">
+		<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo 
+	</a>
+{% endblock  %}
+
+{% block contenido_box %}
+		{% if perms.general.add_campus %}
+		<table id="tabla" class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Código de Registro</th>
+					<th>Identidad</th>
+					<th>Nombres</th>
+					<th>Apellidos</th>
+					<th>Telefono</th>
+					<th ></th>							
+					<th ></th>							
+				</tr>
+			</thead>
+			<tbody>
+				{% for alumno in alumnos %}
+					<tr>
+						<td>{{alumno.codigo_registro}}</td>
+						<td>{{alumno.persona.identidad|default:"---"}}</td>
+						<td>{{alumno.persona.nombres|default:"---"}}</td>
+						<td>{{alumno.persona.apellidos|default:"---"}}</td>
+						<td>{{alumno.persona.celular|default:"---"}}</td>
+						<td>
+							<center>
+								<a title="Ver" href="{% url 'alumno_editar' alumno.pk %}" class="btn btn-success">
+									<span class="glyphicon glyphicon-eye-open"></span>
+								</a>
+							</center>
+						</td>								
+						<td>
+							{% if perms.general.delete_campus %}
+							<center>
+								<a title="Borrar" href="{% url 'alumno_eliminar' alumno.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere desactivar esta alumno <<{{ alumno.persona.nombres }} {{alumno.persona.apellidos}}>>?');" class="btn btn-danger">
+									<span class="glyphicon glyphicon-remove-circle"></span>
+								</a>
+							</center>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% endif %}
+{% endblock %}
+
+{% block js %}
+<script src="/media/js/jquery.dataTables.min.js"></script>
+<script src="/media/js/dataTables.bootstrap.min.js"></script>
+<script>
+      $(function () {
+        $('#tabla').DataTable();
+      });
+    </script>
+{% endblock  %}
