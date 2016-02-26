@@ -70,19 +70,13 @@ urlpatterns = patterns('UNAG.apps.registro.views',
 	url(r'^administration/censo/avance$', 'view_avance_censo', name='vista_avance_censo'),
 	url(r'^administration/censo/recuperar/clave$', 'view_recuperar_clave', name='vista_recuperar_clave'),
 
-<<<<<<< HEAD
 	#Por Sarai //Docente
 	url(r'^docente/index/$', 'docente_inicio', name='docente_inicio'),
 	url(r'^registro/docente/$', 'docente_registro', name='docente_registro'),
 	url(r'^eliminar/(?P<id_>\d+)/$', 'docente_eliminar', name='docente_eliminar'),
 	url(r'^editar/(?P<id_>\d+)/$', 'docente_editar', name='docente_editar'),
 	
-=======
-	#Por Karla
-	url(r'^docente/nuevo/$', 'nuevo_docente', name='nuevo_docente'),
-
 	#Por Katherine
 	url(r'^$', 'registro_inicio', name='registro_inicio'),
 
->>>>>>> 4354d7e6a4b067c8d7f221752036a8804ec7805a
 )

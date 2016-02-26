@@ -1057,7 +1057,6 @@ def docente_eliminar(request,id_=None):
 		Persona.objects.filter(id=id_).delete()
 		return HttpResponseRedirect(reverse('docente_inicio'))
 
-<<<<<<< HEAD
 
 def docente_editar(request, id_=None):
     
@@ -1079,9 +1078,7 @@ def docente_editar(request, id_=None):
 			formulario = DocentePersonaForm(instance = objPersona)
 			ctx = {'formulario': formulario}
 			return render_to_response('docentes/editar.html',  ctx, context_instance=RequestContext(request))
-	
-=======
+
 @login_required
 def registro_inicio(request):
 	return render(request, 'registro/menu.html')	
->>>>>>> 4354d7e6a4b067c8d7f221752036a8804ec7805a
