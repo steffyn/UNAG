@@ -1,0 +1,84 @@
+{% extends "docentes/menu.html" %}
+{% block header %}
+  <h1>Docente</h1>
+
+    <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard">
+    </i> Administración</li>
+    <li>Docente</li>
+    <li>Detalle</li>
+  </ol>
+
+{% endblock  %}
+
+{% block titulo_box %}
+	Detalle de Carrera
+{% endblock  %}
+
+{% block boton_box %}
+	{% if perms.docentes.change_persona %}
+		<a title="Nuevo docente" class="btn btn-default" href="javascript:cambiarEstilo();">
+				<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar</a>
+				
+		<button type="submit" title="Nuevo docente" form="frm_persona" id="btn_guardar" name="btn_guardar" class="btn btn-default"disabled><span class="glyphicon glyphicon-save" >&nbsp;</span>Guardar</button>
+	{% endif %}
+{% endblock  %}
+
+{% block contenido_box %}
+  
+	<form id="frm_persona" name="frm_persona" action="." method="POST">
+		{% csrf_token %}
+		{{formulario.as_p}}
+	</form>
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript">
+		//$(':input').each(function( index, obj ) {
+			//if (obj.name != 'tipo_identificacion' && obj.name !='btn_guardar'){
+				//$(obj).prop('disabled', true).addClass('form-control');
+			//}
+		//});
+		function cambiarEstilo(){
+			$('input').removeAttr("disabled");
+			$('#btn_guardar').removeAttr("disabled");	
+			$('input').removeAttr("disabled");
+			$('textarea').removeAttr("disabled");
+			$('select').removeAttr("disabled");	
+		}
+	</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
