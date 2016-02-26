@@ -1,0 +1,110 @@
+{% extends "docentes/menu.html" %}
+{% block header %}
+  <h1>
+   Docentes
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Docentes</li>
+    <li>Agregar</li>
+  </ol>
+{% endblock  %}
+
+{% block titulo_box %}
+	Nuevo Docente
+{% endblock  %}
+
+{% block contenido_box %}
+	<form id="frm_persona" name="frm_persona" action="." method="POST">{% csrf_token %}	
+		{% if formulario.errors %}				
+			<div class="alert alert-danger">
+					<h4>Formulario contiene errores!!</h4>
+			</div>
+		{% else %}
+			
+		{% endif %}
+		{{formulario.as_p}}
+		<button type="submit" class="btn btn-primary">
+			<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+	</form>
+{% endblock %}
+
+{% block js %}
+
+<script type="text/javascript">
+
+	$(':input').each(function( index, obj ) {
+		if (obj.name != 'tipo_identificacion'){
+			$(obj).addClass('form-control')
+		}
+		//console.log('asldjkasldkjasld',index, obj.type, obj.name)
+	});
+
+	// $('#id_duracion').attr('onkeypress','return permite(event, "num");');
+	// $('#id_cant_uv').attr('onkeypress','return permite(event, "num");');
+	// $('#id_cant_laboratorios').attr('onkeypress','return permite(event, "num");');
+	// $('#id_uv_laboratorios').attr('onkeypress','return permite(event, "num");');
+	// $('#id_uv_pps').attr('onkeypress','return permite(event, "num");');	
+	// $('#id_cant_asignaturas').attr('onkeypress','return permite(event, "num");');	
+	// $('input[id^=id_modalidad_]').attr('class','');
+	
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

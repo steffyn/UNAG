@@ -31,12 +31,9 @@ urlpatterns = patterns('UNAG.apps.registro.views',
 
 	#urls menu administracion de persona docente
 	url(r'^censo/docente/add/$', 'view_add_people_docente', name='vista_nuevo_docente'),
-	url(r'^censo/personadocente/edit/$', 'view_persona_docente_edit', name='vista_persona_docente_detalle'),
-	url(r'^censo/docente/edit/$', 'view_senso_docente_edit', name='vista_senso_docente_detalle'),
+	#url(r'^censo/personadocente/edit/$', 'view_persona_docente_edit', name='vista_persona_docente_detalle'),
+	#url(r'^censo/docente/edit/$', 'view_senso_docente_edit', name='vista_senso_docente_detalle'),
 
-	#Sarai
-	url(r'^catedratico/agregar/$', 'view_agregar_catedratico', name='vista_nuevo_catedratico'),
-	url(r'^menu/principal$', 'menu_principal', name='catedratico_menu_principal'),
 
 	#urls menu administracion de tipo de asignaturas
 	url(r'^administration/tipo_asignatura/$', 'view_administration_type_subject', name='vista_administracion_tipo_asignaturas'),
@@ -73,6 +70,10 @@ urlpatterns = patterns('UNAG.apps.registro.views',
 	url(r'^administration/censo/avance$', 'view_avance_censo', name='vista_avance_censo'),
 	url(r'^administration/censo/recuperar/clave$', 'view_recuperar_clave', name='vista_recuperar_clave'),
 
-	#Por Karla
-	url(r'^docente/nuevo/$', 'nuevo_docente', name='nuevo_docente'),
+	#Por Sarai //Docente
+	url(r'^docente/index/$', 'docente_inicio', name='docente_inicio'),
+	url(r'^registro/docente/$', 'docente_registro', name='docente_registro'),
+	url(r'^eliminar/(?P<id_>\d+)/$', 'docente_eliminar', name='docente_eliminar'),
+	url(r'^editar/(?P<id_>\d+)/$', 'docente_editar', name='docente_editar'),
+	
 )
