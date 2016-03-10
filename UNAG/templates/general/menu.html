@@ -9,7 +9,12 @@
 {% endblock  %}
 
 {% block navlist %}
-
+    
+    <li>
+      <a href = "{% url 'general_periodo_lista' %}">
+        <i class="glyphicon glyphicon-map-marker"></i> <span>Periodo</span>
+      </a> 
+    </li>
     <li class="treeview">
       <a href="#">
         <i class="glyphicon glyphicon-user"></i> <span>Recursos Humanos</span> <i class="fa fa-angle-left pull-right"></i>

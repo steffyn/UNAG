@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 # Create your views here.
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext #permite el envio de datos hacia la plantilla
 from django.core.mail import EmailMultiAlternatives #enviamos HTML
 from django.contrib.auth import login, logout, authenticate
@@ -625,3 +625,26 @@ def ajax_ubicacion(request):
 		return HttpResponse(json.dumps(data))
 	else:
 		return HttpResponse(0)
+
+def general_periodo_lista(request):
+	lista = Periodo.objects.all()
+	contexto = {'lista':lista}
+	return render(request,'general/periodo_lista.html', contexto)
+
+def general_periodo_registro(request):
+	if request.method == "POST":
+		formulario = PeriodoForm(request.POST)
+		if formulario.is_valid():
+			registro = formulario.save(commit=False)
+			registro.usuario_creador = request.user
+			registro.usuario_modificador = request.user
+			registro.save()
+			exito = 'El registro fue guardado exitosamente'
+			formulario = PeriodoForm()
+			contexto = {'formulario':formulario, 'exito': exito}
+		else:
+			contexto = {'formulario':formulario}
+	else:	
+		formulario = PeriodoForm()
+		contexto = {'formulario':formulario}
+	return render(request,'general/periodo_registro.html', contexto)			

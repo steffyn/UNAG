@@ -9,6 +9,15 @@
 {% endblock  %}
 
 {% block navlist %}
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-list-alt"></i> <span>Horario de Clases</span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="{% url 'vista_nuevo_recursohumano_normal' %}"><i class="fa fa-circle-o"></i> Personal Administrativo</a></li>
+        <li><a href="{% url 'vista_nuevo_recursohumano_docente' %}"><i class="fa fa-circle-o"></i> Personal Académico</a></li>
+      </ul>
+    </li>
     <li>
   		<a href = "{% url 'vista_administracion_deptos_academics' %}">
              <i class="glyphicon glyphicon-list-alt"></i> <span>Departamentos Académicos</span>

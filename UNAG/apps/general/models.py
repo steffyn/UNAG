@@ -228,7 +228,10 @@ class Barrio(models.Model):
 
 
 class Periodo(models.Model):
+	clase = models.IntegerField()
 	descripcion=models.CharField(max_length=65)
+	fecha_inicio = models.DateField()
+	fecha_final = models.DateField()
 	usuario_creador=models.ForeignKey(User, related_name='pr_usuario_creador')
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='pr_usuario_modificador')
@@ -240,7 +243,7 @@ class Periodo(models.Model):
 		return self.descripcion
 
 class PeriodoClase(models.Model):
-	descripcion=models.CharField(max_length=128)
+	descripcion=models.CharField(max_length=128, verbose_name='Periodo Academico')
 	periodo=models.ForeignKey(Periodo)
 	usuario_creador=models.ForeignKey(User, related_name='pc_usuario_creador')
 	fecha_creacion=models.DateField(auto_now_add=True)

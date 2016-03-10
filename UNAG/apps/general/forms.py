@@ -141,3 +141,14 @@ class DormitorioForm(ModelForm):
 	capacidad_personas=fields.IntegerField(validators=[RegexValidator("^[0-9]+$")], widget=forms.TextInput(attrs={'size':'3', 'maxlength':'3'}))
 	codigo=forms.CharField(label='Código')
 	descripcion=forms.CharField(label='Descripción')
+
+
+#Por Katherine
+class PeriodoForm(ModelForm):
+	clase = forms.CharField(widget = forms.TextInput(attrs={'class': 'form-control'}))
+	descripcion = forms.CharField(widget = forms.TextInput(attrs={'class': 'form-control'}))
+	fecha_inicio = forms.CharField(widget = forms.TextInput(attrs={'class': 'form-control'}))
+	fecha_final = forms.CharField(widget = forms.TextInput(attrs={'class': 'form-control'}))
+	class Meta:
+		model = Periodo
+		exclude = ['usuario_creador', 'fecha_creacion', 'usuario_modificador', 'fecha_modificacion']
