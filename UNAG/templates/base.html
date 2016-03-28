@@ -43,10 +43,9 @@
                 <ul class="dropdown-menu">
                   <li class="user-header">
                     <img src="/media/images/user.png" class="img-circle" alt="User Image">
-                    <p>
+                    <p> <b>
                       {{user.first_name}} {{ user.last_name }}
-
-                    </p>
+                    </b> </p>
                   </li>
                   <!-- Menu Footer-->
                   <li class="user-footer">
@@ -68,14 +67,8 @@
 
       <aside class="main-sidebar">
         <section class="sidebar">
-          <div class="user-panel">
-            <div class="pull-left info">
-              <p>{{user.first_name}} {{ user.last_name }}</p>
-            </div>
-          <br>
-          </div>
           <ul class="sidebar-menu">
-            <li class="header">{% block navlist_header %}{% endblock  %}</li>
+            <li class="header text-center" style="color:white; font-size: 16px"> {% block navlist_header %}{% endblock  %} </li>
             {% block navlist %} {% endblock  %}
           </ul>
         </section>

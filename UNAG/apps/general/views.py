@@ -648,3 +648,7 @@ def general_periodo_registro(request):
 		formulario = PeriodoForm()
 		contexto = {'formulario':formulario}
 	return render(request,'general/periodo_registro.html', contexto)			
+
+
+def general_administration(request):
+	return HttpResponseRedirect(reverse('general_periodo_lista'))

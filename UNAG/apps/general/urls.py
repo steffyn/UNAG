@@ -67,5 +67,7 @@ urlpatterns = patterns('UNAG.apps.general.views',
 	url(r'^administration/ajax/ubicacion/$', 'ajax_ubicacion', name='ajax_ubicacion'),
 	url(r'^periodo/registro/$', 'general_periodo_registro', name='general_periodo_registro'),
 	url(r'^periodo/lista/$', 'general_periodo_lista', name='general_periodo_lista'),
+	url(r'^administration/$', 'general_administration', name='general_administration'),
+		
 )
 

@@ -78,20 +78,20 @@ def view_main_teacher(request):
 
 @permission_required('home.can_view_menu_registro', login_url='/logout/')
 def view_main_administration(request):
-	campuslen = 0; depto_academico = 0; carreraslen = 0; asociacionesCamplen = 0; centrosRegionaleslen = 0;
+	# campuslen = 0; depto_academico = 0; carreraslen = 0; asociacionesCamplen = 0; centrosRegionaleslen = 0;
 
-	campuslen = len(Campus.objects.all())
-	depto_academicoslen = len(DepartamentoAcademico.objects.all())
-	carreraslen = len(Carrera.objects.all())
-	asociacionesCamplen = len( AsocCampesina.objects.all())
-	centrosRegionaleslen = len(Centro.objects.all())
+	# campuslen = len(Campus.objects.all())
+	# depto_academicoslen = len(DepartamentoAcademico.objects.all())
+	# carreraslen = len(Carrera.objects.all())
+	# asociacionesCamplen = len( AsocCampesina.objects.all())
+	# centrosRegionaleslen = len(Centro.objects.all())
 
-	ctx = {'campuslen':campuslen, 'depto_academicoslen': depto_academicoslen, 
-	'carreraslen': carreraslen, 'asociacionesCamplen': asociacionesCamplen,
-	'centrosRegionaleslen':centrosRegionaleslen}
+	# ctx = {'campuslen':campuslen, 'depto_academicoslen': depto_academicoslen, 
+	# 'carreraslen': carreraslen, 'asociacionesCamplen': asociacionesCamplen,
+	# 'centrosRegionaleslen':centrosRegionaleslen}
 	
-	return render_to_response('general/administracion_index.html', ctx, context_instance=RequestContext(request))
-
+	#return render_to_response('general/administracion_index.html', ctx, context_instance=RequestContext(request))
+	return HttpResponseRedirect(reverse('general_periodo_lista'))
 #vista inicio pagina de senso
 @permission_required('home.can_view_home_censo', login_url='/logout/')
 def view_home_senso(request):

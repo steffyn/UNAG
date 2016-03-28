@@ -8,10 +8,10 @@ import django.contrib.auth.models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('auth', '0006_require_contenttypes_0002'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-    ]
+    # dependencies = [
+    #     ('auth', '0006_require_contenttypes_0002'),
+    #     migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    # ]
 
     operations = [
         migrations.CreateModel(
@@ -52,9 +52,9 @@ class Migration(migrations.Migration):
                 'db_table': 'home_user',
             },
             bases=('auth.user',),
-            managers=[
-                ('objects', django.contrib.auth.models.UserManager()),
-            ],
+            # managers=[
+            #     ('objects', django.contrib.auth.models.UserManager()),
+            # ],
         ),
         migrations.AddField(
             model_name='tipousuario',

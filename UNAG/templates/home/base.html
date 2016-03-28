@@ -27,45 +27,32 @@
               </button>
             </div>
             <!-- Navbar Right Menu -->
-              <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-                  <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <span class="hidden-xs">{{user.username}}</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li class="user-header">
-                        <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                        <p>
-                          Alexander Pierce - Web Developer
-                          <small>Member since Nov. 2012</small>
-                        </p>
-                      </li>
-                      <!-- Menu Body -->
-                      <li class="user-body">
-                        <div class="col-xs-4 text-center">
-                          <a href="#">Followers</a>
-                        </div>
-                        <div class="col-xs-4 text-center">
-                          <a href="#">Sales</a>
-                        </div>
-                        <div class="col-xs-4 text-center">
-                          <a href="#">Friends</a>
-                        </div>
-                      </li>
-                      <!-- Menu Footer-->
-                      <li class="user-footer">
-                        <div class="pull-left">
-                          <a href="#" class="btn btn-default btn-flat">Profile</a>
-                        </div>
-                        <div class="pull-right">
-                          <a href="{% url 'vista_logout'  %}" class="btn btn-default btn-flat">Sign out</a>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
+            <div class="navbar-custom-menu">
+              <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="hidden-xs">{{user.username}}</span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li class="user-header">
+                      <img src="/media/images/user.png" class="img-circle" alt="User Image">
+                      <p> <b>
+                        {{user.first_name}} {{ user.last_name }}
+                      </b> </p>
+                    </li>
+                    <!-- Menu Footer-->
+                    <li class="user-footer">
+                      <div class="pull-left">
+                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                      </div>
+                      <div class="pull-right">
+                        <a href="{% url 'vista_logout' %}" class="btn btn-default btn-flat">Sign out</a>
+                      </div>
+                    </li>
+                  </ul>
+              </li>
+            </ul>
+          </div>
           </div>
         </nav>
       </header>

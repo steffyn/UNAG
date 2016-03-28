@@ -1059,7 +1059,6 @@ def docente_eliminar(request,id_=None):
 
 
 def docente_editar(request, id_=None):
-    
 		if request.method == 'POST':
 			objPersona = Persona.objects.get(pk=id_)
 			formulario =  DocentePersonaForm(request.POST,request.FILES, instance = objPersona)
@@ -1081,4 +1080,4 @@ def docente_editar(request, id_=None):
 
 @login_required
 def registro_inicio(request):
-	return render(request, 'registro/menu.html')	
+	return HttpResponseRedirect(reverse('vista_administracion_deptos_academics'))
