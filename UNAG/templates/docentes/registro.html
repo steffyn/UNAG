@@ -15,7 +15,8 @@
 {% endblock  %}
 
 {% block contenido_box %}
-	<form id="frm_persona" name="frm_persona" action="." method="POST">{% csrf_token %}	
+	<form id="frm_persona" name="frm_persona" action="." method="POST">
+		{% csrf_token %}	
 		{% if formulario.errors %}				
 			<div class="alert alert-danger">
 					<h4>Formulario contiene errores!!</h4>

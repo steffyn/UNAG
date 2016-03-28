@@ -15,6 +15,7 @@ from django.core.urlresolvers import reverse
 from datetime import datetime
 from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth.models import Group
+import json 
 
 from UNAG.apps.general.forms import *
 from UNAG.apps.alumnos.forms import *
@@ -53,7 +54,7 @@ def view_depto_academic_add(request):
 			return render_to_response('registro/departamento_academico_nuevo.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = DepartamentoAcademicoForm()
-		ctx = {'formulario': formulario, 'ultimo': departamento_academico.objects.order_by('id').reverse()[:1]}
+		ctx = {'formulario': formulario, 'ultimo':DepartamentoAcademico.objects.order_by('id').reverse()[:1]}
 		return render_to_response('registro/departamento_academico_nuevo.html', ctx, context_instance=RequestContext(request))
 
 def view_depto_academic_edit(request, idda=None):
@@ -962,7 +963,7 @@ def view_recuperar_clave(request):
 
 
 #PorSarai //////////////////////////////////////////////////////////////////////////////////////////////////////
-@login_required
+#@login_required
 def docente_inicio(request):
 	persona_list = []
 	if Persona.objects.all():
@@ -1050,13 +1051,12 @@ def docente_registro(request):
 		formulario_doc = DocenteForm()
 		return render_to_response('docentes/registro.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
 
-@permission_required('registro.docente_eliminar', login_url='/administration/')	
+#@permission_required('registro.docente_eliminar', login_url='/administration/')	
 def docente_eliminar(request,id_=None):
 
 	if id_:
 		Persona.objects.filter(id=id_).delete()
 		return HttpResponseRedirect(reverse('docente_inicio'))
-
 
 def docente_editar(request, id_=None):
     
@@ -1078,6 +1078,17 @@ def docente_editar(request, id_=None):
 			formulario = DocentePersonaForm(instance = objPersona)
 			ctx = {'formulario': formulario}
 			return render_to_response('docentes/editar.html',  ctx, context_instance=RequestContext(request))
+
+
+def registro_ajax_buscar_modulo(request):
+	print '---->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',request.method
+	if request.method == 'GET':
+		data = list(Asignatura.objects.filter(carrera_id=request.GET.get('carrera'), tipo_asignatura_id=2).extra(select={'text': 'nombre_asignatura'}).values('text','id'))
+		return HttpResponse(json.dumps(data))
+	else:
+		return HttpResponse(0)
+######FIN########################
+
 
 @login_required
 def registro_inicio(request):

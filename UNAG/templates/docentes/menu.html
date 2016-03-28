@@ -1,19 +1,28 @@
 {% extends "docentes/base.html" %}
-
 {% block navlist_header %}
-    ADMINISTRACION
+    DOCENTES
 {% endblock  %}
-
+{% block titulo %}
+    Docentes
+{% endblock  %}
 {% block navlist %}
 
-     <li class="treeview">
+     <li>
       <a href="{% url 'docente_inicio' %}">
         <i class="glyphicon glyphicon-user"></i> <span>Administracion Docente</span> 
       </a>
-     
-  
+    </li>
+     <li>
+  		<a href = "#">
+        <i class="glyphicon glyphicon-user"></i> <span>Perfil</span>
+      </a> 
+    </li>
+     <li>
+  		<a href = "#">
+        <i class="glyphicon glyphicon-folder-open"></i> <span>Clases</span>
+      </a> 
+    </li>
 {% endblock %}
-
 {% block container %}
 <div class="box box-default">
 	<div class="box-header with-border">
@@ -25,7 +34,6 @@
 	</div>
 	<div class="box-body table-responsive">
 		{% block contenido_box  %} {% endblock  %}
-		
 	</div>
 </div>
 {% endblock  %}

@@ -1,13 +1,19 @@
 {% extends "registro/menu.html" %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="/media/css/select2.min.css">
+{% endblock css %}
+
 {% block header %}
-  <h1>
-   Asignatura
-  </h1>
+
+  <h1>Asignatura</h1>
+
   <ol class="breadcrumb">
     <li><i class="fa fa-dashboard"></i> Administración</li>
     <li>Asignatura</li>
     <li>Agregar</li>
   </ol>
+
 {% endblock  %}
 
 
@@ -16,31 +22,131 @@
 {% endblock  %}
 
 {% block contenido_box %}
-	<form id="frm_carrea" name="frm_carrera" action="." method="POST">
-	{% csrf_token %}	
-		{% if formulario.errors %}				
-			<div class="alert alert-danger">
-					<h4>Formulario contiene errores!!</h4>
-			</div>
-		{% else %}
-			{% if c %}
-				<div class="alert alert-success">
-						<p><h4>Última asignatura guardada!!</h4>
-						{% for c in ultimo %} <b>"{{ c.nombre_asignatura }}" el {{c.fecha_creacion}}</b> {% endfor %}<p>
-				</div>
+	<form id="frm_carrera" role="form" name="frm_carrera" action="." method="POST">
+	{% csrf_token %}
+	    <div class="alert alert-success">
+			<p><h4>Última carrera guardada!!</h4>
+			{% for c in ultimo %} <b>"{{ c.nombre_carrera }}" el {{c.fecha_creacion}}</b> {% endfor %}<p>
+		</div>
+		    {% for field in formulario %}
+		        {% if field.html_name == 'modulo' %}
+		        {% endif %}
+			<div class="form-group">
+				{{ field.errors }}
+			    {{ field.label_tag }}
+			    <div id="{{ field.html_name }}">
+			        {{ field }}
+			    </div> {{ field.help_text }}
+		    </div>
+		     {% if field.html_name == 'tipo_asignatura' %}
+		     <input type="hidden">
+			    <div>
+			    	<label> Modulos: </label>
+			    	<select  name="modulos" id="id_modulo"  class="select2" >
+	                    <option value="">------------</option>
+	                </select>
+                </div><br>
+            {% endif %}
+			{% endfor %}
 				
-			{% endif %}
-		{% endif %}
-		{{formulario.as_p}}
-		<button type="submit" class="btn btn-primary">
-			<i class="glyphicon glyphicon-save"></i>Guardar</button>
+           
+		<button type="submit"  multiple="multiple" class="btn btn-primary"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
 	</form>
 {% endblock %}
 
+
+
+
 {% block js %}
+{% include "utilidades/waiting_ajax.html" %}
+<script src="/media/js/select2.min.js"></script>		
 <script type="text/javascript">
-	$(':input').each(function( index, obj ) {
-		$(obj).addClass('form-control')
+	function width_select(){
+		$( ".select2" ).each(function( index ) {
+	 		$( this ).css('width', '100%'); // Aqui lo que hace es seleccionar todos los SELECTs con clase de 'select2', si le quita esto, en el modal los SELECTs salen super pequenios.
+		});
+	}
+
+	$("select").select2();
+	width_select();
+	$(document).ready(function() {
+		$('input').removeClass("errorlist").addClass("form-control");
+		$('.errorlist').removeClass("errorlist").addClass("alert alert-danger");
+		$('#myModal2').modal('hide')
+		$('textarea').addClass("form-control")
+	 	$("#id_carrera").on("change", getTipoAsignatura);
+        $("#id_carrera").on("change", getModulo);
+        
+		
+    });
+
+    function getTipoAsignatura() {
+		carrera = $('#id_carrera').val();//option checked
+		 if (carrera) {
+                // Eliminamos las opciones anteriores del select
+                $("#id_tipo_asignatura").val();
+                var request = $.ajax({
+                    type: "GET",
+                    url: "{% url 'registro_ajax_buscar_modulo' %}",
+                    data: {
+                        "carrera": carrera,
+                    },
+                });
+                request.done(function(response) {
+                    // Agregamos los resultados al select
+                    $("#id_carrera").html(response.tipo_asignatura);
+                    $("#id_modulo").html("<option value='' selected='selected'>---------</option>");
+                    $("#id_tipo_asignatura, #id_modulo").trigger("change");
+                });
+            } else {
+                $("#id_tipo_asignatura").html("<option value='' select='select'>---------</option>");
+                $("#id_modulo").html("<option value='' select='select'>---------</option>");
+                $("#id_tipo_asignatura, #id_modulo").trigger("change");
+            }
+        } 
+       $('#id_tipo_asignatura').change(function(){
+		carrera = $('#id_carrera').val();//option checked
+		console.log('CARRERA: ' + carrera)
+		if ( $(this).val() == 3 ) {
+			data = {
+				'carrera': carrera
+			}
+			$.ajax({
+				data: data,
+				url: "{% url 'registro_ajax_buscar_modulo' %}",
+				type: 'GET',
+
+				success: function(msg){
+					data = jQuery.parseJSON(msg)
+					$('#id_modulo').select2({
+						data: data
+
+					})
+				}
+			});
+		}
 	});
-</script>
+
+		
+		
+
+	</script>
 {% endblock %}
+
+   
+	
+	
+
+
+	
+
+
+
+
+
+
+
+
+
+
+

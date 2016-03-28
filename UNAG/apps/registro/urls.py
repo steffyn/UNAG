@@ -75,6 +75,9 @@ urlpatterns = patterns('UNAG.apps.registro.views',
 	url(r'^registro/docente/$', 'docente_registro', name='docente_registro'),
 	url(r'^eliminar/(?P<id_>\d+)/$', 'docente_eliminar', name='docente_eliminar'),
 	url(r'^editar/(?P<id_>\d+)/$', 'docente_editar', name='docente_editar'),
+	url(r'^administration/ajax/registro/$', 'registro_ajax_buscar_modulo', name='registro_ajax_buscar_modulo'),
+	
+
 	
 	#Por Katherine
 	url(r'^$', 'registro_inicio', name='registro_inicio'),

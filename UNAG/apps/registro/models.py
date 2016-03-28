@@ -121,6 +121,9 @@ class TipoAsignatura(models.Model):
 	def __unicode__(self):
 		return self.descripcion
 
+
+
+
 class Asignatura(models.Model):
 	codigo_registro=models.CharField(max_length=512, unique=True)
 	nombre_asignatura=models.CharField(max_length=1024)
@@ -132,13 +135,26 @@ class Asignatura(models.Model):
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='asig_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
-
+	
 	class Meta:
 		db_table = 'registro_asignatura'
 		unique_together = ('codigo_registro','nombre_asignatura')
 
 	def __unicode__(self):
 		return self.nombre_asignatura
+
+class Modulo(models.Model):
+	carrera=models.ForeignKey(Carrera)
+	laboratorio=models.ForeignKey(Asignatura,  related_name='laboratorio_id', verbose_name='laboratorios', unique=True)
+	modulo=models.ForeignKey(Asignatura, related_name='modulo_id')
+	usuario_creador=models.ForeignKey(User, related_name='mod_usuario_creador')
+	fecha_creacion=models.DateField(auto_now_add=True)
+	usuario_modificador=models.ForeignKey(User, related_name='mod_usuario_modificador')
+	fecha_modificacion=models.DateField(auto_now=True)
+
+	class Meta:
+		db_table = 'registro_modulo'
+
 
 class TipoDocente(models.Model):
 	descripcion=models.CharField(max_length=512)
@@ -151,7 +167,7 @@ class TipoDocente(models.Model):
 		db_table = 'registro_tipo_docente'
 
 	def __unicode__(self):
-		return self.descripcion
+		return self.descripcion                                                                 
 
 class JornadaLaboral(models.Model):
 	descripcion=models.CharField(max_length=512)
@@ -186,19 +202,9 @@ class docente_departamento(models.Model):
 	def __unicode__(self):
 		return self.persona
 
-class Modulo(models.Model):
-	tipo_asignatura=models.ForeignKey(TipoAsignatura)
-	descripcion=models.CharField(max_length=512)
-	periodo_clase=models.ForeignKey(PeriodoClase)
-	docente_carrera=models.ForeignKey(docente_departamento)
-	usuario_creador=models.ForeignKey(User, related_name='mod_usuario_creador')
-	fecha_creacion=models.DateField(auto_now_add=True)
-	usuario_modificador=models.ForeignKey(User, related_name='mod_usuario_modificador')
-	fecha_modificacion=models.DateField(auto_now=True)
 
-	class Meta:
-		db_table = 'registro_modulo'
 
+		
 class Seccion(models.Model):
 	descripcion=models.CharField(max_length=512)
 	periodo_clase=models.ForeignKey(PeriodoClase)

@@ -14,3 +14,5 @@ admin.site.register(JornadaLaboral, MyModelAdmin)
 admin.site.register(TipoDocente, MyModelAdmin)
 admin.site.register(Horario, MyModelAdmin)
 admin.site.register(HorarioHora, MyModelAdmin)
+admin.site.register(Modulo, MyModelAdmin)
+
