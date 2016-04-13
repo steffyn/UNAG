@@ -17,7 +17,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '6432',                      # Set to empty string for default.
+        'PORT': '',                      # Set to empty string for default.
     }
 }
 
@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
+    'bootstrapform',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'UNAG.apps.home',

@@ -1,46 +1,54 @@
-{% extends "general/administracion_index.html" %}
+{% extends "registro/menu.html" %}
+{% block header %}
+  <h1>
+  Tipo de Asignatura
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Tipo de Asignatura</li>
+    <li>Detalles</li>
+  </ol>
+{% endblock  %}
 
-{% block container %}
-	<div class="col-lg-12 well">
-		<h4>Detalle de Tipo de Asignaturas</h4>			
-	</div>
-	<form id="frm_campus" name="frm_campus" action="." method="POST">{% csrf_token %}
-		<div class="panel panel-default">
-			{% if perms.registro.change_tipo_asignatura %}
-			<div class="panel-heading">
-				<a title="Editar Documento" class="btn btn-default" href="javascript:cambiarEstilo();">
-						<span class="glyphicon glyphicon-edit">&nbsp;</span>Editar
-				</a>
-				<button type="submit" title="Guardar Documento" id="btn_guardar" class="btn btn-default"disabled>
-						<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar
-				</button>
 
-				<a href="{% url 'vista_administracion_tipo_asignaturas' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a>
-			</div>
-			{% endif %}
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-lg-6">
-						{{formulario.as_p}}
-					</div>
-				</div>
-			</div>
-		</div>
+{% block titulo_box %}
+	Detalles Tipo de Asignaturas
+{% endblock  %}
+
+{% block boton_box %}
+	<a title="Editar Documento" class="btn btn-default" href="javascript:cambiarEstilo();">
+			<i class="glyphicon glyphicon-edit"></i>Editar
+	</a>
+	<button type="submit" title="Guardar Documento" id="btn_guardar" form="frm_campus" class="btn btn-default"disabled>
+			<i class="glyphicon glyphicon-save"></i>Guardar
+	</button>
+{% endblock  %}
+
+{% block contenido_box %}
+	<form id="frm_campus" name="frm_campus" action="." method="POST">
+		{% csrf_token %}
+		{% if perms.registro.change_tipo_asignatura %}
+			{{formulario.as_p}}
+		{% endif %}
 	</form>
 {% endblock %}
 
-{% block extrafooter %}
-	<script type="text/javascript">
-		function cambiarEstilo(){
-				$('input').removeAttr("disabled");
-				$('#btn_guardar').removeAttr("disabled");	
-				$('input').removeAttr("disabled");
-				$('textarea').removeAttr("disabled");
-				$('select').removeAttr("disabled");	
-				restaurarValor("id_tipo_asignatura");	
+{% block js %}
+<script type="text/javascript">
+	$(':input').each(function( index, obj ) {
+		if (obj.id != 'btn_guardar'){
+			$(obj).prop('disabled', true).addClass('form-control');
 		}
+	});
+
+	function cambiarEstilo(){
+			$('input').removeAttr("disabled");
+			$('#btn_guardar').removeAttr("disabled");	
+			$('input').removeAttr("disabled");
+			$('textarea').removeAttr("disabled");
+			$('select').removeAttr("disabled");	
+			restaurarValor("id_tipo_asignatura");	
+	}
 			
-		inhabilitar_controles();
-		actualizaChosen();
-	</script>
+</script>
 {% endblock %}

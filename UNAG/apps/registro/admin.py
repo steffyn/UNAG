@@ -10,7 +10,7 @@ class MyModelAdmin(admin.ModelAdmin):
 			ac_usuario_creador, request, **kwargs
 		)
 
-admin.site.register(jornada_laboral, MyModelAdmin)
-admin.site.register(tipo_docente, MyModelAdmin)
-admin.site.register(horario, MyModelAdmin)
-admin.site.register(horario_hora, MyModelAdmin)
+admin.site.register(JornadaLaboral, MyModelAdmin)
+admin.site.register(TipoDocente, MyModelAdmin)
+admin.site.register(Horario, MyModelAdmin)
+admin.site.register(HorarioHora, MyModelAdmin)

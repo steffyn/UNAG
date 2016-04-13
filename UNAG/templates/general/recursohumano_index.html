@@ -1,8 +1,19 @@
-{% extends "general/administracion_index.html" %}
+{% extends "general/menu.html" %}
+
+
+{% block header %}
+  <h1>
+   Recursos Humanos
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Recursos Humanos</li>
+  </ol>
+{% endblock  %}
 
 {% block container %}
+
 	<div class="row">
-		<legend>Administración Recurso Humano<a href="{% url 'vista_main_first' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
 		<div class="panel panel-default">
 			<div class="panel-heading"><h4>Menú de opciones</h4></div>
 			<div class="panel-body">

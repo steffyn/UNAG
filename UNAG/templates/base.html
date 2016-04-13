@@ -1,233 +1,101 @@
-<!DOCTYPE HTML>
-<!-- Preloader -->
-<HTML style="height: 100%;">
-<head>
-	<title>{% block titlet %} SARE-UNAG {% endblock %}</title>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block titulo %} {% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/media/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/media/css/skins/_all-skins.min.css">
+    {% block css %} {% endblock %}
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="hold-transition skin-red sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
 
-
-	<link href="/media/libs/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
-	<link href="/media/libs/dist/css/jquery-ui.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="/media/libs/chosen/chosen.css">
-	<link type="text/css" href="/media/libs/dist/css/demo_table.css" rel="stylesheet" />
-	<link rel="icon" type="image/ico" href="/media/images/favicon.ico" />
-	<link rel="stylesheet" type="text/css" href="/media/css/jquery.fancybox.css">
-
-	<script src="/media/libs/dist/js/jquery-1.8.2.js"></script>
-	<script src="/media/libs/dist/js/1.9.2/jquery-ui.js"></script>
-	<script src="/media/js/jquery.fancybox.js"></script>
-
-	<style type="text/css">
-	/* Preloader */
-	#preloader {
-	    position:fixed;
-	    top:0;
-	    left:0;
-	    right:0;
-	    bottom:0;
-	    background-color:#fff; /* change if the mask should have another color then white */
-	    z-index:99; /* makes sure it stays on top */
-	    opacity: 0.8;
-	}
-
-	#status {
-	    width:200px;
-	    height:200px;
-	    position:absolute;
-	    left:50%; /* centers the loading animation horizontally one the screen */
-	    top:50%; /* centers the loading animation vertically one the screen */
-	    background-image:url(/media/images/loading.gif); /* path to your loading animation */
-	    background-repeat:no-repeat;
-	    background-position:center;
-	    margin:-100px 0 0 -100px; /* is width and height divided by two */
-	}
-</style>
-
-	{% block css %} {% endblock %}
-</head>
-	<body>
-		<nav class="navbar navbar-inverse" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="{% url 'vista_main_first' %}">Registro</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url 'vista_main_first' %}"><span class="glyphicon glyphicon-home">&nbsp;</span>Inicio</a></li>
-              </ul>
-            
-              <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bienvenido {{user.first_name}} !<b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#"><span class="glyphicon glyphicon-cog">&nbsp;</span>Perfil</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-retweet">&nbsp;</span>Cambiar Contraseña</a></li>
-                    <li class="divider"></li>
-                    <li><a href="{% url 'vista_logout' %}"><span class="glyphicon glyphicon-off">&nbsp;</span>Cerrar Sesión</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div><!-- /.navbar-collapse -->
+      <header class="main-header">
+        <a href="{% url 'vista_main_first' %}" class="logo">
+          <span class="logo-mini"><b>SARE</b></span>
+          <span class="logo-lg"><b>SARE</b> UNAG</span>
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <span class="hidden-xs">{{user.username}}</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="user-header">
+                    <img src="/media/images/user.png" class="img-circle" alt="User Image">
+                    <p> <b>
+                      {{user.first_name}} {{ user.last_name }}
+                    </b> </p>
+                  </li>
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    </div>
+                    <div class="pull-right">
+                      <a href="{% url 'vista_logout' %}" class="btn btn-default btn-flat">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </nav>
-		
-		{% block extrahead %}
-		{% endblock %}
-		
-		<div class="container" style="min-width: 100%;">
-			{% block header %}
-				<div class="row">
-			
-					<div class="col-lg-12">
-						{% if not user.is_authenticated %}
-							<a class="pull-right" href="{% url 'vista_login' %}">
-								<span class="glyphicon glyphicon-user"></span>Entrar
-							</a>
-						{% else %}
-							
-						{% endif %}
-						
-					</div>
-				
-				</div>
-			{% endblock %}
-			<div class="row" style="width: 100%">
-			
-				<div class="col-lg-3">
-					{% block navlist %}
-					{% endblock %}
-				</div>
-				<div class="col-lg-9">
-					{% block container %}
-					{% endblock %}
-				</div>
-						
-			</div>
-		</div>
+      </header>
 
+      <!-- =============================================== -->
 
-	<script type="text/javascript" src="/media/libs/dist/js/bootstrap.js"></script>
-	<script type="text/javascript" language="javascript" src="/media/libs/dist/js/jquery.dataTables.js"></script>
-	<script type="text/javascript" src="/media/libs/chosen/chosen.jquery.js"></script>
-	<script type="text/javascript" src="/media/libs/chosen/docsupport/prism.js"></script>
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <ul class="sidebar-menu">
+            <li class="header text-center" style="color:white; font-size: 16px"> {% block navlist_header %}{% endblock  %} </li>
+            {% block navlist %} {% endblock  %}
+          </ul>
+        </section>
+      </aside>
 
-	<script type="text/javascript">
+      <!-- =============================================== -->
 
-		function inhabilitar_controles(){
-			$('input').attr("disabled" ,"disabled");
-			$('textarea').attr("disabled" ,"disabled");
-			$('select').attr("disabled" ,"disabled");
-			$('input').removeClass("errorlist").addClass("form-control");
-			$('select').attr('class',"chosen-select");
-		}
+      <div class="content-wrapper">
+        <section class="content-header">
+          {% block header %} {% endblock  %}
+        </section>
 
-	    function actualizaChosen(){
-	    	$('input').removeClass("errorlist").addClass("form-control");
+        <!-- Main content -->
+        <section class="content">
+          {% block container %} {% endblock  %}
+        </section>
+      </div>
+    </div>
 
-			$('select').attr('class',"chosen-select");
-	    	$('.default').attr('style','width: 160px; height: 30px;');
-	    	
-			    	var config = {
-			      '.chosen-select'           : {width:"50%", no_results_text:'Oops, sin resultados!'},
-			      '.chosen-select-deselect'  : {allow_single_deselect:true},
-			      '.chosen-select-no-single' : {disable_search_threshold:10},
-			      '.chosen-select-no-results': {no_results_text:'Oops, sin resultados!'},
-			      '.chosen-select-width'     : {width:"95%"}
-				    }
-				    for (var selector in config) {
-				      $(selector).chosen(config[selector]);
-				    }
-		}
+    
+    <script src="/media/js/jQuery-2.1.4.min.js"></script>
+    <script src="/media/js/bootstrap.min.js"></script>
+    <script src="/media/js/jquery.slimscroll.min.js"></script>
+    <script src="/media/js/fastclick.min.js"></script>
+    <script src="/media/js/app.min.js"></script>
+    <script src="/media/js/demo.js"></script>
 
-		function restaurarValor(id){
-			var valor=document.getElementById(id).value;
-			$("#"+id+" option[value="+ valor +"]").attr("selected",true);
-			$("#"+id).trigger("chosen:updated");
-		}
-
-
-		$(function(){
-			$('input[id^=id_fecha]').datepicker();
-			$('input[id^=id_fecha_nacimiento]').datepicker();
-		});
-		
-		function permite(elEvento, permitidos) {
-			    // Variables que definen los caracteres permitidos
-			    var numeros = "0123456789";
-			    var caracteres = " abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-			    var numeros_caracteres = numeros + caracteres;
-			    //var teclas_especiales = [8, 37, 39, 46, 9, 45];
-			    var teclas_especiales = [8];
-			    var teclaguion=[45, 39, 37, 46];
-			    var puntoscomas=[44, 58, 59, 39, 37, 46, 15];
-			    var bloquear_todos=[];
-			    var num_guiones=numeros+teclaguion;
-			    num_car_pc=numeros_caracteres+puntoscomas;
-			    // 8 = BackSpace, 46 = Supr, 37 = flecha izquierda, 39 = flecha derecha, 45 -
-			    // Seleccionar los caracteres a partir del parámetro de la función, 15 shitf in
-			    switch(permitidos) {
-			        case 'num':
-			            permitidos = numeros;
-			            break;
-			        case 'car':
-			            permitidos = caracteres;
-			            break;
-			        case 'num_car':
-			            permitidos = numeros_caracteres;
-			            break;
-			        case 'num_g':
-			            permitidos=num_guiones;
-			            break;
-			        case 'car_pcoma':
-			            permitidos=num_car_pc;
-			            break;
-			        case 'bloquea':
-			            permitidos=bloquear_todos;
-			            break;
-			                    
-			    }
-			    // Obtener la tecla pulsada
-			    var evento = elEvento || window.event;
-			    var codigoCaracter = evento.charCode || evento.keyCode;
-			    var caracter = String.fromCharCode(codigoCaracter);
-			    // Comprobar si la tecla pulsada es alguna de las teclas especiales
-			    // (teclas de borrado y flechas horizontales)
-			    var tecla_especial = false;
-			    for(var i in teclas_especiales) {
-			        if(codigoCaracter == teclas_especiales[i]) {
-			            tecla_especial = true;
-			            break;
-			        }
-			    }
-			    // Comprobar si la tecla pulsada se encuentra en los caracteres permitidos
-			    // o si es una tecla especial
-			    return permitidos.indexOf(caracter) != -1 || tecla_especial;
-			}
-	</script>
-
-{% block datatable %}
-	<script type="text/javascript">
-		//data table
-			$('table').dataTable( { //CONVERTIMOS NUESTRO LISTADO DE LA FORMA DEL JQUERY.DATATABLES- PASAMOS EL ID DE LA TABLA
-        		"sPaginationType": "full_numbers" //DAMOS FORMATO A LA PAGINACION(NUMEROS)
-    		} );
-    	$('.errorlist').removeClass("errorlist").addClass("alert alert-danger"); 
-    	var cod= $('#id_codigo').val();
-		$('#id_codigo').val($.trim(cod))
-	</script>
-{% endblock %}
-
-{% block extrafooter %}
-{% endblock %}
-
-
-{% block extrajs %}
-{% endblock %}
-</body>
-</HTML>
+    {% block js %} {% endblock %}
+  </body>
+</html>

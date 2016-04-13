@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 # Create your views here.
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext #permite el envio de datos hacia la plantilla
 from django.core.mail import EmailMultiAlternatives #enviamos HTML
 from django.contrib.auth import login, logout, authenticate
@@ -28,8 +28,8 @@ import json
 @login_required
 def view_administration_campus(request):
 	campus_list = []
-	if campus.objects.all():
-		campus_list = campus.objects.all()
+	if Campus.objects.all():
+		campus_list = Campus.objects.all()
 	ctx = {'campus': campus_list}
 	return render_to_response('general/campus_index.html', ctx,context_instance=RequestContext(request))
 
@@ -51,13 +51,13 @@ def view_campus_add(request):
 			return render_to_response('general/campus_nuevo.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = CampusForm()
-		ctx = {'formulario': formulario, 'ultimo': campus.objects.order_by('id').reverse()[:1]}
+		ctx = {'formulario': formulario, 'ultimo': Campus.objects.order_by('id').reverse()[:1]}
 		return render_to_response('general/campus_nuevo.html', ctx, context_instance=RequestContext(request))
 
 def view_campus_edit(request, idcampus=None):
 
 		if request.method == 'POST':
-			objCampus = campus.objects.get(pk = idcampus)
+			objCampus = Campus.objects.get(pk = idcampus)
 			formulario = CampusForm(request.POST, instance = objCampus)
 			if formulario.is_valid():
 				form = formulario.save(commit = False)
@@ -70,7 +70,7 @@ def view_campus_edit(request, idcampus=None):
 				return render_to_response('general/campus_detalle.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
-			objCampus = campus.objects.get(pk=idcampus)
+			objCampus = Campus.objects.get(pk=idcampus)
 			formulario = CampusEditForm(instance = objCampus)
 			ctx = {'formulario': formulario, 'idcampus':idcampus}
 			return render_to_response('general/campus_detalle.html', ctx, context_instance=RequestContext(request))
@@ -79,7 +79,7 @@ def view_campus_edit(request, idcampus=None):
 def view_delete_campus(request,idcampus=None):
 
 	if idcampus:
-		campus.objects.filter(id=idcampus).delete()
+		Campus.objects.filter(id=idcampus).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_campus'))
 
 
@@ -139,8 +139,8 @@ def view_administration_bedroom(request):
 def view_administration_buildings(request):
 	print  "Entro aqui :("
 	edif_list = []
-	if edificios.objects.all():
-		edif_list = edificios.objects.all()
+	if Edificios.objects.all():
+		edif_list = Edificios.objects.all()
 	ctx = {'edificios': edif_list}
 
 	return render_to_response('general/edificios_index.html',ctx, context_instance=RequestContext(request))			
@@ -166,13 +166,13 @@ def view_buildings_add(request,idde=None):
 		
 		else:
 			formulario = EdificiosForm()
-			ctx = {'formulario': formulario, 'ultimo': edificios.objects.order_by('id').reverse()[:1]}
+			ctx = {'formulario': formulario, 'ultimo': Edificios.objects.order_by('id').reverse()[:1]}
 			return render_to_response('general/edificios_nuevo.html', ctx, context_instance=RequestContext(request))
 
 def view_buildings_edit(request,idde=None):
 
 			if request.method == 'POST':
-				objedif = edificios.objects.get(pk = idde)
+				objedif = Edificios.objects.get(pk = idde)
 				formulario = EdificiosForm(request.POST, instance = objedif)
 				if formulario.is_valid():
 					form = formulario.save(commit = False)
@@ -185,7 +185,7 @@ def view_buildings_edit(request,idde=None):
 					return render_to_response('general/edificios_detalle.html', ctx, context_instance=RequestContext(request))
 			else:
 				print "editar-mostrar-data"
-				objedif = edificios.objects.get(pk=idde)
+				objedif = Edificios.objects.get(pk=idde)
 				formulario = EdificiosForm(instance=objedif)
 				ctx = {'formulario': formulario, 'idedificio':idde}
 			return render_to_response('general/edificios_detalle.html', ctx, context_instance=RequestContext(request))
@@ -194,7 +194,7 @@ def view_buildings_edit(request,idde=None):
 def view_delete_buildings(request,idde=None):
 
 	if idde:
-		edificios.objects.filter(id=idde).delete()
+		Edificios.objects.filter(id=idde).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_edificios'))
 
 
@@ -206,23 +206,23 @@ def view_people_ajax_municipio(request):
 		html+='<select id="id_'+request.POST.get('name')+'" class="chosen-select" name="'+request.POST.get('name')+'" required="required">'
 		html+='<option value selected="selected">---------</option>'
 		if request.POST.get('bandera') == 'd':
-			for c in municipio.objects.filter(departamento=request.POST.get('id')):
+			for c in Municipio.objects.filter(departamento=request.POST.get('id')):
 				cod = c.id
 				cod_mun = '' + c.codigo_municipio + ' | '
 				name = c.descripcion
 				html+='<option value='+str(cod)+'>'+cod_mun+name+'</option>' 
 		elif request.POST.get('bandera') == 'm':
-			for c in aldea.objects.filter(municipio=request.POST.get('id')):
+			for c in Aldea.objects.filter(municipio=request.POST.get('id')):
 				cod = c.id
 				name = c.descripcion
 				html+='<option value='+str(cod)+'>'+name+'</option>' 
 		elif request.POST.get('bandera') == 'a':
-			for c in caserio.objects.filter(aldea=request.POST.get('id')):
+			for c in Caserio.objects.filter(aldea=request.POST.get('id')):
 				cod = c.id
 				name = c.descripcion
 				html+='<option value='+str(cod)+'>'+name+'</option>'
 		elif request.POST.get('bandera') == 'c':
-			for c in barrio.objects.filter(caserio=request.POST.get('id')):
+			for c in Barrio.objects.filter(caserio=request.POST.get('id')):
 				cod = c.id
 				name = c.descripcion
 				html+='<option value='+str(cod)+'>'+name+'</option>'
@@ -237,9 +237,9 @@ def view_people_ajax_municipio(request):
 @login_required
 def view_administration_centros(request):
 	centros_list = []
-	if centro.objects.all():
+	if Centro.objects.all():
 		print 'hay centros'
-		centros_list = centro.objects.all()
+		centros_list = Centro.objects.all()
 	ctx = {'centro': centros_list}	
 	return render_to_response('general/centros_index.html', ctx, context_instance=RequestContext(request))	
 
@@ -262,13 +262,13 @@ def view_centro_add(request):
 			return render_to_response('general/centros_nuevo.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = CentroForm()
-		ctx = {'formulario': formulario, 'ultimo': centro.objects.order_by('id').reverse()[:1]}
+		ctx = {'formulario': formulario, 'ultimo': Centro.objects.order_by('id').reverse()[:1]}
 		return render_to_response('general/centros_nuevo.html', ctx, context_instance=RequestContext(request))		
 
 def view_centro_edit(request, id_=None):
 
 		if request.method == 'POST':
-			objCentro = centro.objects.get(pk = id_)
+			objCentro = Centro.objects.get(pk = id_)
 			formulario = CentroForm(request.POST, instance = objCentro)
 			if formulario.is_valid():
 				form = formulario.save(commit = False)
@@ -281,7 +281,7 @@ def view_centro_edit(request, id_=None):
 				return render_to_response('general/centros_detalle.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
-			objCentro = centro.objects.get(pk=id_)
+			objCentro = Centro.objects.get(pk=id_)
 			formulario = CentroForm(instance = objCentro)
 			ctx = {'formulario': formulario, 'id':id_}
 			return render_to_response('general/centros_detalle.html', ctx, context_instance=RequestContext(request))
@@ -290,7 +290,7 @@ def view_centro_edit(request, id_=None):
 def view_delete_centro(request,id_=None):
 
 	if id_:
-		centro.objects.filter(id=id_).delete()
+		Centro.objects.filter(id=id_).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_centros'))
 
 
@@ -299,8 +299,8 @@ def view_delete_centro(request,id_=None):
 @login_required
 def view_administration_bedroom(request):
 	bedroom_list = []
-	if estructura_edificio.objects.all():
-		bedroom_list = estructura_edificio.objects.all()
+	if  EstructuraEdificio.objects.all():
+		bedroom_list =  EstructuraEdificio.objects.all()
 	ctx = {'dormitorios': bedroom_list}
 
 	return render_to_response('general/dormitorios_index.html', ctx, context_instance=RequestContext(request))			
@@ -328,16 +328,16 @@ def view_bedroom_add(request):
 		
 		else:
 			formulario = DormitorioForm()
-			ctx = {'formulario': formulario, 'ultimo': estructura_edificio.objects.order_by('id').reverse()[:1]}
+			ctx = {'formulario': formulario, 'ultimo':  EstructuraEdificio.objects.order_by('id').reverse()[:1]}
 			return render_to_response('general/dormitorios_nuevo.html', ctx, context_instance=RequestContext(request))
 
 
 #by ciloe 09-10-2013
 def view_bedroom_ajax(request):
 	if request.method == 'POST':	
-		data= edificios.objects.filter(id=request.POST.get('id')).values_list('tipo_edificio',flat=True)
-		
-		return HttpResponse(simplejson.dumps('{"tipo":'+str(data)+'}'), mimetype='application/json')
+		data= Edificios.objects.filter(id=request.POST.get('id')).values_list('tipo_edificio',flat=True)
+		print 'lakjsdlkajsdlasd---->', json.dumps('{"tipo":'+str(data)+'}')
+		return HttpResponse(json.dumps('{"tipo":'+str(data)+'}'), content_type='application/json')
 	else:
 		return HttpResponse(0)	
 
@@ -345,7 +345,7 @@ def view_bedroom_ajax(request):
 def view_bedroom_edit(request,iddo=None):
 
 			if request.method == 'POST':
-				objdorm = estructura_edificio.objects.get(pk = iddo)
+				objdorm =  EstructuraEdificio.objects.get(pk = iddo)
 				formulario = DormitorioForm(request.POST, instance = objdorm)
 				if formulario.is_valid():
 					form = formulario.save(commit = False)
@@ -358,7 +358,7 @@ def view_bedroom_edit(request,iddo=None):
 					return render_to_response('general/dormitorios_detalle.html', ctx, context_instance=RequestContext(request))
 			else:
 				print "editar-mostrar-data"
-				objdorm = estructura_edificio.objects.get(pk=iddo)
+				objdorm =  EstructuraEdificio.objects.get(pk=iddo)
 				formulario = DormitorioForm(instance=objdorm)
 				ctx = {'formulario': formulario, 'iddo':iddo}
 			return render_to_response('general/dormitorios_detalle.html', ctx, context_instance=RequestContext(request))
@@ -368,9 +368,10 @@ def view_bedroom_edit(request,iddo=None):
 def view_bedroom_delete(request,iddo=None):
 
 	if iddo:
-		estructura_edificio.objects.filter(id=iddo).delete()
+		EstructuraEdificio.objects.filter(id=iddo).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_dormitorios'))
 
+   
 
 #vista de administracion de recursos humanos------------------------------------------------------
 @login_required
@@ -422,34 +423,34 @@ def view_add_recursohumano_normal(request):
 				grupo=""				
 
 				if tp=='1' or tp=='2':
-					objT=tipo_usuario.objects.get(id=4)
+					objT=TipoUsuario.objects.get(id=4)
 					grupo = Group.objects.get(id=2)
 				elif tp=='5' or tp=='6' or tp=='7':
-					objT=tipo_usuario.objects.get(id=5)
+					objT=TipoUsuario.objects.get(id=5)
 					grupo = Group.objects.get(id=4)
 				elif tp=='11':
-					objT=tipo_usuario.objects.get(id=6)
+					objT=TipoUsuario.objects.get(id=6)
 					grupo = Group.objects.get(id=5)
 				elif tp=='10':
-					objT=tipo_usuario.objects.get(id=7)
+					objT=TipoUsuario.objects.get(id=7)
 					grupo = Group.objects.get(id=6)
 				elif tp=='13':
-					objT=tipo_usuario.objects.get(id=8)
+					objT=TipoUsuario.objects.get(id=8)
 					grupo = Group.objects.get(id=7)
 				elif tp=='14':
-					objT=tipo_usuario.objects.get(id=9)
+					objT=TipoUsuario.objects.get(id=9)
 					grupo = Group.objects.get(id=8)
 				elif tp=='1':
-					objT=tipo_usuario.objects.get(id=10)
+					objT=TipoUsuario.objects.get(id=10)
 					grupo = Group.objects.get(id=2)
 				elif tp=='3':
-					objT=tipo_usuario.objects.get(id=3)
+					objT=TipoUsuario.objects.get(id=3)
 					grupo = Group.objects.get(id=1)
 				elif tp=='9':
-					objT=tipo_usuario.objects.get(id=12)
+					objT=TipoUsuario.objects.get(id=12)
 					grupo = Group.objects.get(id=10)
 				else:
-					objT=tipo_usuario.objects.get(id=13)
+					objT=TipoUsuario.objects.get(id=13)
 					grupo = Group.objects.get(id=11)
 
 
@@ -459,7 +460,7 @@ def view_add_recursohumano_normal(request):
 				formulario.save_m2m()
 
 				user.groups.add(grupo)
-				user.tipo_usuario=objT
+				user.usuario.tipo_usuario=objT
 				user.save()
 
 			except Exception, e:
@@ -528,25 +529,25 @@ def view_add_recursohumano_docente(request):
 					grupo=""				
 
 					if td=='4':
-						objT=tipo_usuario.objects.get(id=14)
+						objT=TipoUsuario.objects.get(id=14)
 						grupo = Group.objects.get(id=4)
 						user.groups.add(grupo)
-						user.tipo_usuario=objT
+						user.usuario.tipo_usuario=objT
 					elif td=='2':
-						objT=tipo_usuario.objects.get(id=3)
+						objT=TipoUsuario.objects.get(id=3)
 						grupo = Group.objects.get(id=1)
 						user.groups.add(grupo)
-						user.tipo_usuario=objT
+						user.usuario.tipo_usuario=objT
 					elif td=='1':
-						objT=tipo_usuario.objects.get(id=12)
+						objT=TipoUsuario.objects.get(id=12)
 						grupo = Group.objects.get(id=10)
 						user.groups.add(grupo)
-						user.tipo_usuario=objT
+						user.usuario.tipo_usuario=objT
 					elif td=='3':
-						objT=tipo_usuario.objects.get(id=13)
+						objT=TipoUsuario.objects.get(id=13)
 						grupo = Group.objects.get(id=11)
 						user.groups.add(grupo)
-						user.tipo_usuario=objT
+						user.usuario.tipo_usuario=objT
 
 					#actualizar datos de usuario
 					user.first_name=formulario.cleaned_data['nombres']
@@ -599,10 +600,10 @@ def view_recuperar_registro(request):
 		identidad = request.POST.get('identidad')
 		print identidad
 		if User.objects.filter(username__istartswith=identidad).count() == 1 and len(identidad)==13:
-			if persona.objects.filter(identidad__istartswith=identidad).count() == 1:
+			if Persona.objects.filter(identidad__istartswith=identidad).count() == 1:
 				return HttpResponse("Ya existe una persona con esta Identidad")
 			user = User.objects.get(username__istartswith=identidad)
-			return HttpResponse(user.codigo_registro)
+			return HttpResponse(user.usuario.codigo_registro)
 		else:
 			return HttpResponse("No se ha podido encontrar el número de registro")
 	else:
@@ -612,15 +613,42 @@ def view_recuperar_registro(request):
 def ajax_ubicacion(request):
 	if request.method == 'POST':
 		if request.POST.get('bandera') == 'd':
-			data = list(municipio.objects.filter(departamento=request.POST.get('id')).extra(select={'text': 'descripcion'}).values('text','id'))
+			data = list(Municipio.objects.filter(departamento=request.POST.get('id')).extra(select={'text': 'descripcion'}).values('text','id'))
 		elif request.POST.get('bandera') == 'm':
-			data = list(aldea.objects.filter(municipio=request.POST.get('id')).extra(select={'text': 'descripcion'}).values('text','id'))
+			data = list(Aldea.objects.filter(municipio=request.POST.get('id')).extra(select={'text': 'descripcion'}).values('text','id'))
 		elif request.POST.get('bandera') == 'a':
-			data= list(caserio.objects.filter(aldea=request.POST.get('id')).extra(select={'text': 'descripcion'}).values('text','id'))
+			data= list(Caserio.objects.filter(aldea=request.POST.get('id')).extra(select={'text': 'descripcion'}).values('text','id'))
 		elif request.POST.get('bandera') == 'c':
-			data= list(barrio.objects.filter(caserio=request.POST.get('id')).extra(select={'text': 'descripcion'}).values('text','id'))
+			data= list(Barrio.objects.filter(caserio=request.POST.get('id')).extra(select={'text': 'descripcion'}).values('text','id'))
 		print data
 
 		return HttpResponse(json.dumps(data))
 	else:
 		return HttpResponse(0)
+
+def general_periodo_lista(request):
+	lista = Periodo.objects.all()
+	contexto = {'lista':lista}
+	return render(request,'general/periodo_lista.html', contexto)
+
+def general_periodo_registro(request):
+	if request.method == "POST":
+		formulario = PeriodoForm(request.POST)
+		if formulario.is_valid():
+			registro = formulario.save(commit=False)
+			registro.usuario_creador = request.user
+			registro.usuario_modificador = request.user
+			registro.save()
+			exito = 'El registro fue guardado exitosamente'
+			formulario = PeriodoForm()
+			contexto = {'formulario':formulario, 'exito': exito}
+		else:
+			contexto = {'formulario':formulario}
+	else:	
+		formulario = PeriodoForm()
+		contexto = {'formulario':formulario}
+	return render(request,'general/periodo_registro.html', contexto)			
+
+
+def general_administration(request):
+	return HttpResponseRedirect(reverse('general_periodo_lista'))

@@ -1,38 +1,55 @@
-{% extends "general/administracion_index.html" %}
+{% extends "registro/menu.html" %}
+{% block header %}
+  <h1>
+   Carreras
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Carreras</li>
+    <li>Agregar</li>
+  </ol>
+{% endblock  %}
 
-{% block container %}
-	<div class="container">
-		<legend>Nueva Carrera <a href="{% url 'vista_administracion_carreras' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
-		<div class="col-lg-8">
-			<form id="frm_carrea" name="frm_carrera" action="." method="POST">{% csrf_token %}	
-				{% if formulario.errors %}				
-					<div class="alert alert-danger">
-							<h4>Formulario contiene errores!!</h4>
-					</div>
-				{% else %}
-					<div class="alert alert-success">
-							<p><h4>Última carrera guardada!!</h4>
-							{% for c in ultimo %} <b>"{{ c.nombre_carrera }}" el {{c.fecha_creacion}}</b> {% endfor %}<p>
-					</div>
-				{% endif %}
-				{{formulario.as_p}}
-				<button type="submit" class="btn btn-primary">
-					<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
-			</form>
-		</div>
-	</div>
+{% block titulo_box %}
+	Nueva Carrera
+{% endblock  %}
+
+{% block contenido_box %}
+	<form id="frm_carrea" name="frm_carrera" action="." method="POST">{% csrf_token %}	
+		{% if formulario.errors %}				
+			<div class="alert alert-danger">
+					<h4>Formulario contiene errores!!</h4>
+			</div>
+		{% else %}
+			<div class="alert alert-success">
+					<p><h4>Última carrera guardada!!</h4>
+					{% for c in ultimo %} <b>"{{ c.nombre_carrera }}" el {{c.fecha_creacion}}</b> {% endfor %}<p>
+			</div>
+		{% endif %}
+		{{formulario.as_p}}
+		<button type="submit" class="btn btn-primary">
+			<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+	</form>
 {% endblock %}
 
-{% block extrafooter %}
+{% block js %}
+
 <script type="text/javascript">
-	actualizaChosen();
-	$('#id_duracion').attr('onkeypress','return permite(event, "num");');
-	$('#id_cant_uv').attr('onkeypress','return permite(event, "num");');
-	$('#id_cant_laboratorios').attr('onkeypress','return permite(event, "num");');
-	$('#id_uv_laboratorios').attr('onkeypress','return permite(event, "num");');
-	$('#id_uv_pps').attr('onkeypress','return permite(event, "num");');	
-	$('#id_cant_asignaturas').attr('onkeypress','return permite(event, "num");');	
-	$('input[id^=id_modalidad_]').attr('class','');
+
+	$(':input').each(function( index, obj ) {
+		if (obj.name != 'modalidad'){
+			$(obj).addClass('form-control')
+		}
+		//console.log('asldjkasldkjasld',index, obj.type, obj.name)
+	});
+
+	// $('#id_duracion').attr('onkeypress','return permite(event, "num");');
+	// $('#id_cant_uv').attr('onkeypress','return permite(event, "num");');
+	// $('#id_cant_laboratorios').attr('onkeypress','return permite(event, "num");');
+	// $('#id_uv_laboratorios').attr('onkeypress','return permite(event, "num");');
+	// $('#id_uv_pps').attr('onkeypress','return permite(event, "num");');	
+	// $('#id_cant_asignaturas').attr('onkeypress','return permite(event, "num");');	
+	// $('input[id^=id_modalidad_]').attr('class','');
 	
 </script>
 {% endblock %}

@@ -55,7 +55,7 @@ def view_add_people_alu(request):
 	#si esta autenticado desloguearlo porque entonces no es un aspirante el que ingresa
 	if request.user.is_authenticated():
 		user = User.objects.get(id=request.user.id)
-		if user.tipo_usuario.descripcion == 'alumno':
+		if user.usuario.tipo_usuario.descripcion == 'Alumno':
 			return HttpResponseRedirect(reverse('vista_main_administration')) 
 		else:
 			logout(request)
@@ -111,7 +111,7 @@ def view_add_people_alu(request):
 				user.is_active=False
 				user.is_superuser=False
 				user.groups.add(grupo)
-				user.tipo_usuario=objT
+				user.usuario.tipo_usuario=objT
 				user.date_joined=datetime.now()
 				user.save()
 
@@ -144,9 +144,9 @@ def view_add_alumno_rein(request):
 	url_error = '/censo/reingreso/add/'
 	user = User.objects.get(id=request.user.id)
 	try:
-		persona_id=persona.objects.get(usuario_id=request.user.id).id
+		persona_id=Persona.objects.get(usuario_id=request.user.id).id
 		return HttpResponseRedirect(reverse('vista_index_alumno'))
-	except persona.DoesNotExist:
+	except Persona.DoesNotExist:
 		print 'no existe datos de persona'
 
 	if request.method == 'POST':
@@ -171,7 +171,7 @@ def view_add_alumno_rein(request):
 				#crear alumno
 				form = formulario_alu.save(commit = False)
 				form.persona=person
-				form.codigo_registro= user.codigo_registro
+				form.codigo_registro= user.usuario.codigo_registro
 				form.usuario_creador = request.user
 				form.fecha_creacion = datetime.now()
 				form.usuario_modificador = request.user
@@ -201,16 +201,16 @@ def view_add_alumno_rein(request):
 	else:
 		formulario = AlumnoPersonaForm()
 		formulario_alu = AlumnoForm()
-	return render_to_response('general/new_persona_reingreso.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje, 'identidad':request.user.username[:-4], 'registro':user.codigo_registro}, context_instance=RequestContext(request))
+	return render_to_response('general/new_persona_reingreso.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje, 'identidad':request.user.username[:-4], 'registro':user.usuario.codigo_registro}, context_instance=RequestContext(request))
 
 #vista editar informacion de persona en alumno de reingreso
 @permission_required('alumnos.change_alumnos', login_url='/censo/logout/')
 def view_persona_alumno_edit(request):
 	try:
 		user = User.objects.get(id=request.user.id)
-		if user.tipo_usuario.descripcion == 'Alumno':
+		if user.usuario.tipo_usuario.descripcion == 'Alumno':
 			if request.method == 'POST':
-				objPersona = persona.objects.get(usuario_id = request.user.id)
+				objPersona = Persona.objects.get(usuario_id = request.user.id)
 				formulario = AlumnoPersonaEditForm(request.POST, instance = objPersona)
 				if formulario.is_valid():
 					user = User.objects.get(id=request.user.id)
@@ -224,20 +224,20 @@ def view_persona_alumno_edit(request):
 					user.first_name=formulario.cleaned_data['nombres']
 					user.last_name=formulario.cleaned_data['apellidos']
 					user.email=formulario.cleaned_data['correo_electronico']
-					user.telefono=formulario.cleaned_data['celular']
+					user.usuario.telefono=formulario.cleaned_data['celular']
 					user.save()
 					return HttpResponseRedirect(reverse('vista_index_alumno'))
 				else:
-					ctx = {'formulario': formulario, 'identidad':request.user.username[:-4], 'registro':user.codigo_registro}
+					ctx = {'formulario': formulario, 'identidad':request.user.username[:-4], 'registro':user.usuario.codigo_registro}
 					return render_to_response('alumnos/senso_persona_alumno_detalle.html', ctx, context_instance=RequestContext(request))
 			else:
 				print "editar-mostrar-data"
 
-				if user.tipo_usuario.descripcion == 'Alumno':
-					print user.tipo_usuario.descripcion + 'hoy si'
-				objPersona = persona.objects.get(usuario_id = request.user.id)
+				if user.usuario.tipo_usuario.descripcion == 'Alumno':
+					print user.usuario.tipo_usuario.descripcion + 'hoy si'
+				objPersona = Persona.objects.get(usuario_id = request.user.id)
 				formulario = AlumnoPersonaEditForm(instance = objPersona)
-				ctx = {'formulario': formulario,'identidad':request.user.username[:-4], 'registro':user.codigo_registro}
+				ctx = {'formulario': formulario,'identidad':request.user.username[:-4], 'registro':user.usuario.codigo_registro}
 				return render_to_response('alumnos/senso_persona_alumno_detalle.html', ctx, context_instance=RequestContext(request))
 	except Exception, e:
 		print "Error al acceder a datos del usuario"
@@ -248,15 +248,15 @@ def view_persona_alumno_edit(request):
 def view_senso_alumno_edit(request):
 	try:
 		user = User.objects.get(id=request.user.id)
-		if user.tipo_usuario.descripcion == 'Alumno':
-			persona_id=persona.objects.get(usuario_id=request.user.id).id
+		if user.usuario.tipo_usuario.descripcion == 'Alumno':
+			persona_id=Persona.objects.get(usuario_id=request.user.id).id
 			if request.method == 'POST':
-				if alumnos.objects.filter(persona_id=persona_id): # si hay persona y hay alumno
-					objAlumno = alumnos.objects.get(persona_id=persona_id)
+				if Alumnos.objects.filter(persona_id=persona_id): # si hay persona y hay alumno
+					objAlumno = Alumnos.objects.get(persona_id=persona_id)
 					formulario = AlumnoForm(request.POST, instance = objAlumno)
 					if formulario.is_valid():
 						form = formulario.save(commit = False)
-						form.codigo_registro=user.codigo_registro
+						form.codigo_registro=user.usuario.codigo_registro
 						form.usuario_modificador = request.user
 						form.fecha_modificacion = datetime.now()
 						form.save()
@@ -269,8 +269,8 @@ def view_senso_alumno_edit(request):
 					formulario = AlumnoForm(request.POST)
 					if formulario.is_valid():
 						form = formulario.save(commit = False)
-						form.persona=persona.objects.get(usuario_id=request.user.id)
-						form.codigo_registro=user.codigo_registro
+						form.persona=Persona.objects.get(usuario_id=request.user.id)
+						form.codigo_registro=user.usuario.codigo_registro
 						form.usuario_creador = request.user
 						form.fecha_creacion = datetime.now()
 						form.usuario_modificador = request.user
@@ -283,8 +283,8 @@ def view_senso_alumno_edit(request):
 						return render_to_response('alumnos/senso_alumno_detalle.html', ctx, context_instance=RequestContext(request))
 			else:
 				print "editar-mostrar-data"
-				if alumnos.objects.filter(persona_id=persona_id): # si hay persona y hay alumno
-					objAlumno = alumnos.objects.get(persona_id=persona_id)
+				if Alumnos.objects.filter(persona_id=persona_id): # si hay persona y hay alumno
+					objAlumno = Alumnos.objects.get(persona_id=persona_id)
 					formulario = AlumnoForm(instance = objAlumno)
 				else:
 					formulario = AlumnoForm()
@@ -298,7 +298,7 @@ def view_login_reingreso(request):
 	mensaje=""
 	if request.user.is_authenticated():
 		user = User.objects.get(id=request.user.id)
-		if user.tipo_usuario.descripcion == 'Alumno':
+		if user.usuario.tipo_usuario.descripcion == 'Alumno':
 			return HttpResponseRedirect(reverse('vista_index_alumno')) #redirecciona a la raiz
 		else:
 			logout(request)
@@ -313,7 +313,7 @@ def view_login_reingreso(request):
 				if usuario is not None and usuario.is_active: #si el usuario no es nullo y esta activo
 					login(request, usuario) #crea la sesion
 					user = User.objects.get(id=request.user.id)
-					if user.tipo_usuario.descripcion == 'Alumno':
+					if user.usuario.tipo_usuario.descripcion == 'Alumno':
 						return HttpResponseRedirect(reverse('vista_index_alumno')) #redirige a la raiz
 					else:
 						return HttpResponseRedirect(reverse('vista_senso_logout'))
@@ -326,15 +326,15 @@ def view_login_reingreso(request):
 @permission_required('alumnos.change_alumnos', login_url='/censo/logout/')
 def view_index_alumno(request):
 	try:
-		persona_id=persona.objects.get(usuario_id=request.user.id).id
-	except persona.DoesNotExist:
+		persona_id=Persona.objects.get(usuario_id=request.user.id).id
+	except Persona.DoesNotExist:
 		return HttpResponseRedirect(reverse('vista_nuevo_reingreso'))
 
 	ctx=[]
 	try:
-		persona_id=persona.objects.get(usuario_id=request.user.id).id
+		persona_id=Persona.objects.get(usuario_id=request.user.id).id
 		print persona_id
-		alumno=alumnos.objects.get(persona_id=persona_id)
+		alumno=Alumnos.objects.get(persona_id=persona_id)
 		header="Estado:"
 		msg_completar="Datos actualizados correctamente!"
 		alerta="alert alert-success"
@@ -351,7 +351,7 @@ def view_index_alumno(request):
 
 #Incluida Katherine
 @permission_required('alumnos.add_alumnos', login_url='/censo/logout/')
-def registro_excel(request):
+def alumno_registro_excel(request):
 	#rarfile.UNRAR_TOOL = 'C:\Windows\unrar.exe' #esta configuracion es importante para el unrar
 	context = {}
 	if request.method == 'POST':
@@ -382,7 +382,7 @@ def registro_excel(request):
 					error.append(u'La carrera no puede estar vacia.')
 				else:
 					try:
-						carreras = carrera.objects.get(nombre_carrera=smart_str(unicode(carreras)))
+						carreras = Carrera.objects.get(nombre_carrera=smart_str(unicode(carreras)))
 					except Exception, e:
 						print 'pase por aqui4'
 						flag = False
@@ -437,7 +437,7 @@ def registro_excel(request):
 							motivos.append(u'El tipo de identificación no puede estar vacio.')
 						else:
 							try:
-								identificacion= tipo_identificacion.objects.get(descripcion=str(identificacion))
+								identificacion= TipoIdentificacion.objects.get(descripcion=str(identificacion))
 							except Exception, e:
 								flag = False
 								motivos.append(u'El tipo de identificación no es correcta.')
@@ -452,13 +452,13 @@ def registro_excel(request):
 							motivos.append(u'El genero no puede estar vacio.')
 
 						#validacion estado civil
-						Estado_civil = sh.cell_value(row_comienza, 7)
-						if Estado_civil == "":
+						estado_civil = sh.cell_value(row_comienza, 7)
+						if estado_civil == "":
 							flag = False
 							motivos.append(u'El estado civil no puede estar vacio.')
 						else:
 							try:
-								Estado_civil= estado_civil.objects.get(descripcion=Estado_civil)
+								estado_civil=EstadoCivil.objects.get(descripcion=Estado_civil)
 							except Exception, e:
 								flag = False
 								motivos.append(u'El estado civil que se eligio no se encuentra almacenado en el sistema.')
@@ -476,7 +476,7 @@ def registro_excel(request):
 							motivos.append(u'El correo electrónico no puede estar vacio.')
 						else:
 							try:
-								alumno = alumnos.objects.get(correo_electronico=correo_electronico)
+								alumno = Alumnos.objects.get(correo_electronico=correo_electronico)
 							except Exception, e:
 								pass
 							else:
@@ -516,37 +516,37 @@ def registro_excel(request):
 							motivos.append(u'El país de residencia y el país de nacimiento no pueden estar vacio.')
 						else:
 							try:
-								pais_nacimiento = pais.objects.get(descripcion=pais_nacimiento)
+								pais_nacimiento = Pais.objects.get(descripcion=pais_nacimiento)
 							except Exception, e:
 								flag= False
 								motivos.append(u'El país de residencia seleccionado no se encuentra ingresado en el sistema.')
 
 							try:
-								pais_residencia = pais.objects.get(descripcion=pais_residencia)
+								pais_residencia = Pais.objects.get(descripcion=pais_residencia)
 							except Exception, e:
 								flag= False
 								motivos.append(u'El país de residencia seleccionado no se encuentra ingresado en el sistema.')
 
 						#validacion de tipo de persona
-						TipoPersona = sh.cell_value(row_comienza, 14)
-						if TipoPersona=="":
+						tipo_Persona = sh.cell_value(row_comienza, 14)
+						if tipo_Persona=="":
 							flag = False
 							motivos.append(u'El tipo de persona no puede estar vacio.')
 						else:
 							try:
-								TipoPersona = tipo_persona.objects.get(descripcion=TipoPersona)
+								tipo_persona = TipoPersona.objects.get(descripcion=TipoPersona)
 							except Exception, e:
 								flag= False
 								motivos.append(u'El tipo de persona seleccionado no se encuentra ingresado en el sistema.')
 
 						#validacion zona
-						Zona = sh.cell_value(row_comienza, 15)
-						if Zona=="":
+						zona = sh.cell_value(row_comienza, 15)
+						if zona=="":
 							flag = False
 							Zona = motivos.append(u'La zona no puede estar vacia.')
 						else:
 							try:
-								Zona = zona.objects.get(descripcion=Zona)
+								zona = Zona.objects.get(descripcion=Zona)
 							except Exception, e:
 								flag= False
 								motivos.append(u'La zona seleccionada no se encuentra ingresado en el sistema.')
@@ -644,10 +644,10 @@ def registro_excel(request):
 							try:
 								lista_centros = centros.split("|")
 								for x in lista_centros:
-									centro.objects.get(descripcion=smart_str(unicode(x)))
+									Centro.objects.get(descripcion=smart_str(unicode(x)))
 							except Exception, e:
 								try:
-									centro.objects.get(descripcion=smart_str(unicode(centros)))
+									Centro.objects.get(descripcion=smart_str(unicode(centros)))
 								except Exception, e:
 									flag = False
 									motivos.append(u'Alguno de los centros ingresados no se encuentra en el sistema.')
@@ -655,7 +655,7 @@ def registro_excel(request):
 						#validacion del codigo de registro
 						codigo_registro = sh.cell_value(row_comienza, 0)
 						try:
-							alumno = alumnos.objects.get(codigo_registro=codigo_registro)
+							alumno = Alumnos.objects.get(codigo_registro=codigo_registro)
 						except Exception, e:
 							pass
 						else:
@@ -692,7 +692,7 @@ def registro_excel(request):
 							#with transaction.atomic():
 							# try:
 							usuario, creado = User.objects.update_or_create(username =identidad)
-							usuario.tipo_usuario = tipo_usuario.objects.get(pk=4)
+							usuario.tipo_usuario = TipoUsuario.objects.get(pk=4)
 							usuario.direccion = direccion
 							usuario.telefono = celular
 							usuario.set_password('registro')
@@ -719,7 +719,7 @@ def registro_excel(request):
 							query_arg['usuario_creador'] = usuario_creador
 							query_arg['usuario_modificador'] = usuario_creador
 
-							registro_persona, created = persona.objects.update_or_create(identidad=identidad,defaults=query_arg)
+							registro_persona, created = Persona.objects.update_or_create(identidad=identidad,defaults=query_arg)
 							#registro_persona, created = persona.objects.update_or_create(identidad=identidad, defaults=query_arg)
 
 							try:
@@ -732,9 +732,9 @@ def registro_excel(request):
 							try:
 								lista_centros = centros.split("|")
 								for x in lista_centros:
-									registro_persona.centros.add(centro.objects.get(descripcion=smart_str(unicode(x))))
+									registro_persona.centros.add(Centro.objects.get(descripcion=smart_str(unicode(x))))
 							except Exception, e:
-								registro_persona.centros.add(centro.objects.get(descripcion=smart_str(unicode(centros))))
+								registro_persona.centros.add(Centro.objects.get(descripcion=smart_str(unicode(centros))))
 
 							query_arg = {}
 							query_arg['persona'] = registro_persona
@@ -756,7 +756,7 @@ def registro_excel(request):
 							query_arg['codigo_registro'] = codigo_registro
 							query_arg['usuario_creador'] = usuario_creador
 							query_arg['usuario_modificador'] = usuario_creador
-							registro_alumno, creado = alumnos.objects.update_or_create(persona =registro_persona, defaults=query_arg)
+							registro_alumno, creado = Alumnos.objects.update_or_create(persona =registro_persona, defaults=query_arg)
 
 							query_arg = {}
 							query_arg['alumno'] = registro_alumno
@@ -780,35 +780,54 @@ def registro_excel(request):
 	else:
 		form = FormArchivosGuardados()
 		context = {'form':form}
-	return render(request, 'alumnos/registro_alumno_excel.html', context)
+	return render(request, 'alumnos/registro_excel.html', context)
 
 
-def registro_primer_ingreso(request):
+def alumno_registro(request):
 	#si esta autenticado desloguearlo porque entonces no es un aspirante el que ingresa
 	if request.user.is_authenticated():
 		user = User.objects.get(id=request.user.id)
-		if user.tipo_usuario.descripcion == 'alumno':
+		if user.usuario.tipo_usuario.descripcion == 'alumno':
 			return HttpResponseRedirect(reverse('vista_main_administration'))
     #if request.user.is_authenticated():
     	#logout(request)
 	
 	mensaje=''
 	exito = ''
+	alumno = ''
 	if request.method == 'POST':
 		formulario = AspirantePersonaForm(request.POST, request.FILES)
 		formulario_alu = AlumnoForm(request.POST, request.FILES)
 		if formulario.is_valid() and formulario_alu.is_valid():
 			num_cuenta=formulario.cleaned_data['identidad']
-			#crear un usuario inactivo para la persona
+			#crear un usuario inact ivo para la persona
 			user = User.objects.create_user(num_cuenta, formulario.cleaned_data['correo_electronico'], 'registro') #make_password(random_number, 'seasalt', 'pbkdf2_sha256')
 			try:
 				#crear persona
 				person = formulario.save(commit = False)
-				person.usuario=user
-				person.usuario_creador=user
-				person.fecha_creacion=datetime.now()
-				person.usuario_modificador=user
-				person.fecha_modificacion=datetime.now()
+
+				try:
+					person.municipio = Municipio.objects.get(pk=request.POST['municipio'])
+				except Exception, e:
+					pass
+				try:
+					person.aldea =  Aldea.objects.get(pk=request.POST['aldea'])
+				except Exception, e:
+					pass
+				try:
+					person.caserio =  Caserio.objects.get(pk=request.POST['caserio'])
+				except Exception, e:
+					pass
+				try:
+					person.barrio = Barrio.objects.get(pk=request.POST['barrio'])
+				except Exception, e:
+					pass
+		
+				person.usuario = user
+				person.usuario_creador = user
+				person.fecha_creacion = datetime.now()
+				person.usuario_modificador = user
+				person.fecha_modificacion = datetime.now()
 				person.save() #guardar persona
 
 				#crear alumno
@@ -831,21 +850,61 @@ def registro_primer_ingreso(request):
 				user.is_active=False
 				user.is_superuser=False
 				user.groups.add(Group.objects.get(id=2))
-				user.tipo_usuario=tipo_usuario.objects.get(id=10)
+				user.usuario.tipo_usuario=TipoUsuario.objects.get(id=10)
 				user.date_joined=datetime.now()
 				user.save()
 
 				exito = 'El Registro se guardó con éxito'
+				alumno = person
 
 			except Exception, e:
 				User.objects.filter(id=user.id).delete()
+				person.delete()
 				mensaje='Ocurrió un error al guardar favor inténtelo nuevamente'
+				raise e
 		else:
 			mensaje="Formulario contiene errores"
 	else:
 		formulario = AspirantePersonaForm()
 		formulario_alu = AlumnoForm()
-	return render_to_response('alumnos/registro_primer_ingreso.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje, 'exito':exito}, context_instance=RequestContext(request))
+	return render_to_response('alumnos/registro.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje, 'exito':exito, 'alumno':alumno}, context_instance=RequestContext(request))
 
-def menu_principal(request):
-	return render(request,'alumnos/menu_principal.html')
+def alumno_lista(request):
+	contexto = { 'alumnos' : Alumnos.objects.filter(estado=True) }
+	return render(request,'alumnos/lista.html', contexto)
+
+
+def alumno_editar(request, id=None):
+	alumno = Alumnos.objects.get(pk=id)
+	if request.method == 'POST':
+		formulario_persona = PersonaAlumnoEditForm(request.POST,instance = alumno.persona)
+		formulario_alumno = AlumnoForm(request.POST,instance = alumno)
+		if formulario_persona.is_valid() and formulario_alumno.is_valid():
+			formulario_persona.save()
+			formulario_alumno.save()
+			return HttpResponseRedirect(reverse('alumno_lista'))
+		else:
+			ctx = {'persona': formulario_persona, 'alumno': formulario_alumno, 'id':id}
+			return render(request, 'alumnos/editar.html', ctx)
+	else:
+		formulario_persona = PersonaAlumnoEditForm(instance = alumno.persona)
+		formulario_alumno = AlumnoForm(instance = alumno)
+		ctx = {'persona': formulario_persona, 'alumno': formulario_alumno, 'id':id}
+		return render(request, 'alumnos/editar.html', ctx)
+
+def alumno_eliminar(request, id=None):
+	if id:
+		try:
+			alumno = Alumnos.objects.get(pk=id)
+			alumno.estado = False
+			alumno.save()
+
+			usuario = User.objects.get(username = alumno.persona.identidad)
+			usuario.is_active = False
+			usuario.save()
+		except Exception, e:
+			raise e
+		
+
+		print 'PASO POR AQUI'
+		return HttpResponseRedirect(reverse('alumno_lista'))	

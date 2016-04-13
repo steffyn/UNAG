@@ -42,11 +42,12 @@ def view_login(request):
 					print 'PASO POR AQUI 2'
 					login(request, usuario) #crea la sesion
 					user = User.objects.get(id=request.user.id)
-					if user.tipo_usuario.descripcion == 'Superusuario':
+					print user.usuario
+					if user.usuario.tipo_usuario.descripcion == 'Superusuario':
 						return HttpResponseRedirect(reverse('vista_main_first')) #redirige a la raiz
-					elif user.tipo_usuario.id == 3 or user.tipo_usuario.id == 12 or user.tipo_usuario.id == 13 or user.tipo_usuario.id == 5 or user.tipo_usuario.id == 14:
+					elif user.usuario.tipo_usuario.id == 3 or user.usuario.tipo_usuario.id == 12 or user.usuario.tipo_usuario.id == 13 or user.usuario.tipo_usuario.id == 5 or user.usuario.tipo_usuario.id == 14:
 						return HttpResponseRedirect(reverse('vista_index_docente')) #redirige al censo de docentes
-					elif user.tipo_usuario.descripcion == 'Alumno':
+					elif user.usuario.tipo_usuario.descripcion == 'Alumno':
 						print 'PASO POR AQUI 3'
 						return HttpResponseRedirect(reverse('vista_index_alumno')) #redirige a la raiz
 					else:
@@ -68,7 +69,7 @@ def view_senso_logout(request):
 
 @permission_required('home.can_view_menu', login_url='/logout/')
 def view_main_first(request):
-	return render_to_response('home/menu_principal2.html', context_instance=RequestContext(request))
+	return render_to_response('home/menu_principal.html', context_instance=RequestContext(request))
 
 def view_main_student(request):	
 	return render_to_response('alumnos/alumnos_index.html', context_instance=RequestContext(request))
@@ -78,27 +79,27 @@ def view_main_teacher(request):
 
 @permission_required('home.can_view_menu_registro', login_url='/logout/')
 def view_main_administration(request):
-	campuslen = 0; depto_academico = 0; carreraslen = 0; asociacionesCamplen = 0; centrosRegionaleslen = 0;
+	# campuslen = 0; depto_academico = 0; carreraslen = 0; asociacionesCamplen = 0; centrosRegionaleslen = 0;
 
-	campuslen = len(campus.objects.all())
-	depto_academicoslen = len(departamento_academico.objects.all())
-	carreraslen = len(carrera.objects.all())
-	asociacionesCamplen = len(asoc_campesina.objects.all())
-	centrosRegionaleslen = len(centro.objects.all())
+	# campuslen = len(Campus.objects.all())
+	# depto_academicoslen = len(DepartamentoAcademico.objects.all())
+	# carreraslen = len(Carrera.objects.all())
+	# asociacionesCamplen = len( AsocCampesina.objects.all())
+	# centrosRegionaleslen = len(Centro.objects.all())
 
-	ctx = {'campuslen':campuslen, 'depto_academicoslen': depto_academicoslen, 
-	'carreraslen': carreraslen, 'asociacionesCamplen': asociacionesCamplen,
-	'centrosRegionaleslen':centrosRegionaleslen}
+	# ctx = {'campuslen':campuslen, 'depto_academicoslen': depto_academicoslen, 
+	# 'carreraslen': carreraslen, 'asociacionesCamplen': asociacionesCamplen,
+	# 'centrosRegionaleslen':centrosRegionaleslen}
 	
-	return render_to_response('general/administracion_index.html', ctx, context_instance=RequestContext(request))
-
+	#return render_to_response('general/administracion_index.html', ctx, context_instance=RequestContext(request))
+	return HttpResponseRedirect(reverse('general_periodo_lista'))
 #vista inicio pagina de senso
 @permission_required('home.can_view_home_censo', login_url='/logout/')
 def view_home_senso(request):
 	centros_list = []
-	if centro.objects.all():
+	if Centro.objects.all():
 		print 'hay centros'
-		centros_list = centro.objects.all()
+		centros_list = Centro.objects.all()
 	ctx = {'centro': centros_list}	
 	return render_to_response('senso/inicio.html', ctx, context_instance=RequestContext(request))	
 
@@ -128,14 +129,14 @@ def view_excel(request):
 				random_number_cuenta = User.objects.make_random_password(length=4, allowed_chars='0123456789')
 				random_number = User.objects.make_random_password(length=8, allowed_chars='0123456789%!#qwertyuiopasdfghjklzxcvbnm')
 				num_cuenta=sh.cell_value(rowx=row,colx=0)+str(random_number_cuenta)
-				objT=tipo_usuario.objects.get(id=4)
+				objT=TipoUsuario.objects.get(id=4)
 				#print objT
 				grupo = Group.objects.get(id=2)
 				#password=make_password(random_number, 'seasalt', 'pbkdf2_sha256')
 				user = User.objects.create_user(num_cuenta, 'example@example.com', random_number)
 				user.groups.add(grupo)
-				user.tipo_usuario=objT
-				user.codigo_registro=sh.cell_value(rowx=row,colx=1)
+				user.usuario.tipo_usuario=objT
+				user.usuario.codigo_registro=sh.cell_value(rowx=row,colx=1)
 				user.save()
 					
 				val="Holasss World"
@@ -190,14 +191,14 @@ def view_excel_docente(request):
 				random_number_cuenta = User.objects.make_random_password(length=4, allowed_chars='0123456789')
 				random_number = User.objects.make_random_password(length=8, allowed_chars='0123456789%!#qwertyuiopasdfghjklzxcvbnm')
 				num_cuenta=sh.cell_value(rowx=row,colx=0)+str(random_number_cuenta)
-				objT=tipo_usuario.objects.get(id=3)
+				objT=TipoUsuario.objects.get(id=3)
 				#print objT
 				grupo = Group.objects.get(id=1)
 				#password=make_password(random_number, 'seasalt', 'pbkdf2_sha256')
 				user = User.objects.create_user(num_cuenta, 'example@example.com', random_number)
 				user.groups.add(grupo)
-				user.tipo_usuario=objT
-				user.codigo_registro=sh.cell_value(rowx=row,colx=1)
+				user.usuario.tipo_usuario=objT
+				user.usuario.codigo_registro=sh.cell_value(rowx=row,colx=1)
 				user.save()
 					
 				val="Holasss World"

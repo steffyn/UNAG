@@ -1,0 +1,62 @@
+{% extends "general/menu.html" %}
+{% block header %}
+  <h1>
+   Periodo
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Periodo</li>
+  </ol>
+{% endblock  %}
+
+{% block titulo_box %}
+	Lista de Periodos
+{% endblock  %}
+
+{% block boton_box %}
+	<a title="Nuevo Campus" class="btn btn-default" href="{% url 'general_periodo_registro' %}">
+		<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo 
+	</a>
+{% endblock  %}
+
+{% block contenido_box %}
+		{% if perms.general.add_campus %}
+		<table class="table table-hover table-condensed">
+			<thead>
+				<tr>
+					<th>Clase</th>
+					<th>Periodo Academico</th>
+					<th>Fecha Inicio</th>
+					<th>Fecha Final</th>
+					<th colspan="2">Acción</th>							
+				</tr>
+			</thead>
+			<tbody>
+				{% for registro in lista %}
+					<tr>
+						<td>{{registro.clase|upper}}</td>
+						<td>{{registro.descripcion}}</td>
+						<td>{{registro.fecha_inicio}}</td>
+						<td>{{registro.fecha_final}}</td>
+						<td>
+							<center>
+								<a title="Ver" href="{% url 'vista_detalle_campus' registro.pk %}" class="btn btn-success">
+									<span class="glyphicon glyphicon-eye-open"></span>
+								</a>
+							</center>
+						</td>								
+						<td>
+							{% if perms.general.delete_campus %}
+							<center>
+								<a title="Borrar" href="{% url 'vista_borrar_campus' registro.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar el campus <<{{ registro.descripcion }}>>?');" class="btn btn-danger">
+									<span class="glyphicon glyphicon-remove-circle"></span>
+								</a>
+							</center>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% endif %}
+{% endblock %}

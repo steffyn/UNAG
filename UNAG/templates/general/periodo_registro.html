@@ -1,0 +1,73 @@
+{% extends "general/menu.html" %}
+{% load bootstrap %}
+{% block css %} <link rel="stylesheet" type="text/css" href="/media/css/daterangepicker-bs3.css">
+				<link rel="stylesheet" type="text/css" href="/media/css/daterangepicker.css" />
+
+ {% endblock  %}
+{% block header %}
+  <h1>
+   Periodo
+  </h1>
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>Periodo</li>
+    <li>Agregar</li>
+  </ol>
+{% endblock  %}
+
+
+{% block titulo_box %}
+	Nuevo Periodo 
+{% endblock  %}
+
+{% block contenido_box %}
+{% if exito %}
+	<div class="alert alert-success">
+		<strong>{{exito}}</strong> 
+	</div>
+{% endif %}
+
+<form id="formulario" name="formulario" action="." method="POST">{% csrf_token %}
+	{% if formulario.errors %}				
+		<div class="alert alert-danger">
+				<h4>Formulario contiene errores!!</h4>
+		</div>
+	{% else %}
+	{% if ultimo %}
+		<div class="alert alert-success">
+				<p><h4>Último Campus guardado!!</h4>
+				{% for c in ultimo %} <b>"{{ c.descripcion }}" el {{c.fecha_creacion}}</b> {% endfor %}<p>
+		</div>	
+	{% endif %}	
+	{% endif %}	
+	{{formulario|bootstrap }}
+	<button type="submit" class="btn btn-primary">
+		<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+</form>
+{% endblock %}
+
+{% block js %}
+	<script src="/media/js/moment.js"></script>
+	<script src="/media/js/daterangepicker.js"></script>
+	<script type="text/javascript">
+	$(function() {
+
+	    $('#id_fecha_inicio, #id_fecha_final').daterangepicker({
+	        singleDatePicker: true,
+	        autoUpdateInput: false,
+	        showDropdowns: true,
+		    timePicker: false,
+	        locale: {
+	            format: 'YYYY-MM-DD',
+	            cancelLabel: 'Clear'
+        	},
+	    });
+
+	    $('#id_fecha_inicio, #id_fecha_final').on('apply.daterangepicker', function(ev, picker) {
+      		$(this).val(picker.startDate.format('YYYY-MM-DD'));
+  		});
+	});
+	</script>
+{% endblock %}
+
+

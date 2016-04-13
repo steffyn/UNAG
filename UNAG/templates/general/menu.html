@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block navlist_header %}
+    CAMPUS
+{% endblock  %}
+
+{% block titulo %}
+    Campus
+{% endblock  %}
+
+{% block navlist %}
+    
+    <li>
+      <a href = "{% url 'general_periodo_lista' %}">
+        <i class="glyphicon glyphicon-map-marker"></i> <span>Periodo</span>
+      </a> 
+    </li>
+    <li class="treeview">
+      <a href="#">
+        <i class="glyphicon glyphicon-user"></i> <span>Recursos Humanos</span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="{% url 'vista_nuevo_recursohumano_normal' %}"><i class="fa fa-circle-o"></i> Personal Administrativo</a></li>
+        <li><a href="{% url 'vista_nuevo_recursohumano_docente' %}"><i class="fa fa-circle-o"></i> Personal Académico</a></li>
+      </ul>
+    </li>
+    <li>
+  		<a href = "{% url 'vista_administracion_campus' %}">
+        <i class="glyphicon glyphicon-map-marker"></i> <span>Campus</span>
+      </a> 
+    </li>
+    <li>
+      <a href="{% url 'vista_administracion_edificios' %}">
+        <i class="glyphicon glyphicon-leaf"></i><span>Edificios</span>
+      </a>
+    </li>
+    <li>
+        <a href="{% url 'vista_administracion_dormitorios' %}">
+          <i class="glyphicon glyphicon-home"></i><span>Estructura del Edificio</span>
+        </a>
+    </li>
+     <li>
+      <a href = "{% url 'vista_administracion_documentos' %}">
+        <i class="glyphicon glyphicon-file"></i><span>Documentos</span>
+      </a>
+    </li>    
+    <li> 
+  		<a href = "{% url 'vista_administracion_centros' %}">     
+        <i class="glyphicon glyphicon-flag"></i><span>Centros de Estudio</span>
+      </a> 
+    </li>
+
+{% endblock %}
+
+{% block container %}
+<div class="box box-default">
+	<div class="box-header with-border">
+		<h3 class="box-title"><strong>{% block titulo_box %} {% endblock  %}</strong></h3>
+
+		<div class="btn-group btn-proup-sm pull-right">
+			{% block boton_box %}  {% endblock  %}
+		</div>
+	</div>
+	<div class="box-body table-responsive">
+		{% block contenido_box  %} {% endblock  %}
+		
+	</div>
+</div>
+{% endblock  %}
+
