@@ -9,8 +9,13 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('general', '0001_initial'),
+<<<<<<< HEAD
         ('registro', '__first__'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+=======
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('registro', '0001_initial'),
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
     ]
 
     operations = [
@@ -32,7 +37,10 @@ class Migration(migrations.Migration):
                 ('codigo_registro', models.CharField(default=None, max_length=512, null=True, blank=True)),
                 ('fecha_creacion', models.DateField(auto_now_add=True, null=True)),
                 ('fecha_modificacion', models.DateField(auto_now=True, null=True)),
+<<<<<<< HEAD
                 ('estado', models.BooleanField(default=True)),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
                 ('asoc_campesina_madre', models.ForeignKey(related_name='madre_asoc_campesina', default=None, blank=True, to='general.AsocCampesina', null=True, verbose_name='Asociacion campesina madre')),
                 ('asoc_campesina_padre', models.ForeignKey(related_name='padre_asoc_campesina', default=None, blank=True, to='general.AsocCampesina', null=True, verbose_name='Asociacion campesina del Padre, Madre o Encargado: ')),
                 ('persona', models.ForeignKey(to='general.Persona')),
@@ -42,7 +50,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_alumnos',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='AlumnosBecas',
@@ -57,7 +68,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_alumnos_becas',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='DocumentosAlumnos',
@@ -72,7 +86,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_documentos_alumnos',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='EstadoCuenta',
@@ -92,7 +109,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_estado_cuenta',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Matricula',
@@ -112,7 +132,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_matricula',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='MatriculaClases',
@@ -130,7 +153,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_matricula_clases',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Notas',
@@ -148,7 +174,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_notas',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='PreMatricula',
@@ -165,7 +194,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_pre_matricula',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='PreMatriculaClases',
@@ -183,7 +215,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_pre_matricula_clases',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Promocion',
@@ -198,74 +233,110 @@ class Migration(migrations.Migration):
                 ('usuario_creador', models.ForeignKey(related_name='promocion_usuario_creador', to=settings.AUTH_USER_MODEL)),
                 ('usuario_modificador', models.ForeignKey(related_name='promocion_usuario_modificador', to=settings.AUTH_USER_MODEL)),
             ],
+<<<<<<< HEAD
             options={
             },
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='matricula',
             name='pre_matricula',
             field=models.ForeignKey(to='alumnos.PreMatricula'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='matricula',
             name='tipo_condicion_matricula',
             field=models.ForeignKey(to='registro.TiposCondicionesMatricula'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='matricula',
             name='usuario_creador',
             field=models.ForeignKey(related_name='fk_usuario_matricula', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='matricula',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='fk_usuario_matricula_1', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='documentosalumnos',
             name='matricula',
             field=models.ForeignKey(to='alumnos.Matricula'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='documentosalumnos',
             name='usuario_creador',
             field=models.ForeignKey(related_name='da_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='documentosalumnos',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='da_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='alumnosbecas',
             name='matricula',
             field=models.ForeignKey(to='alumnos.Matricula'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='alumnosbecas',
             name='tipo_beca',
             field=models.ForeignKey(to='general.TipoBeca'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='alumnosbecas',
             name='usuario_creador',
             field=models.ForeignKey(related_name='ab_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='alumnosbecas',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='ab_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
     ]

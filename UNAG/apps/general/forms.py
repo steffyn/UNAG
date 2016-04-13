@@ -126,8 +126,6 @@ class DocenteAdministrativoEditForm(ModelForm):
 	centros = forms.ModelMultipleChoiceField(queryset = Centro.objects.filter(tipo_centro__id__in=[2]).distinct('descripcion'), label=u'Centros de Estudio')
 
 
-# FIN
-
 class CentroForm(ModelForm):
 	class Meta:
 		model = Centro

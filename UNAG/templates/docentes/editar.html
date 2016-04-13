@@ -3,8 +3,7 @@
   <h1>Docente</h1>
 
     <ol class="breadcrumb">
-    <li><i class="fa fa-dashboard">
-    </i> Administración</li>
+
     <li>Docente</li>
     <li>Detalle</li>
   </ol>
@@ -28,6 +27,23 @@
   
 	<form id="frm_persona" name="frm_persona" action="." method="POST">
 		{% csrf_token %}
+		    {% for field in persona %}
+			{% if field.html_name == 'pais_nacimiento' %}
+				<legend>Localización</legend>
+			{% endif %}
+			{% if field.html_name == 'titulos' %}
+				<legend>Datos Profesionales</legend>
+			{% endif %}
+			<div class="form-group">
+	            {{ field.errors }}
+	            {{ field.label_tag }}
+	            <div id="{{ field.html_name }}">
+	             		{{ field }}
+	         	</div> {{ field.help_text }}
+	        </div>
+
+		{% endfor %}
+		
 		{{formulario.as_p}}
 	</form>
 {% endblock %}
@@ -46,6 +62,13 @@
 			$('textarea').removeAttr("disabled");
 			$('select').removeAttr("disabled");	
 		}
+		$('input[name=tiene_hijos]').removeAttr('class')
+	    $(':input').each(function( index, obj ) {
+		    $(obj).prop('disabled', true)
+		    if (obj.name != 'tiene_hijos' && obj.name != 'btn_guardar'){
+			    $(obj).addClass('form-control')
+		}
+	});
 	</script>
 {% endblock %}
 

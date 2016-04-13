@@ -24,7 +24,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_aldea',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='archivos_guardados',
@@ -34,9 +37,12 @@ class Migration(migrations.Migration):
                 ('fecha_creacion', models.DateField(auto_now_add=True)),
                 ('usuario_creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
+<<<<<<< HEAD
             options={
             },
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='AsocCampesina',
@@ -51,7 +57,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_asoc_campesina',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Barrio',
@@ -64,7 +73,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_barrio',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Campus',
@@ -81,7 +93,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_campus',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Caserio',
@@ -97,7 +112,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_caserio',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Centro',
@@ -110,7 +128,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_centro',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Departamento',
@@ -126,7 +147,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_departamento',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Edificios',
@@ -144,7 +168,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_edificios',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='EstadoCivil',
@@ -159,7 +186,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_estado_civil',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='EstructuraEdificio',
@@ -179,7 +209,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_estructura_edificio',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Financiador',
@@ -199,7 +232,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_financiador',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='GrupoGrado',
@@ -214,7 +250,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_grupo_grado',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Jornada',
@@ -229,7 +268,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_jornada',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Modalidades',
@@ -244,7 +286,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_modalidades',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Municipio',
@@ -261,7 +306,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_municipio',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Pais',
@@ -276,16 +324,23 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_pais',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Periodo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+<<<<<<< HEAD
                 ('clase', models.IntegerField()),
                 ('descripcion', models.CharField(max_length=65)),
                 ('fecha_inicio', models.DateField()),
                 ('fecha_final', models.DateField()),
+=======
+                ('descripcion', models.CharField(max_length=65)),
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
                 ('fecha_creacion', models.DateField(auto_now_add=True)),
                 ('fecha_modificacion', models.DateField(auto_now=True)),
                 ('usuario_creador', models.ForeignKey(related_name='pr_usuario_creador', to=settings.AUTH_USER_MODEL)),
@@ -294,13 +349,20 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_periodo',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='PeriodoClase',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+<<<<<<< HEAD
                 ('descripcion', models.CharField(max_length=128, verbose_name=b'Periodo Academico')),
+=======
+                ('descripcion', models.CharField(max_length=128)),
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
                 ('fecha_creacion', models.DateField(auto_now_add=True)),
                 ('fecha_modificacion', models.DateField(auto_now=True)),
                 ('periodo', models.ForeignKey(to='general.Periodo')),
@@ -310,7 +372,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_periodo_clase',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Persona',
@@ -341,7 +406,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_persona',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='TipoAdministracion',
@@ -356,7 +424,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_tipo_adinistracion',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='TipoBeca',
@@ -371,7 +442,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_tipo_beca',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='TipoCentro',
@@ -387,7 +461,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_tipo_centro',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='TipoEdificios',
@@ -402,7 +479,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_tipo_edificios',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='TipoIdentificacion',
@@ -417,7 +497,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_tipo_identificacion',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='TipoPersona',
@@ -432,7 +515,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_tipo_persona',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Titulos',
@@ -448,7 +534,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_titulos',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Zona',
@@ -463,156 +552,240 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_zona',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='persona',
             name='tipo_identificacion',
             field=models.ForeignKey(verbose_name=b'Tipo de identificaci\xc3\xb3n', to='general.TipoIdentificacion'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='persona',
             name='tipo_persona',
             field=models.ForeignKey(to='general.TipoPersona'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='persona',
             name='titulos',
             field=models.ManyToManyField(help_text='Seleccione en el lado derecho los t\xedtulos que desea agregar pulsando el boton (+),  ', to='general.Titulos', verbose_name=b'T\xc3\xadtulos Obtenidos'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='persona',
             name='usuario',
             field=models.OneToOneField(related_name='person_usuario_posee', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='persona',
             name='usuario_creador',
             field=models.ForeignKey(related_name='per_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='persona',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='per_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='persona',
             name='zona',
             field=models.ForeignKey(to='general.Zona'),
+<<<<<<< HEAD
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(
             name='estructuraedificio',
             unique_together=set([('codigo', 'edificio')]),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='edificios',
             name='tipo_edificio',
             field=models.ForeignKey(to='general.TipoEdificios'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='edificios',
             name='usuario_creador',
             field=models.ForeignKey(related_name='edi_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='edificios',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='edi_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(
             name='edificios',
             unique_together=set([('codigo', 'campus')]),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='centro',
             name='tipo_centro',
             field=models.ForeignKey(to='general.TipoCentro'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='centro',
             name='usuario_creador',
             field=models.ForeignKey(related_name='ce_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='centro',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='ce_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='centro',
             name='zona',
             field=models.ForeignKey(to='general.Zona'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='campus',
             name='director_campus',
             field=models.OneToOneField(null=True, default=None, error_messages={b'unique': 'Este Director ya esta asignado a otro Campus.'}, to='general.Persona', blank=True),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='campus',
             name='usuario_creador',
             field=models.ForeignKey(related_name='cam_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='campus',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='cam_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(
             name='campus',
             unique_together=set([('codigo', 'siglas')]),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='barrio',
             name='caserio',
             field=models.ForeignKey(to='general.Caserio'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='barrio',
             name='usuario_creador',
             field=models.ForeignKey(related_name='bo_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='barrio',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='bo_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='aldea',
             name='municipio',
             field=models.ForeignKey(to='general.Municipio'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='aldea',
             name='usuario_creador',
             field=models.ForeignKey(related_name='al_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='aldea',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='al_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+        ),
+        migrations.AlterUniqueTogether(
+            name='estructuraedificio',
+            unique_together=set([('codigo', 'edificio')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='edificios',
+            unique_together=set([('codigo', 'campus')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='campus',
+            unique_together=set([('codigo', 'siglas')]),
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
     ]

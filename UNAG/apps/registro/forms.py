@@ -58,7 +58,18 @@ class AsignaturaForm(ModelForm):
 	class Meta:
 		model = Asignatura
 		exclude = ('usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
-	codigo_registro=forms.CharField(label=u'Código registro')
+	codigo_registro=forms.CharField(label=u'Código registro')  
+
+#####################Sarai#####################
+class ModuloForm(ModelForm):
+	class Meta:
+		model = Modulo
+		exclude = ('usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
+	laboratorio=forms.IntegerField(label=u'Laboratorio')  
+
+######################fin########################
+
+
 
 class DocenteForm(ModelForm):
 	class Meta:

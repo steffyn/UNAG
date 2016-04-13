@@ -27,7 +27,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_asignatura',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='AsignaturaBloque',
@@ -41,9 +44,14 @@ class Migration(migrations.Migration):
                 ('usuario_modificador', models.ForeignKey(related_name='ablo_usuario_modificador', to=settings.AUTH_USER_MODEL)),
             ],
             options={
+<<<<<<< HEAD
                 'db_table': 'registro_asignatura_bloque',
             },
             bases=(models.Model,),
+=======
+                'db_table': 'registro_asignatura',
+            },
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='AsignaturaSeccion',
@@ -57,7 +65,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_asignatura_seccion',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Carrera',
@@ -82,7 +93,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_carrera',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='DepartamentoAcademico',
@@ -100,7 +114,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_departamento_academico',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='docente_departamento',
@@ -117,7 +134,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_docente_departamento',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Documentos',
@@ -134,7 +154,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_documentos',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Horario',
@@ -147,7 +170,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_horario',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='HorarioHora',
@@ -164,7 +190,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_horario_hora',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='JornadaLaboral',
@@ -179,7 +208,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_jornada_laboral',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Modulo',
@@ -194,7 +226,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_modulo',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Parcial',
@@ -210,7 +245,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_parcial',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Requisito',
@@ -226,7 +264,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_requisito',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='Seccion',
@@ -245,7 +286,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_seccion',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='TipoAsignatura',
@@ -262,7 +306,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_tipo_asignatura',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='TipoDocente',
@@ -277,7 +324,10 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_tipo_docente',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.CreateModel(
             name='TiposCondicionesMatricula',
@@ -293,163 +343,250 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_tipo_condiciones_matricula',
             },
+<<<<<<< HEAD
             bases=(models.Model,),
         ),
         migrations.AlterUniqueTogether(
             name='seccion',
             unique_together=set([('jornada', 'carrera', 'periodo_clase', 'aula')]),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='modulo',
             name='tipo_asignatura',
             field=models.ForeignKey(to='registro.TipoAsignatura'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='modulo',
             name='usuario_creador',
             field=models.ForeignKey(related_name='mod_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='modulo',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='mod_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='horario',
             name='seccion',
             field=models.ForeignKey(to='registro.Seccion'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='horario',
             name='usuario_creador',
             field=models.ForeignKey(related_name='fk_usuario_horario', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='horario',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='fk_usuario_horario_1', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='docente_departamento',
             name='jornada_laboral',
             field=models.ForeignKey(to='registro.JornadaLaboral'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='docente_departamento',
             name='persona',
             field=models.ForeignKey(to='general.Persona'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='docente_departamento',
             name='tipo_docente',
             field=models.ForeignKey(to='registro.TipoDocente'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='docente_departamento',
             name='usuario_creador',
             field=models.ForeignKey(related_name='ddep_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='docente_departamento',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='ddep_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(
             name='departamentoacademico',
             unique_together=set([('codigo', 'id_campus')]),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='carrera',
             name='depto_academico',
             field=models.ForeignKey(to='registro.DepartamentoAcademico'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='carrera',
             name='grado',
             field=models.ForeignKey(to='general.GrupoGrado'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='carrera',
             name='persona_responsable',
             field=models.ForeignKey(to='general.Persona'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='carrera',
             name='usuario_creador',
             field=models.ForeignKey(related_name='fk_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='carrera',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='fk_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(
             name='carrera',
             unique_together=set([('codigo', 'campus')]),
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='asignaturaseccion',
             name='docente_carrera',
             field=models.ForeignKey(verbose_name=b'Docente', to='registro.docente_departamento'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='asignaturaseccion',
             name='horario_hora',
             field=models.ForeignKey(to='registro.HorarioHora'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='asignaturaseccion',
             name='usuario_creador',
             field=models.ForeignKey(related_name='asec_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='asignaturaseccion',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='asec_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='asignatura',
             name='carrera',
             field=models.ForeignKey(verbose_name=b'Carrera', to='registro.Carrera'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='asignatura',
             name='tipo_asignatura',
             field=models.ForeignKey(related_name='tasi_asi_tipo_asignatura', to='registro.TipoAsignatura'),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='asignatura',
             name='usuario_creador',
             field=models.ForeignKey(related_name='asig_usuario_creador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AddField(
             model_name='asignatura',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='asig_usuario_modificador', to=settings.AUTH_USER_MODEL),
+<<<<<<< HEAD
             preserve_default=True,
+=======
+        ),
+        migrations.AlterUniqueTogether(
+            name='seccion',
+            unique_together=set([('jornada', 'carrera', 'periodo_clase', 'aula')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='departamentoacademico',
+            unique_together=set([('codigo', 'id_campus')]),
+        ),
+        migrations.AlterUniqueTogether(
+            name='carrera',
+            unique_together=set([('codigo', 'campus')]),
+>>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
         ),
         migrations.AlterUniqueTogether(
             name='asignatura',

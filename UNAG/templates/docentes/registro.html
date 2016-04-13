@@ -15,7 +15,8 @@
 {% endblock  %}
 
 {% block contenido_box %}
-	<form id="frm_persona" name="frm_persona" action="." method="POST">{% csrf_token %}	
+	<form id="frm_persona" name="frm_persona" action="." method="POST">
+		{% csrf_token %}	
 		{% if formulario.errors %}				
 			<div class="alert alert-danger">
 					<h4>Formulario contiene errores!!</h4>
@@ -34,7 +35,7 @@
 <script type="text/javascript">
 
 	$(':input').each(function( index, obj ) {
-		if (obj.name != 'tipo_identificacion'){
+		if (obj.name != 'nombre'){
 			$(obj).addClass('form-control')
 		}
 		//console.log('asldjkasldkjasld',index, obj.type, obj.name)

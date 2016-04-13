@@ -1,13 +1,16 @@
-
 {% extends "docentes/menu.html" %}
+{% block css %}
+	<link rel="stylesheet" href="/media/css/dataTables.bootstrap.css">
+{% endblock  %}
+
 {% block header %}
  
    <h1>Docentes</h1>
   
   
   <ol class="breadcrumb">
-    <li><i class="fa fa-dashboard"></i> Administración</li>
-    <li>Docente</li>
+    <li><i class="fa fa-dashboard"></i> Docentes</li>
+    <li>Inicio</li>
   </ol>
 
 {% endblock  %}
@@ -24,7 +27,7 @@
 {% endblock  %}
 
 {% block contenido_box %}
-        <table class="table table-striped table-bordered table-hover table-condensed">
+        <table id="tabla" class="table table-bordered table-striped ">
 		<thead>
 			<tr>
 				<th>Identidad</th>
@@ -32,21 +35,22 @@
 				<th>Apellidos</th>
 				<th>Correo Electronico</th>
 				<th>Celular</th>
-				<th colspan="2">Acción</th>							
+				<th ></th>							
+				<th ></th>	
+									
 			</tr>
 		</thead>
-		
-			{% for p in persona %}
-			<tbody>
+		<tbody>
+			{% for personas in persona %}
 				<tr>
-					<td>{{p.identidad}}</td>
-					<td>{{p.nombres}}</td>
-					<td>{{p.apellidos}}</td>
-					<td>{{p.correo_electronico}}</td>
-					<td>{{p.celular}}</td>
+					<td>{{personas.identidad|default:"---"}}</td>
+					<td>{{personas.nombres|default:"---"}}</td>
+					<td>{{personas.apellidos|default:"---"}}</td>
+					<td>{{personas.correo_electronico|default:"---"}}</td>
+					<td>{{personas.celular|default:"---"}}</td>
 					<td>
 						<center>
-							<a title="Ver" href="{% url 'docente_editar' p.pk %}" class="btn btn-success">
+							<a title="Ver" href="{% url 'docente_editar' personas.pk %}" class="btn btn-success">
 								<span class="glyphicon glyphicon-eye-open"></span>
 							</a>
 						</center>
@@ -54,16 +58,25 @@
 					<td>
 						
 						<center>
-							<a  href="{% url 'docente_eliminar' p.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar el docente <<{{p.nombre_docente }}>>?');">
+							<a title="Borrar" href="{% url 'docente_eliminar' personas.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere eliminar este docente  <<{{personas.nombres }} {{personas.apellidos}}>>?');" class="btn btn-danger">
 								<span class="glyphicon glyphicon-remove-circle"></span>
 							</a>
 						</center>
-						
 					</td>
 				</tr>
-             </tbody>
 			{% endfor %}
-		
-	</table>
-{% endblock %}
+        </tbody>
+	    </table>
+	{% endblock %}
+	
+    
+{% block js %}
+<script src="/media/js/jquery.dataTables.min.js"></script>
+<script src="/media/js/dataTables.bootstrap.min.js"></script>
+<script>
+      $(function () {
+        $('#tabla').DataTable();
+      });
+    </script>
+{% endblock  %}
 

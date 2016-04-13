@@ -796,7 +796,7 @@ def alumno_registro(request):
 	exito = ''
 	alumno = ''
 	if request.method == 'POST':
-		formulario = AspirantePersonaForm(request.POST, request.FILES)
+		formulario = AspirantePersonaForm(request.POST, request.FILES) 
 		formulario_alu = AlumnoForm(request.POST, request.FILES)
 		if formulario.is_valid() and formulario_alu.is_valid():
 			num_cuenta=formulario.cleaned_data['identidad']
