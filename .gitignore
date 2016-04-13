@@ -110,3 +110,4 @@ $RECYCLE.BIN/
 # settings
 settings.py
 UNAG/media/documentos/
+UNAG/settings.py
