@@ -38,7 +38,6 @@ class TipoUsuario(models.Model):
 		return self.descripcion
 
 class Usuario(User):
-	
 	user = models.OneToOneField(settings.AUTH_USER_MODEL)
 	tipo_usuario = models.ForeignKey(TipoUsuario, null = True, blank = True,default = None)
 	codigo_registro = models.CharField(max_length = 15, null = True, blank = True,default = None)

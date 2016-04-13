@@ -780,7 +780,7 @@ def alumno_registro_excel(request):
 	else:
 		form = FormArchivosGuardados()
 		context = {'form':form}
-	return render(request, 'alumnos/registro_excel.html', context)
+	return render(request, 'alumnos/alumnos_registro_excel.html', context)
 
 
 def alumno_registro(request):
@@ -867,11 +867,11 @@ def alumno_registro(request):
 	else:
 		formulario = AspirantePersonaForm()
 		formulario_alu = AlumnoForm()
-	return render_to_response('alumnos/registro.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje, 'exito':exito, 'alumno':alumno}, context_instance=RequestContext(request))
+	return render_to_response('alumnos/alumnos_registro.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje, 'exito':exito, 'alumno':alumno}, context_instance=RequestContext(request))
 
 def alumno_lista(request):
 	contexto = { 'alumnos' : Alumnos.objects.filter(estado=True) }
-	return render(request,'alumnos/lista.html', contexto)
+	return render(request,'alumnos/alumnos_lista.html', contexto)
 
 
 def alumno_editar(request, id=None):
@@ -885,12 +885,12 @@ def alumno_editar(request, id=None):
 			return HttpResponseRedirect(reverse('alumno_lista'))
 		else:
 			ctx = {'persona': formulario_persona, 'alumno': formulario_alumno, 'id':id}
-			return render(request, 'alumnos/editar.html', ctx)
+			return render(request, 'alumnos/alumnos_editar.html', ctx)
 	else:
 		formulario_persona = PersonaAlumnoEditForm(instance = alumno.persona)
 		formulario_alumno = AlumnoForm(instance = alumno)
 		ctx = {'persona': formulario_persona, 'alumno': formulario_alumno, 'id':id}
-		return render(request, 'alumnos/editar.html', ctx)
+		return render(request, 'alumnos/alumnos_editar.html', ctx)
 
 def alumno_eliminar(request, id=None):
 	if id:

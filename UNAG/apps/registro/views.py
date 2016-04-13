@@ -969,7 +969,7 @@ def docente_inicio(request):
 		print 'hay persona'
 		persona_list = Persona.objects.all()
 	ctx = {'persona': persona_list}	
-	return render_to_response('docentes/inicio.html', ctx, context_instance=RequestContext(request))	
+	return render_to_response('docentes/docentes_inicio.html', ctx, context_instance=RequestContext(request))	
 
 
 def docente_registro(request):
@@ -1042,13 +1042,13 @@ def docente_registro(request):
 
 			formulario = DocentePersonaForm()
 			formulario_doc = DocenteForm()
-			return render_to_response('docentes/registro.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
+			return render_to_response('docentes/docentes_registro.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
 		else:
-			return render_to_response('docentes/registro.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
+			return render_to_response('docentes/docentes_registro.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
 	else:
 		formulario = DocentePersonaForm()
 		formulario_doc = DocenteForm()
-		return render_to_response('docentes/registro.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
+		return render_to_response('docentes/docentes_egistro.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
 
 @permission_required('registro.docente_eliminar', login_url='/administration/')	
 def docente_eliminar(request,id_=None):
@@ -1070,13 +1070,13 @@ def docente_editar(request, id_=None):
 				return HttpResponseRedirect(reverse('docente_inicio'))
 			else:
 				ctx = {'formulario': formulario }
-				return render_to_response('docentes/editar.html', ctx, context_instance=RequestContext(request))
+				return render_to_response('docentes/docentes_editar.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
 			objPersona = Persona.objects.get(pk=id_)
 			formulario = DocentePersonaForm(instance = objPersona)
 			ctx = {'formulario': formulario}
-			return render_to_response('docentes/editar.html',  ctx, context_instance=RequestContext(request))
+			return render_to_response('docentes/docentes_editar.html',  ctx, context_instance=RequestContext(request))
 
 @login_required
 def registro_inicio(request):

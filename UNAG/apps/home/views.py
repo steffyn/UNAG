@@ -42,7 +42,6 @@ def view_login(request):
 					print 'PASO POR AQUI 2'
 					login(request, usuario) #crea la sesion
 					user = User.objects.get(id=request.user.id)
-					print user.usuario
 					if user.usuario.tipo_usuario.descripcion == 'Superusuario':
 						return HttpResponseRedirect(reverse('vista_main_first')) #redirige a la raiz
 					elif user.usuario.tipo_usuario.id == 3 or user.usuario.tipo_usuario.id == 12 or user.usuario.tipo_usuario.id == 13 or user.usuario.tipo_usuario.id == 5 or user.usuario.tipo_usuario.id == 14:
