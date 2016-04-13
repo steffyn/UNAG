@@ -460,7 +460,7 @@ def view_add_recursohumano_normal(request):
 				formulario.save_m2m()
 
 				user.groups.add(grupo)
-				user.tipo_usuario=objT
+				user.usuario.tipo_usuario=objT
 				user.save()
 
 			except Exception, e:
@@ -532,22 +532,22 @@ def view_add_recursohumano_docente(request):
 						objT=TipoUsuario.objects.get(id=14)
 						grupo = Group.objects.get(id=4)
 						user.groups.add(grupo)
-						user.tipo_usuario=objT
+						user.usuario.tipo_usuario=objT
 					elif td=='2':
 						objT=TipoUsuario.objects.get(id=3)
 						grupo = Group.objects.get(id=1)
 						user.groups.add(grupo)
-						user.tipo_usuario=objT
+						user.usuario.tipo_usuario=objT
 					elif td=='1':
 						objT=TipoUsuario.objects.get(id=12)
 						grupo = Group.objects.get(id=10)
 						user.groups.add(grupo)
-						user.tipo_usuario=objT
+						user.usuario.tipo_usuario=objT
 					elif td=='3':
 						objT=TipoUsuario.objects.get(id=13)
 						grupo = Group.objects.get(id=11)
 						user.groups.add(grupo)
-						user.tipo_usuario=objT
+						user.usuario.tipo_usuario=objT
 
 					#actualizar datos de usuario
 					user.first_name=formulario.cleaned_data['nombres']
@@ -603,7 +603,7 @@ def view_recuperar_registro(request):
 			if Persona.objects.filter(identidad__istartswith=identidad).count() == 1:
 				return HttpResponse("Ya existe una persona con esta Identidad")
 			user = User.objects.get(username__istartswith=identidad)
-			return HttpResponse(user.codigo_registro)
+			return HttpResponse(user.usuario.codigo_registro)
 		else:
 			return HttpResponse("No se ha podido encontrar el número de registro")
 	else:

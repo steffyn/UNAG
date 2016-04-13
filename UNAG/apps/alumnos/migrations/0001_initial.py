@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import migrations, models
+from django.db import models, migrations
 from django.conf import settings
 
 
@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('registro', '__first__'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('general', '0001_initial'),
+        ('general', '__first__'),
     ]
 
     operations = [
@@ -42,6 +42,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_alumnos',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='AlumnosBecas',
@@ -56,6 +57,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_alumnos_becas',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='DocumentosAlumnos',
@@ -70,6 +72,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_documentos_alumnos',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='EstadoCuenta',
@@ -89,6 +92,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_estado_cuenta',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Matricula',
@@ -108,6 +112,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_matricula',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='MatriculaClases',
@@ -125,6 +130,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_matricula_clases',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Notas',
@@ -142,6 +148,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_notas',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='PreMatricula',
@@ -158,6 +165,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_pre_matricula',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='PreMatriculaClases',
@@ -175,6 +183,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'alumnos_pre_matricula_clases',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Promocion',
@@ -189,60 +198,74 @@ class Migration(migrations.Migration):
                 ('usuario_creador', models.ForeignKey(related_name='promocion_usuario_creador', to=settings.AUTH_USER_MODEL)),
                 ('usuario_modificador', models.ForeignKey(related_name='promocion_usuario_modificador', to=settings.AUTH_USER_MODEL)),
             ],
+            options={
+            },
+            bases=(models.Model,),
         ),
         migrations.AddField(
             model_name='matricula',
             name='pre_matricula',
             field=models.ForeignKey(to='alumnos.PreMatricula'),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='matricula',
             name='tipo_condicion_matricula',
             field=models.ForeignKey(to='registro.TiposCondicionesMatricula'),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='matricula',
             name='usuario_creador',
             field=models.ForeignKey(related_name='fk_usuario_matricula', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='matricula',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='fk_usuario_matricula_1', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='documentosalumnos',
             name='matricula',
             field=models.ForeignKey(to='alumnos.Matricula'),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='documentosalumnos',
             name='usuario_creador',
             field=models.ForeignKey(related_name='da_usuario_creador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='documentosalumnos',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='da_usuario_modificador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnosbecas',
             name='matricula',
             field=models.ForeignKey(to='alumnos.Matricula'),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnosbecas',
             name='tipo_beca',
             field=models.ForeignKey(to='general.TipoBeca'),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnosbecas',
             name='usuario_creador',
             field=models.ForeignKey(related_name='ab_usuario_creador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='alumnosbecas',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='ab_usuario_modificador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
         ),
     ]

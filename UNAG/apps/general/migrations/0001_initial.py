@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import migrations, models
+from django.db import models, migrations
 from django.conf import settings
 import UNAG.apps.general.models
 
@@ -24,6 +24,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_aldea',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='archivos_guardados',
@@ -33,6 +34,9 @@ class Migration(migrations.Migration):
                 ('fecha_creacion', models.DateField(auto_now_add=True)),
                 ('usuario_creador', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
+            options={
+            },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='AsocCampesina',
@@ -47,6 +51,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_asoc_campesina',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Barrio',
@@ -59,6 +64,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_barrio',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Campus',
@@ -75,6 +81,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_campus',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Caserio',
@@ -90,6 +97,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_caserio',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Centro',
@@ -102,6 +110,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_centro',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Departamento',
@@ -117,6 +126,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_departamento',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Edificios',
@@ -134,6 +144,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_edificios',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='EstadoCivil',
@@ -148,6 +159,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_estado_civil',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='EstructuraEdificio',
@@ -167,6 +179,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_estructura_edificio',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Financiador',
@@ -186,6 +199,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_financiador',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='GrupoGrado',
@@ -200,6 +214,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_grupo_grado',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Jornada',
@@ -214,6 +229,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_jornada',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Modalidades',
@@ -228,6 +244,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_modalidades',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Municipio',
@@ -244,6 +261,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_municipio',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Pais',
@@ -258,12 +276,16 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_pais',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Periodo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('clase', models.IntegerField()),
                 ('descripcion', models.CharField(max_length=65)),
+                ('fecha_inicio', models.DateField()),
+                ('fecha_final', models.DateField()),
                 ('fecha_creacion', models.DateField(auto_now_add=True)),
                 ('fecha_modificacion', models.DateField(auto_now=True)),
                 ('usuario_creador', models.ForeignKey(related_name='pr_usuario_creador', to=settings.AUTH_USER_MODEL)),
@@ -272,12 +294,13 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_periodo',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='PeriodoClase',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('descripcion', models.CharField(max_length=128)),
+                ('descripcion', models.CharField(max_length=128, verbose_name=b'Periodo Academico')),
                 ('fecha_creacion', models.DateField(auto_now_add=True)),
                 ('fecha_modificacion', models.DateField(auto_now=True)),
                 ('periodo', models.ForeignKey(to='general.Periodo')),
@@ -287,6 +310,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_periodo_clase',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Persona',
@@ -317,6 +341,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_persona',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='TipoAdministracion',
@@ -331,6 +356,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_tipo_adinistracion',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='TipoBeca',
@@ -345,6 +371,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_tipo_beca',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='TipoCentro',
@@ -360,6 +387,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_tipo_centro',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='TipoEdificios',
@@ -374,6 +402,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_tipo_edificios',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='TipoIdentificacion',
@@ -388,6 +417,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_tipo_identificacion',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='TipoPersona',
@@ -402,6 +432,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_tipo_persona',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Titulos',
@@ -417,6 +448,7 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_titulos',
             },
+            bases=(models.Model,),
         ),
         migrations.CreateModel(
             name='Zona',
@@ -431,132 +463,156 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'general_zona',
             },
+            bases=(models.Model,),
         ),
         migrations.AddField(
             model_name='persona',
             name='tipo_identificacion',
             field=models.ForeignKey(verbose_name=b'Tipo de identificaci\xc3\xb3n', to='general.TipoIdentificacion'),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='persona',
             name='tipo_persona',
             field=models.ForeignKey(to='general.TipoPersona'),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='persona',
             name='titulos',
             field=models.ManyToManyField(help_text='Seleccione en el lado derecho los t\xedtulos que desea agregar pulsando el boton (+),  ', to='general.Titulos', verbose_name=b'T\xc3\xadtulos Obtenidos'),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='persona',
             name='usuario',
             field=models.OneToOneField(related_name='person_usuario_posee', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='persona',
             name='usuario_creador',
             field=models.ForeignKey(related_name='per_usuario_creador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='persona',
             name='usuario_modificador',
             field=models.ForeignKey(related_name='per_usuario_modificador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='persona',
             name='zona',
             field=models.ForeignKey(to='general.Zona'),
-        ),
-        migrations.AddField(
-            model_name='edificios',
-            name='tipo_edificio',
-            field=models.ForeignKey(to='general.TipoEdificios'),
-        ),
-        migrations.AddField(
-            model_name='edificios',
-            name='usuario_creador',
-            field=models.ForeignKey(related_name='edi_usuario_creador', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='edificios',
-            name='usuario_modificador',
-            field=models.ForeignKey(related_name='edi_usuario_modificador', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='centro',
-            name='tipo_centro',
-            field=models.ForeignKey(to='general.TipoCentro'),
-        ),
-        migrations.AddField(
-            model_name='centro',
-            name='usuario_creador',
-            field=models.ForeignKey(related_name='ce_usuario_creador', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='centro',
-            name='usuario_modificador',
-            field=models.ForeignKey(related_name='ce_usuario_modificador', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='centro',
-            name='zona',
-            field=models.ForeignKey(to='general.Zona'),
-        ),
-        migrations.AddField(
-            model_name='campus',
-            name='director_campus',
-            field=models.OneToOneField(null=True, default=None, error_messages={b'unique': 'Este Director ya esta asignado a otro Campus.'}, to='general.Persona', blank=True),
-        ),
-        migrations.AddField(
-            model_name='campus',
-            name='usuario_creador',
-            field=models.ForeignKey(related_name='cam_usuario_creador', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='campus',
-            name='usuario_modificador',
-            field=models.ForeignKey(related_name='cam_usuario_modificador', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='barrio',
-            name='caserio',
-            field=models.ForeignKey(to='general.Caserio'),
-        ),
-        migrations.AddField(
-            model_name='barrio',
-            name='usuario_creador',
-            field=models.ForeignKey(related_name='bo_usuario_creador', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='barrio',
-            name='usuario_modificador',
-            field=models.ForeignKey(related_name='bo_usuario_modificador', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='aldea',
-            name='municipio',
-            field=models.ForeignKey(to='general.Municipio'),
-        ),
-        migrations.AddField(
-            model_name='aldea',
-            name='usuario_creador',
-            field=models.ForeignKey(related_name='al_usuario_creador', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='aldea',
-            name='usuario_modificador',
-            field=models.ForeignKey(related_name='al_usuario_modificador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
         ),
         migrations.AlterUniqueTogether(
             name='estructuraedificio',
             unique_together=set([('codigo', 'edificio')]),
         ),
+        migrations.AddField(
+            model_name='edificios',
+            name='tipo_edificio',
+            field=models.ForeignKey(to='general.TipoEdificios'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='edificios',
+            name='usuario_creador',
+            field=models.ForeignKey(related_name='edi_usuario_creador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='edificios',
+            name='usuario_modificador',
+            field=models.ForeignKey(related_name='edi_usuario_modificador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
         migrations.AlterUniqueTogether(
             name='edificios',
             unique_together=set([('codigo', 'campus')]),
         ),
+        migrations.AddField(
+            model_name='centro',
+            name='tipo_centro',
+            field=models.ForeignKey(to='general.TipoCentro'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='centro',
+            name='usuario_creador',
+            field=models.ForeignKey(related_name='ce_usuario_creador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='centro',
+            name='usuario_modificador',
+            field=models.ForeignKey(related_name='ce_usuario_modificador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='centro',
+            name='zona',
+            field=models.ForeignKey(to='general.Zona'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='campus',
+            name='director_campus',
+            field=models.OneToOneField(null=True, default=None, error_messages={b'unique': 'Este Director ya esta asignado a otro Campus.'}, to='general.Persona', blank=True),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='campus',
+            name='usuario_creador',
+            field=models.ForeignKey(related_name='cam_usuario_creador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='campus',
+            name='usuario_modificador',
+            field=models.ForeignKey(related_name='cam_usuario_modificador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
         migrations.AlterUniqueTogether(
             name='campus',
             unique_together=set([('codigo', 'siglas')]),
+        ),
+        migrations.AddField(
+            model_name='barrio',
+            name='caserio',
+            field=models.ForeignKey(to='general.Caserio'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='barrio',
+            name='usuario_creador',
+            field=models.ForeignKey(related_name='bo_usuario_creador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='barrio',
+            name='usuario_modificador',
+            field=models.ForeignKey(related_name='bo_usuario_modificador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='aldea',
+            name='municipio',
+            field=models.ForeignKey(to='general.Municipio'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='aldea',
+            name='usuario_creador',
+            field=models.ForeignKey(related_name='al_usuario_creador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='aldea',
+            name='usuario_modificador',
+            field=models.ForeignKey(related_name='al_usuario_modificador', to=settings.AUTH_USER_MODEL),
+            preserve_default=True,
         ),
     ]

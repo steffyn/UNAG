@@ -280,7 +280,7 @@ def view_add_people_docente(request):
 	try:
 		persona_id=Persona.objects.get(usuario_id=request.user.id).id
 		return HttpResponseRedirect(reverse('vista_index_docente'))
-	except persona.DoesNotExist:
+	except Persona.DoesNotExist:
 		print 'no existe datos de persona'
 
 	user = User.objects.get(id=request.user.id)
@@ -318,17 +318,17 @@ def view_add_people_docente(request):
 					objT=TipoUsuario.objects.get(id=5)
 					grupo = Group.objects.get(id=4)
 					user.groups.add(grupo)
-					user.tipo_usuario=objT
+					user.usuario.tipo_usuario=objT
 				elif td=='1':
 					objT=TipoUsuario.objects.get(id=12)
 					grupo = Group.objects.get(id=10)
 					user.groups.add(grupo)
-					user.tipo_usuario=objT
+					user.usuario.tipo_usuario=objT
 				elif td=='3':
 					objT=TipoUsuario.objects.get(id=13)
 					grupo = Group.objects.get(id=11)
 					user.groups.add(grupo)
-					user.tipo_usuario=objT
+					user.usuario.tipo_usuario=objT
 
 				user.first_name=formulario.cleaned_data['nombres']
 				user.last_name=formulario.cleaned_data['apellidos']
@@ -357,7 +357,7 @@ def view_add_people_docente(request):
 	else:
 		formulario = DocentePersonaForm()
 		formulario_doc = DocenteForm()
-	return render_to_response('general/new_persona_docente.html', {'formulario':formulario, 'formulario_doc':formulario_doc, 'mensaje':mensaje, 'identidad':request.user.username[:-4], 'registro':user.codigo_registro}, context_instance=RequestContext(request))
+	return render_to_response('general/new_persona_docente.html', {'formulario':formulario, 'formulario_doc':formulario_doc, 'mensaje':mensaje, 'identidad':request.user.username[:-4], 'registro':user.usuario.codigo_registro}, context_instance=RequestContext(request))
 
 
 @permission_required('registro.change_docente_departamento', login_url='/censo/logout/')
@@ -379,17 +379,17 @@ def view_persona_docente_edit(request):
 				user.first_name=formulario.cleaned_data['nombres']
 				user.last_name=formulario.cleaned_data['apellidos']
 				user.email=formulario.cleaned_data['correo_electronico']
-				user.telefono=formulario.cleaned_data['celular']
+				user.usuario.telefono=formulario.cleaned_data['celular']
 				user.save()
 				return HttpResponseRedirect(reverse('vista_index_docente'))
 			else:
-				ctx = {'formulario': formulario, 'identidad':request.user.username[:-4], 'registro':user.codigo_registro}
+				ctx = {'formulario': formulario, 'identidad':request.user.username[:-4], 'registro':user.usuario.codigo_registro}
 				return render_to_response('registro/senso_persona_docente_detalle.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
 			objPersona = Persona.objects.get(usuario_id = request.user.id)
 			formulario = DocentePersonaEditForm(instance = objPersona)
-			ctx = {'formulario': formulario, 'identidad':request.user.username[:-4], 'registro':user.codigo_registro}
+			ctx = {'formulario': formulario, 'identidad':request.user.username[:-4], 'registro':user.usuario.codigo_registro}
 			return render_to_response('registro/senso_persona_docente_detalle.html',  ctx, context_instance=RequestContext(request))
 	except Exception, e:
 		print "Error al acceder a datos del usuario"
@@ -399,7 +399,7 @@ def view_persona_docente_edit(request):
 def view_senso_docente_edit(request):
 	try:
 		user = User.objects.get(id=request.user.id)
-		if user.tipo_usuario.id == 3 or user.tipo_usuario.id == 12 or user.tipo_usuario.id == 13 or user.tipo_usuario.id == 5 or user.tipo_usuario.id == 14:
+		if user.usuario.tipo_usuario.id == 3 or user.usuario.tipo_usuario.id == 12 or user.usuario.tipo_usuario.id == 13 or user.usuario.tipo_usuario.id == 5 or user.usuario.tipo_usuario.id == 14:
 			persona_id=Persona.objects.get(usuario_id=request.user.id).id
 			if request.method == 'POST':
 				if docente_departamento.objects.filter(persona_id=persona_id): #si hay persona y docente
@@ -453,7 +453,7 @@ def view_login_docente(request):
 	mensaje=""
 	if request.user.is_authenticated():
 		user = User.objects.get(id=request.user.id)
-		if user.tipo_usuario.id == 3 or user.tipo_usuario.id == 12 or user.tipo_usuario.id == 13 or user.tipo_usuario.id == 5:
+		if user.usuario.tipo_usuario.id == 3 or user.usuario.tipo_usuario.id == 12 or user.usuario.tipo_usuario.id == 13 or user.usuario.tipo_usuario.id == 5:
 			return HttpResponseRedirect(reverse('vista_index_docente')) #redirecciona a la raiz
 		else:
 			logout(request)
@@ -469,8 +469,8 @@ def view_login_docente(request):
 					login(request, usuario) #crea la sesion
 					print "sesion creada"
 					user = User.objects.get(id=request.user.id)
-					print user.tipo_usuario.id
-					if user.tipo_usuario.id == 3 or user.tipo_usuario.id == 12 or user.tipo_usuario.id == 13 or user.tipo_usuario.id == 5:
+					print user.usuario.tipo_usuario.id
+					if user.usuario.tipo_usuario.id == 3 or user.usuario.tipo_usuario.id == 12 or user.usuario.tipo_usuario.id == 13 or user.usuario.tipo_usuario.id == 5:
 						return HttpResponseRedirect(reverse('vista_index_docente')) #redirige a la raiz
 					else:
 						return HttpResponseRedirect(reverse('vista_index_docente'))
@@ -946,7 +946,7 @@ def view_recuperar_clave(request):
 			user.save()
 			mensaje="Clave Recuperada!"
 			alerta="alert alert-success"
-			ctx = {'mensaje': mensaje, 'alerta':alerta, 'username': usuario, 'password': random_number, 'tipo':user.tipo_usuario}
+			ctx = {'mensaje': mensaje, 'alerta':alerta, 'username': usuario, 'password': random_number, 'tipo':user.usuario.tipo_usuario}
 			return render_to_response('general/recuperar_clave.html', ctx, context_instance=RequestContext(request))	
 		else:
 			mensaje="No se pudo recuperar la clave!"
@@ -1021,22 +1021,22 @@ def docente_registro(request):
 				objT=TipoUsuario.objects.get(id=14)
 				grupo = Group.objects.get(id=4)
 				user.groups.add(grupo)
-				user.tipo_usuario=objT
+				user.usuario.tipo_usuario=objT
 			elif td=='2':
 				objT=TipoUsuario.objects.get(id=3)
 				grupo = Group.objects.get(id=1)
 				user.groups.add(grupo)
-				user.tipo_usuario=objT
+				user.usuario.tipo_usuario=objT
 			elif td=='1':
 				objT=TipoUsuario.objects.get(id=12)
 				grupo = Group.objects.get(id=10)
 				user.groups.add(grupo)
-				user.tipo_usuario=objT
+				user.usuario.tipo_usuario=objT
 			elif td=='3':
 				objT=TipoUsuario.objects.get(id=13)
 				grupo = Group.objects.get(id=11)
 				user.groups.add(grupo)
-				user.tipo_usuario=objT
+				user.usuario.tipo_usuario=objT
 
 			user.save()
 

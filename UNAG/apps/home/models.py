@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, UserManager, AbstractBaseUser
+from django.conf import settings
 from datetime import datetime
 # Create your models here.
 
@@ -36,17 +37,15 @@ class TipoUsuario(models.Model):
 	def __unicode__(self):
 		return self.descripcion
 
-class User(User):
+class Usuario(User):
 	
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(settings.AUTH_USER_MODEL)
 	tipo_usuario = models.ForeignKey(TipoUsuario, null = True, blank = True,default = None)
 	codigo_registro = models.CharField(max_length = 15, null = True, blank = True,default = None)
 	telefono = models.CharField(max_length = 10, null = True, blank = True,default = None)
 	direccion = models.CharField(max_length = 500, null = True, blank = True,default = None)
 	class Meta:
 		db_table='home_user'
-	
-	objects = UserManager()
 
 	def __unicode__(self):
 		return self.user.username

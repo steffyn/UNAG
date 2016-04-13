@@ -282,7 +282,7 @@ class AsignaturaBloque(models.Model):
 	usuario_modificador=models.ForeignKey(User, related_name='ablo_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
 	class Meta:
-		db_table = 'registro_asignatura'
+		db_table = 'registro_asignatura_bloque'
 
 class Parcial(models.Model):
 	periodo_clase=models.ForeignKey(PeriodoClase)

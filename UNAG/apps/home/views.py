@@ -42,11 +42,12 @@ def view_login(request):
 					print 'PASO POR AQUI 2'
 					login(request, usuario) #crea la sesion
 					user = User.objects.get(id=request.user.id)
-					if user.tipo_usuario.descripcion == 'Superusuario':
+					print user.usuario
+					if user.usuario.tipo_usuario.descripcion == 'Superusuario':
 						return HttpResponseRedirect(reverse('vista_main_first')) #redirige a la raiz
-					elif user.tipo_usuario.id == 3 or user.tipo_usuario.id == 12 or user.tipo_usuario.id == 13 or user.tipo_usuario.id == 5 or user.tipo_usuario.id == 14:
+					elif user.usuario.tipo_usuario.id == 3 or user.usuario.tipo_usuario.id == 12 or user.usuario.tipo_usuario.id == 13 or user.usuario.tipo_usuario.id == 5 or user.usuario.tipo_usuario.id == 14:
 						return HttpResponseRedirect(reverse('vista_index_docente')) #redirige al censo de docentes
-					elif user.tipo_usuario.descripcion == 'Alumno':
+					elif user.usuario.tipo_usuario.descripcion == 'Alumno':
 						print 'PASO POR AQUI 3'
 						return HttpResponseRedirect(reverse('vista_index_alumno')) #redirige a la raiz
 					else:
@@ -134,8 +135,8 @@ def view_excel(request):
 				#password=make_password(random_number, 'seasalt', 'pbkdf2_sha256')
 				user = User.objects.create_user(num_cuenta, 'example@example.com', random_number)
 				user.groups.add(grupo)
-				user.tipo_usuario=objT
-				user.codigo_registro=sh.cell_value(rowx=row,colx=1)
+				user.usuario.tipo_usuario=objT
+				user.usuario.codigo_registro=sh.cell_value(rowx=row,colx=1)
 				user.save()
 					
 				val="Holasss World"
@@ -196,8 +197,8 @@ def view_excel_docente(request):
 				#password=make_password(random_number, 'seasalt', 'pbkdf2_sha256')
 				user = User.objects.create_user(num_cuenta, 'example@example.com', random_number)
 				user.groups.add(grupo)
-				user.tipo_usuario=objT
-				user.codigo_registro=sh.cell_value(rowx=row,colx=1)
+				user.usuario.tipo_usuario=objT
+				user.usuario.codigo_registro=sh.cell_value(rowx=row,colx=1)
 				user.save()
 					
 				val="Holasss World"

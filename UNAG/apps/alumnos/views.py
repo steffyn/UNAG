@@ -55,7 +55,7 @@ def view_add_people_alu(request):
 	#si esta autenticado desloguearlo porque entonces no es un aspirante el que ingresa
 	if request.user.is_authenticated():
 		user = User.objects.get(id=request.user.id)
-		if user.tipo_usuario.descripcion == 'Alumno':
+		if user.usuario.tipo_usuario.descripcion == 'Alumno':
 			return HttpResponseRedirect(reverse('vista_main_administration')) 
 		else:
 			logout(request)
@@ -111,7 +111,7 @@ def view_add_people_alu(request):
 				user.is_active=False
 				user.is_superuser=False
 				user.groups.add(grupo)
-				user.tipo_usuario=objT
+				user.usuario.tipo_usuario=objT
 				user.date_joined=datetime.now()
 				user.save()
 
@@ -171,7 +171,7 @@ def view_add_alumno_rein(request):
 				#crear alumno
 				form = formulario_alu.save(commit = False)
 				form.persona=person
-				form.codigo_registro= user.codigo_registro
+				form.codigo_registro= user.usuario.codigo_registro
 				form.usuario_creador = request.user
 				form.fecha_creacion = datetime.now()
 				form.usuario_modificador = request.user
@@ -201,14 +201,14 @@ def view_add_alumno_rein(request):
 	else:
 		formulario = AlumnoPersonaForm()
 		formulario_alu = AlumnoForm()
-	return render_to_response('general/new_persona_reingreso.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje, 'identidad':request.user.username[:-4], 'registro':user.codigo_registro}, context_instance=RequestContext(request))
+	return render_to_response('general/new_persona_reingreso.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje, 'identidad':request.user.username[:-4], 'registro':user.usuario.codigo_registro}, context_instance=RequestContext(request))
 
 #vista editar informacion de persona en alumno de reingreso
 @permission_required('alumnos.change_alumnos', login_url='/censo/logout/')
 def view_persona_alumno_edit(request):
 	try:
 		user = User.objects.get(id=request.user.id)
-		if user.tipo_usuario.descripcion == 'Alumno':
+		if user.usuario.tipo_usuario.descripcion == 'Alumno':
 			if request.method == 'POST':
 				objPersona = Persona.objects.get(usuario_id = request.user.id)
 				formulario = AlumnoPersonaEditForm(request.POST, instance = objPersona)
@@ -224,20 +224,20 @@ def view_persona_alumno_edit(request):
 					user.first_name=formulario.cleaned_data['nombres']
 					user.last_name=formulario.cleaned_data['apellidos']
 					user.email=formulario.cleaned_data['correo_electronico']
-					user.telefono=formulario.cleaned_data['celular']
+					user.usuario.telefono=formulario.cleaned_data['celular']
 					user.save()
 					return HttpResponseRedirect(reverse('vista_index_alumno'))
 				else:
-					ctx = {'formulario': formulario, 'identidad':request.user.username[:-4], 'registro':user.codigo_registro}
+					ctx = {'formulario': formulario, 'identidad':request.user.username[:-4], 'registro':user.usuario.codigo_registro}
 					return render_to_response('alumnos/senso_persona_alumno_detalle.html', ctx, context_instance=RequestContext(request))
 			else:
 				print "editar-mostrar-data"
 
-				if user.tipo_usuario.descripcion == 'Alumno':
-					print user.tipo_usuario.descripcion + 'hoy si'
+				if user.usuario.tipo_usuario.descripcion == 'Alumno':
+					print user.usuario.tipo_usuario.descripcion + 'hoy si'
 				objPersona = Persona.objects.get(usuario_id = request.user.id)
 				formulario = AlumnoPersonaEditForm(instance = objPersona)
-				ctx = {'formulario': formulario,'identidad':request.user.username[:-4], 'registro':user.codigo_registro}
+				ctx = {'formulario': formulario,'identidad':request.user.username[:-4], 'registro':user.usuario.codigo_registro}
 				return render_to_response('alumnos/senso_persona_alumno_detalle.html', ctx, context_instance=RequestContext(request))
 	except Exception, e:
 		print "Error al acceder a datos del usuario"
@@ -248,7 +248,7 @@ def view_persona_alumno_edit(request):
 def view_senso_alumno_edit(request):
 	try:
 		user = User.objects.get(id=request.user.id)
-		if user.tipo_usuario.descripcion == 'Alumno':
+		if user.usuario.tipo_usuario.descripcion == 'Alumno':
 			persona_id=Persona.objects.get(usuario_id=request.user.id).id
 			if request.method == 'POST':
 				if Alumnos.objects.filter(persona_id=persona_id): # si hay persona y hay alumno
@@ -256,7 +256,7 @@ def view_senso_alumno_edit(request):
 					formulario = AlumnoForm(request.POST, instance = objAlumno)
 					if formulario.is_valid():
 						form = formulario.save(commit = False)
-						form.codigo_registro=user.codigo_registro
+						form.codigo_registro=user.usuario.codigo_registro
 						form.usuario_modificador = request.user
 						form.fecha_modificacion = datetime.now()
 						form.save()
@@ -270,7 +270,7 @@ def view_senso_alumno_edit(request):
 					if formulario.is_valid():
 						form = formulario.save(commit = False)
 						form.persona=Persona.objects.get(usuario_id=request.user.id)
-						form.codigo_registro=user.codigo_registro
+						form.codigo_registro=user.usuario.codigo_registro
 						form.usuario_creador = request.user
 						form.fecha_creacion = datetime.now()
 						form.usuario_modificador = request.user
@@ -298,7 +298,7 @@ def view_login_reingreso(request):
 	mensaje=""
 	if request.user.is_authenticated():
 		user = User.objects.get(id=request.user.id)
-		if user.tipo_usuario.descripcion == 'Alumno':
+		if user.usuario.tipo_usuario.descripcion == 'Alumno':
 			return HttpResponseRedirect(reverse('vista_index_alumno')) #redirecciona a la raiz
 		else:
 			logout(request)
@@ -313,7 +313,7 @@ def view_login_reingreso(request):
 				if usuario is not None and usuario.is_active: #si el usuario no es nullo y esta activo
 					login(request, usuario) #crea la sesion
 					user = User.objects.get(id=request.user.id)
-					if user.tipo_usuario.descripcion == 'Alumno':
+					if user.usuario.tipo_usuario.descripcion == 'Alumno':
 						return HttpResponseRedirect(reverse('vista_index_alumno')) #redirige a la raiz
 					else:
 						return HttpResponseRedirect(reverse('vista_senso_logout'))
@@ -787,7 +787,7 @@ def alumno_registro(request):
 	#si esta autenticado desloguearlo porque entonces no es un aspirante el que ingresa
 	if request.user.is_authenticated():
 		user = User.objects.get(id=request.user.id)
-		if user.tipo_usuario.descripcion == 'alumno':
+		if user.usuario.tipo_usuario.descripcion == 'alumno':
 			return HttpResponseRedirect(reverse('vista_main_administration'))
     #if request.user.is_authenticated():
     	#logout(request)
@@ -850,7 +850,7 @@ def alumno_registro(request):
 				user.is_active=False
 				user.is_superuser=False
 				user.groups.add(Group.objects.get(id=2))
-				user.tipo_usuario=TipoUsuario.objects.get(id=10)
+				user.usuario.tipo_usuario=TipoUsuario.objects.get(id=10)
 				user.date_joined=datetime.now()
 				user.save()
 
