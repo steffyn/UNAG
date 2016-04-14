@@ -351,7 +351,7 @@ def view_index_alumno(request):
 
 #Incluida Katherine
 @permission_required('alumnos.add_alumnos', login_url='/censo/logout/')
-def alumno_registro_excel(request):
+def alumnos_registro_excel(request):
 	#rarfile.UNRAR_TOOL = 'C:\Windows\unrar.exe' #esta configuracion es importante para el unrar
 	context = {}
 	if request.method == 'POST':
@@ -783,7 +783,7 @@ def alumno_registro_excel(request):
 	return render(request, 'alumnos/alumnos_registro_excel.html', context)
 
 
-def alumno_registro(request):
+def alumnos_registro(request):
 	#si esta autenticado desloguearlo porque entonces no es un aspirante el que ingresa
 	if request.user.is_authenticated():
 		user = User.objects.get(id=request.user.id)
@@ -869,12 +869,12 @@ def alumno_registro(request):
 		formulario_alu = AlumnoForm()
 	return render_to_response('alumnos/alumnos_registro.html', {'formulario':formulario, 'formulario_alu':formulario_alu, 'mensaje':mensaje, 'exito':exito, 'alumno':alumno}, context_instance=RequestContext(request))
 
-def alumno_lista(request):
+def alumnos_lista(request):
 	contexto = { 'alumnos' : Alumnos.objects.filter(estado=True) }
 	return render(request,'alumnos/alumnos_lista.html', contexto)
 
 
-def alumno_editar(request, id=None):
+def alumnos_editar(request, id=None):
 	alumno = Alumnos.objects.get(pk=id)
 	if request.method == 'POST':
 		formulario_persona = PersonaAlumnoEditForm(request.POST,instance = alumno.persona)
@@ -882,7 +882,7 @@ def alumno_editar(request, id=None):
 		if formulario_persona.is_valid() and formulario_alumno.is_valid():
 			formulario_persona.save()
 			formulario_alumno.save()
-			return HttpResponseRedirect(reverse('alumno_lista'))
+			return HttpResponseRedirect(reverse('alumnos_lista'))
 		else:
 			ctx = {'persona': formulario_persona, 'alumno': formulario_alumno, 'id':id}
 			return render(request, 'alumnos/alumnos_editar.html', ctx)
@@ -892,7 +892,7 @@ def alumno_editar(request, id=None):
 		ctx = {'persona': formulario_persona, 'alumno': formulario_alumno, 'id':id}
 		return render(request, 'alumnos/alumnos_editar.html', ctx)
 
-def alumno_eliminar(request, id=None):
+def alumnos_eliminar(request, id=None):
 	if id:
 		try:
 			alumno = Alumnos.objects.get(pk=id)
@@ -907,4 +907,4 @@ def alumno_eliminar(request, id=None):
 		
 
 		print 'PASO POR AQUI'
-		return HttpResponseRedirect(reverse('alumno_lista'))	
+		return HttpResponseRedirect(reverse('alumnos_lista'))	

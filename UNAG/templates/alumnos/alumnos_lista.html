@@ -17,7 +17,7 @@
 {% endblock  %}
 
 {% block boton_box %}
-	<a title="Nuevo Campus" class="btn btn-default" href="{% url 'alumno_registro' %}">
+	<a title="Nuevo Campus" class="btn btn-default" href="{% url 'alumnos_registro' %}">
 		<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo 
 	</a>
 {% endblock  %}
@@ -46,7 +46,7 @@
 						<td>{{alumno.persona.celular|default:"---"}}</td>
 						<td>
 							<center>
-								<a title="Ver" href="{% url 'alumno_editar' alumno.pk %}" class="btn btn-success">
+								<a title="Ver" href="{% url 'alumnos_editar' alumno.pk %}" class="btn btn-success">
 									<span class="glyphicon glyphicon-eye-open"></span>
 								</a>
 							</center>
@@ -54,7 +54,7 @@
 						<td>
 							{% if perms.general.delete_campus %}
 							<center>
-								<a title="Borrar" href="{% url 'alumno_eliminar' alumno.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere desactivar esta alumno <<{{ alumno.persona.nombres }} {{alumno.persona.apellidos}}>>?');" class="btn btn-danger">
+								<a title="Borrar" href="{% url 'alumnos_eliminar' alumno.pk %}" title="Borrar" class="btn btn-danger" onclick="return confirm('¿Esta seguro que quiere desactivar esta alumno <<{{ alumno.persona.nombres }} {{alumno.persona.apellidos}}>>?');" class="btn btn-danger">
 									<span class="glyphicon glyphicon-remove-circle"></span>
 								</a>
 							</center>

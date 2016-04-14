@@ -1,21 +1,15 @@
-<<<<<<< HEAD
 {% extends "base.html" %}
 
-{% block navlist_header %}
-    DOCENTES
-=======
-{% extends "docentes/base.html" %}
 {% block navlist_header %}
     DOCENTES
 {% endblock  %}
 {% block titulo %}
     Docentes
->>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
 {% endblock  %}
 {% block navlist %}
 
      <li>
-      <a href="{% url 'docente_inicio' %}">
+      <a href="{% url 'docentes_lista' %}">
         <i class="glyphicon glyphicon-user"></i> <span>Administracion Docente</span> 
       </a>
     </li>

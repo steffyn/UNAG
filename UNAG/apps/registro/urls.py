@@ -3,7 +3,6 @@ from django.conf.urls import patterns, url
 urlpatterns = patterns('UNAG.apps.registro.views',
 
 	#urls index docente
-	url(r'^docente/$', 'view_index_docente', name='vista_index_docente'),
 	url(r'^docente/login/$', 'view_login_docente', name='vista_login_docente'),
 	#urls menu administracion departamentos academicos
 	url(r'^administration/deptos_academics/$', 'view_administration_deptos_academics', name='vista_administracion_deptos_academics'),	
@@ -71,10 +70,10 @@ urlpatterns = patterns('UNAG.apps.registro.views',
 	url(r'^administration/censo/recuperar/clave$', 'view_recuperar_clave', name='vista_recuperar_clave'),
 
 	#Por Sarai //Docente
-	url(r'^docente/index/$', 'docente_inicio', name='docente_inicio'),
-	url(r'^registro/docente/$', 'docente_registro', name='docente_registro'),
-	url(r'^eliminar/(?P<id_>\d+)/$', 'docente_eliminar', name='docente_eliminar'),
-	url(r'^editar/(?P<id_>\d+)/$', 'docente_editar', name='docente_editar'),
+	url(r'^docentes/lista/$', 'docentes_lista', name='docentes_lista'),
+	url(r'^docentes/$', 'docente_registro', name='docente_registro'),
+	url(r'^docentes/eliminar/(?P<id_>\d+)/$', 'docente_eliminar', name='docente_eliminar'),
+	url(r'^docentes/editar/(?P<id_>\d+)/$', 'docente_editar', name='docente_editar'),
 	url(r'^administration/ajax/registro/$', 'registro_ajax_buscar_modulo', name='registro_ajax_buscar_modulo'),
 	
 

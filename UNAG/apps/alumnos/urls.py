@@ -14,10 +14,10 @@ urlpatterns = patterns('UNAG.apps.alumnos.views',
 	
 
 	#por Katherine
-	url(r'^registro/excel/$', 'alumno_registro_excel', name='alumno_registro_excel'),
-	url(r'^registro/$', 'alumno_registro', name='alumno_registro'),
-	url(r'^lista/$', 'alumno_lista', name='alumno_lista'),
-	url(r'^editar/(?P<id>\d+)/$', 'alumno_editar', name='alumno_editar'),
-	url(r'^eliminar/(?P<id>\d+)/$', 'alumno_eliminar', name='alumno_eliminar'),
+	url(r'^registro/excel/$', 'alumnos_registro_excel', name='alumnos_registro_excel'),
+	url(r'^registro/$', 'alumnos_registro', name='alumnos_registro'),
+	url(r'^lista/$', 'alumnos_lista', name='alumnos_lista'),
+	url(r'^editar/(?P<id>\d+)/$', 'alumnos_editar', name='alumnos_editar'),
+	url(r'^eliminar/(?P<id>\d+)/$', 'alumnos_eliminar', name='alumnos_eliminar'),
 )
 

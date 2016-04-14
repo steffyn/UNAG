@@ -17,13 +17,8 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-<<<<<<< HEAD
         'PORT': '',                      # Set to empty string for default.
     }
-=======
-        #'PORT': '6432',                      # Set to empty string for default.
-    } 
->>>>>>> c93a59176b8e24468f92470aa03511bf667e7f44
 }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
