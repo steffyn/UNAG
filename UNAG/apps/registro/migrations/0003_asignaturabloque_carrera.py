@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('registro', '0003_auto_20160303_0959'),
+        ('registro', '0002_auto_20160330_0917'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='asignatura',
-            name='modulo',
-            field=models.CharField(default=9, max_length=b'80'),
+            model_name='asignaturabloque',
+            name='carrera',
+            field=models.ForeignKey(default=9, to='registro.Carrera'),
             preserve_default=False,
         ),
     ]

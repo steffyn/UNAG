@@ -1,0 +1,151 @@
+{% extends "registro/menu.html" %}
+
+
+{% block bootstrap %}
+
+<link rel="stylesheet" type="text/css" href="/media/css/bootstrap.min.css">
+<script src="/media/js/jQuery-2.1.4.min.js"></script>
+<script src="/media/js/bootstrap.min.js"></script>
+{% endblock bootstrap %}
+
+  <h1>
+   AsignaturaBloque
+  </h1>
+
+  <ol class="breadcrumb">
+    <li><i class="fa fa-dashboard"></i> Administración</li>
+    <li>AsignaturaBloque</li>
+    <li>Agregar</li>
+  </ol>
+
+
+{% block titulo_box %}
+  Nueva Asignatura Bloque
+{% endblock  %}
+
+{% block contenido_box %}
+  <form id="frm_asignaturabloque" name="frm_asignaturabloque" action="." method="POST">
+    {% csrf_token %} 
+    {{formulario.as_p}} 
+   
+    <id type="submit" name="submit" class="btn btn-primary"  onclick="AñadirBloque()">Añadir Bloque</id><br><br>
+    <div class='modal fade' id='modal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>
+        <div class='modal-dialog'>
+        <div class='modal-content'>
+           <div class="modal-header">
+            <button type='button' class='close' data-dismiss='modal' aria-label="Close"> <span aria-hidden="true">&times;</span>
+            </button>
+            <h1 id='myModalLabel'>Añadir Bloque</h1>
+          </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label class="col-xs-3 control-label">Descripción:</label>
+                  <div class="col-xs-5">
+                <input type="text" class="form-control" name="Descripcion" />
+                 </div><br><br>
+               </div>  
+            <div class="form-group">
+            <label class="col-xs-3 control-label">Carrera:</label>
+              <div class="col-xs-5">
+                <input type="text" class="form-control" name="Carrera" />
+              </div>
+            </div><br><br>
+            <div class='modal-footer'>
+            <button class="btn btn-primary" type="submit" id="Guardar
+            " >Guardar</button>
+            </div>
+           </div>
+        </div>
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+  
+      
+  </form>
+{% endblock %}
+
+
+{% block js %}   
+<script type="text/javascript">
+$(':input').each(function( index, obj ) {
+    if (obj.name != 'descripcion'){
+      $(obj).addClass('form-control')
+    }
+    //console.log('asldjkasldkjasld',index, obj.type, obj.name)
+  });
+
+  function width_select(){
+    $( ".select2" ).each(function( index ) {
+      $( this ).css('width', '100%'); // Aqui lo que hace es seleccionar todos los SELECTs con clase de 'select2', si le quita esto, en el modal los SELECTs salen super pequenios.
+    });
+  }
+
+  $("select").select2();
+  width_select();
+  $(document).ready(function() {
+    $('input').removeClass("errorlist").addClass("form-control");
+    $('.errorlist').removeClass("errorlist").addClass("alert alert-danger");
+    $('#myModal2').modal('hide')
+    $('textarea').addClass("form-control")
+    $("#id_carrera").on("change", getTipoAsignatura);
+    $("#id_carrera").on("change", getAsignaturaBloque);
+        
+    
+    });
+
+    function getAsignatura() {
+    carrera = $('#id_carrera').val();//option checked
+     if (carrera) {
+                // Eliminamos las opciones anteriores del select
+                $("#id_asignatura").val();
+                var request = $.ajax({
+                    type: "GET",
+                    url: "{% url 'cargar_bloque' %}",
+                    data: {
+                        "carrera": carrera,
+                    },
+                });
+                request.done(function(response) {
+                    // Agregamos los resultados al select
+                    $("#id_carrera").html(response.tipo_asignatura);
+                    $("#id_bloque").html("<option value='' selected='selected'>---------</option>");
+                    $("#id_asignatura, #id_bloque").trigger("change");
+                });
+            } else {
+                $("#id_asignatura").html("<option value='' select='select'>---------</option>");
+                $("#id_bloque").html("<option value='' select='select'>---------</option>");
+                $("#id_asignatura, #id_bloque").trigger("change");
+            }
+        } 
+       $('#id_asignatura').change(function(){
+    carrera = $('#id_carrera').val();//option checked
+    console.log('CARRERA: ' + carrera)
+    if ( $(this).val() == 3 ) {
+      data = {
+        'carrera': carrera
+      }
+      $.ajax({
+        data: data,
+        url: "{% url 'cargar_bloque' %}",
+        type: 'GET',
+
+        success: function(msg){
+          data = jQuery.parseJSON(msg)
+          $('#id_modulo').select2({
+            data: data
+
+          })
+        }
+      });
+    }
+  });
+ 
+  function AñadirBloque() {
+ $("#modal").modal();
+};
+
+
+ 
+</script>
+{% endblock %}

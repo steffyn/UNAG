@@ -515,7 +515,7 @@ def view_administration_type_subject(request):
 	ctx = {'tipo_A': typesubject_list}	
 	return render_to_response('registro/tipo_asignatura_index.html', ctx, context_instance=RequestContext(request))	
 
-@permission_required('registro.add_tipo_asignatura', login_url='/administration/')
+@permission_required('registro.add_natura', login_url='/administration/')
 def view_type_subject_add(request):
 	if request.method == 'POST':
 		formulario = TipoAsignaturaForm(request.POST)		
@@ -546,7 +546,7 @@ def view_type_subject_edit(request, idta=None):
 				form.usuario_modificador = request.user
 				form.fecha_modificacion = datetime.now()
 				form.save()
-				return HttpResponseRedirect(reverse('vista_administracion_tipo_asignaturas'))
+				return HttpResponseRedirect(reverse('vista_administracion_naturas'))
 			else:
 				ctx = {'formulario': formulario}
 				return render_to_response('registro/tipo_asignatura_detalle.html', ctx, context_instance=RequestContext(request))
@@ -557,12 +557,12 @@ def view_type_subject_edit(request, idta=None):
 			ctx = {'formulario': formulario, 'id':idta}
 			return render_to_response('registro/tipo_asignatura_detalle.html', ctx, context_instance=RequestContext(request))	
 
-@permission_required('registro.delete_tipo_asignatura', login_url='/administration/')
+@permission_required('registro.delete_natura', login_url='/administration/')
 def view_type_subject_delete(request,idta=None):
 
 	if idta:
 		TipoAsignatura.objects.filter(id=idta).delete()
-		return HttpResponseRedirect(reverse('vista_administracion_tipo_asignaturas'))
+		return HttpResponseRedirect(reverse('vista_administracion_naturas'))
 
 #vistas de tipos_condiciones_matricula
 #by ciloe 19-09-2013
@@ -765,7 +765,7 @@ def view_requirements_ajax_list(request):
 			html+=cadena
 			html+='</td>'.encode("utf-8")
 			html+='<td>'+(a.observaciones).encode("utf-8")+'</td>'
-			html+='<td>'+str(a.tipo_asignatura) +'</td>'
+			html+='<td>'+str(a.natura) +'</td>'
 			html+='<td>'
 
 			for r in Requisito.objects.filter(asignatura_base=a.id):
@@ -810,7 +810,7 @@ def view_requirements_add(request):
 			return render_to_response('registro/requisitos_nuevo.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = RequisitoForm()
-		ctx = {'formulario': formulario, 'labs': Asignatura.objects.filter(tipo_asignatura_id=3).exclude(id__in=Requisito.objects.filter(asignatura_requisito__tipo_asignatura=2).values_list('asignatura_base',flat=True)), 'modulos':Asignatura.objects.filter(tipo_asignatura=2).exclude(id__in = Requisito.objects.filter().values_list('asignatura_requisito', flat=True) )}
+		ctx = {'formulario': formulario, 'labs': Asignatura.objects.filter(natura_id=3).exclude(id__in=Requisito.objects.filter(asignatura_requisito__natura=2).values_list('asignatura_base',flat=True)), 'modulos':Asignatura.objects.filter(natura=2).exclude(id__in = Requisito.objects.filter().values_list('asignatura_requisito', flat=True) )}
 		return render_to_response('registro/requisitos_nuevo.html', ctx, context_instance=RequestContext(request))	
 
 
@@ -846,7 +846,7 @@ def view_requirements_add_subjects(request):
 			return render_to_response('registro/requisitos_nuevo_al.html', ctx, context_instance=RequestContext(request)) 
 	else:
 		formulario = RequisitoForm()
-		ctx = {'formulario': formulario, 'asigna': Asignatura.objects.filter(tipo_asignatura__in=(5,3)).exclude(id__in =Requisito.objects.filter(asignatura_base__tipo_asignatura=5).values_list('asignatura_base',flat=True)).exclude(id__in =Requisito.objects.filter(asignatura_requisito__tipo_asignatura=5, asignatura_base__tipo_asignatura=3).values_list('asignatura_base',flat=True)) }
+		ctx = {'formulario': formulario, 'asigna': Asignatura.objects.filter(natura__in=(5,3)).exclude(id__in =Requisito.objects.filter(asignatura_base__natura=5).values_list('asignatura_base',flat=True)).exclude(id__in =Requisito.objects.filter(asignatura_requisito__natura=5, asignatura_base__natura=3).values_list('asignatura_base',flat=True)) }
 		
 		return render_to_response('registro/requisitos_nuevo_al.html', ctx, context_instance=RequestContext(request))	
 
@@ -862,7 +862,7 @@ def view_requirements_ajax_uv_subjects(request):
 			html+=' <label>Seleccione: &nbsp;</label>'
 			html+=' <select id="id_modulos" name="modulos" multiple="multiple">'	
 					
-			for a in Asignatura.objects.filter(tipo_asignatura__in=(5,3), carrera__in=Asignatura.objects.filter(id=request.POST.get('id')).values_list('carrera')).exclude(id=request.POST.get('id')):
+			for a in Asignatura.objects.filter(natura__in=(5,3), carrera__in=Asignatura.objects.filter(id=request.POST.get('id')).values_list('carrera')).exclude(id=request.POST.get('id')):
 				html+='<option value="'+ str(a.id) +'">'+ a.nombre_asignatura +' </option>'
 			html+='</select></div>'
 
@@ -884,7 +884,7 @@ def view_requirements_edit(request,idtcm=None):
 
 			objrequisitos = Asignatura.objects.filter(id__in = Requisito.objects.filter(asignatura_base=idtcm).values_list('asignatura_requisito'))
 			objAsigBase= Asignatura.objects.get(id=idtcm)
-			objAsigRe=Asignatura.objects.filter(tipo_asignatura__in=(5,3)).exclude(id__in =Requisito.objects.filter(asignatura_base=idtcm).values_list('asignatura_requisito')).exclude(id=idtcm)
+			objAsigRe=Asignatura.objects.filter(natura__in=(5,3)).exclude(id__in =Requisito.objects.filter(asignatura_base=idtcm).values_list('asignatura_requisito')).exclude(id=idtcm)
 			formulario=RequisitoForm()
 			ctx = {'formulario': formulario,'requisitos':objrequisitos,'asigbase': objAsigBase, 'asigReq': objAsigRe }
 			return render_to_response('registro/requisitos_detalle.html', ctx, context_instance=RequestContext(request))
@@ -962,7 +962,7 @@ def view_recuperar_clave(request):
 	return render_to_response('general/recuperar_clave.html', ctx, context_instance=RequestContext(request))	
 
 
-#PorSarai //////////////////////////////////////////////////////////////////////////////////////////////////////
+#############################Por Sarai Morales#################################
 #@login_required
 def docente_inicio(request):
 	persona_list = []
@@ -1083,11 +1083,62 @@ def docente_editar(request, id_=None):
 def registro_ajax_buscar_modulo(request):
 	print '---->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',request.method
 	if request.method == 'GET':
-		data = list(Asignatura.objects.filter(carrera_id=request.GET.get('carrera'), tipo_asignatura_id=2).extra(select={'text': 'nombre_asignatura'}).values('text','id'))
+		data = list(Asignatura.objects.filter(carrera_id=request.GET.get('carrera'), modulo_id=2).extra(select={'text': 'nombre_asignatura'}).values('text','id'))
 		return HttpResponse(json.dumps(data))
 	else:
 		return HttpResponse(0)
-######FIN########################
+
+
+def carrerabloque_nuevo(request):
+	if request.method == 'POST':
+		formulario = CarreraBloqueForm(request.POST)		
+		if formulario.is_valid():
+			print "salvando"
+			form = formulario.save(commit = False)
+			form.usuario_creador = request.user
+			form.fecha_creacion = datetime.now()
+			form.usuario_modificador = request.user
+			form.fecha_modificacion = datetime.now()
+			form.save()
+			return HttpResponseRedirect('')
+		else:
+			ctx = {'formulario':formulario}
+			return render_to_response('registro/carrera_bloque_nueva.html', ctx, context_instance=RequestContext(request)) 
+	else:
+		formulario = CarreraBloqueForm()
+		ctx = {'formulario': formulario, 'ultimo': Carrera.objects.order_by('id').reverse()[:1]}
+		return render_to_response('registro/carrera_bloque_nueva.html', ctx, context_instance=RequestContext(request))		
+
+
+def asignaturabloque_nuevo(request):
+	if request.method == 'POST':
+		formulario = AsignaturaBloqueForm(request.POST)		
+		if formulario.is_valid():
+			print "salvando"
+			form = formulario.save(commit = False)
+			form.usuario_creador = request.user
+			form.fecha_creacion = datetime.now()
+			form.usuario_modificador = request.user
+			form.fecha_modificacion = datetime.now()
+			form.save()
+			return HttpResponseRedirect('')
+		else:
+			ctx = {'formulario':formulario}
+			return render_to_response('registro/asignatura_bloque_nueva.html', ctx, context_instance=RequestContext(request)) 
+	else:
+		formulario = AsignaturaBloqueForm()
+		ctx = {'formulario': formulario, 'ultimo': Carrera.objects.order_by('id').reverse()[:1]}
+		return render_to_response('registro/asignatura_bloque_nueva.html', ctx, context_instance=RequestContext(request))
+
+def cargar_bloque(request):
+	print request.method
+	if request.method == 'GET':
+		data = list(Asignatura.objects.filter(carrera_id=request.GET.get('carrera'), asignatura_id=1).extra(select={'text': 'nombre_asignatura'}).values('text','id'))
+		return HttpResponse(json.dumps(data))
+	else:
+		return HttpResponse(0)
+		
+###########################################FIN###################################################
 
 
 @login_required

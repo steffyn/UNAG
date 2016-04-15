@@ -280,15 +280,31 @@ class AsignaturaSeccion(models.Model):
 		db_table = 'registro_asignatura_seccion'
 
 
+####################Por Sarai Morales############################
+
+class CarreraBloque(models.Model):
+	descripcion=models.CharField(max_length=512)
+	carrera=models.ForeignKey(Carrera)
+
+	def __unicode__(self):
+		return self.descripcion
+
+#########################FIN##########################################
+
 class AsignaturaBloque(models.Model):
+	carrera=models.ForeignKey(Carrera)
 	asignatura=models.ForeignKey(Asignatura)
-	bloque=models.CharField(max_length=1024)
+	bloque=models.ForeignKey(CarreraBloque)
 	usuario_creador=models.ForeignKey(User, related_name='ablo_usuario_creador')
 	fecha_creacion=models.DateField(auto_now_add=True)
 	usuario_modificador=models.ForeignKey(User, related_name='ablo_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True)
 	class Meta:
-		db_table = 'registro_asignatura'
+		db_table = 'registro_asignatura_bloque'
+
+
+
+
 
 class Parcial(models.Model):
 	periodo_clase=models.ForeignKey(PeriodoClase)
@@ -310,3 +326,6 @@ class Requisito(models.Model):
 	fecha_modificacion=models.DateField(auto_now=True)	
 	class Meta:
 		db_table = 'registro_requisito'	
+
+
+

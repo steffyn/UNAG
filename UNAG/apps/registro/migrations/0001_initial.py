@@ -175,11 +175,8 @@ class Migration(migrations.Migration):
             name='Modulo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('descripcion', models.CharField(max_length=512)),
                 ('fecha_creacion', models.DateField(auto_now_add=True)),
                 ('fecha_modificacion', models.DateField(auto_now=True)),
-                ('docente_carrera', models.ForeignKey(to='registro.docente_departamento')),
-                ('periodo_clase', models.ForeignKey(to='general.PeriodoClase')),
             ],
             options={
                 'db_table': 'registro_modulo',
@@ -277,11 +274,6 @@ class Migration(migrations.Migration):
             options={
                 'db_table': 'registro_tipo_condiciones_matricula',
             },
-        ),
-        migrations.AddField(
-            model_name='modulo',
-            name='tipo_asignatura',
-            field=models.ForeignKey(to='registro.TipoAsignatura'),
         ),
         migrations.AddField(
             model_name='modulo',
@@ -413,5 +405,33 @@ class Migration(migrations.Migration):
         migrations.AlterUniqueTogether(
             name='asignatura',
             unique_together=set([('codigo_registro', 'nombre_asignatura')]),
+        ),
+        migrations.AddField(
+            model_name='modulo',
+            name='carrera',
+            field=models.ForeignKey(default=1, to='registro.Carrera'),
+            preserve_default=False,
+        ),
+        migrations.AddField(
+            model_name='modulo',
+            name='laboratorio',
+            field=models.ForeignKey(related_name='laboratorio_id', default=1, verbose_name=b'laboratorios', to='registro.Asignatura', unique=True),
+            preserve_default=False,
+        ),
+        migrations.AddField(
+            model_name='modulo',
+            name='modulo',
+            field=models.ForeignKey(related_name='modulo_id', default=1, to='registro.Asignatura'),
+            preserve_default=False,
+        ),
+        migrations.AddField(
+            model_name='asignaturabloque',
+            name='bloque',
+            field=models.ForeignKey(default=1, to='registro.CarreraBloque'),
+            preserve_default=False,
+        ),
+        migrations.AlterModelTable(
+            name='asignaturabloque',
+            table='registro_asignatura_bloque',
         ),
     ]

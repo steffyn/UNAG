@@ -67,6 +67,21 @@ class ModuloForm(ModelForm):
 		exclude = ('usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
 	laboratorio=forms.IntegerField(label=u'Laboratorio')  
 
+
+
+class CarreraBloqueForm(ModelForm):
+	class Meta:
+		model = CarreraBloque
+		exclude = ('usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
+	descripcion = forms.CharField(max_length=128, label=u'Descripción', widget=forms.TextInput(attrs={'class': 'form-control'}))
+	
+class AsignaturaBloqueForm(ModelForm):
+	class Meta:
+		model = AsignaturaBloque
+		exclude = ('usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion', )
+	
+	
+
 ######################fin########################
 
 
