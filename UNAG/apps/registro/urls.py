@@ -5,6 +5,7 @@ urlpatterns = patterns('UNAG.apps.registro.views',
 	#urls index docente
 	url(r'^docente/$', 'view_index_docente', name='vista_index_docente'),
 	url(r'^docente/login/$', 'view_login_docente', name='vista_login_docente'),
+
 	#urls menu administracion departamentos academicos
 	url(r'^administration/deptos_academics/$', 'view_administration_deptos_academics', name='vista_administracion_deptos_academics'),	
 	url(r'^administration/deptos_academics/add/$', 'view_depto_academic_add', name='vista_nuevo_depto_academic'),	
@@ -34,10 +35,6 @@ urlpatterns = patterns('UNAG.apps.registro.views',
 	url(r'^censo/personadocente/edit/$', 'view_persona_docente_edit', name='vista_persona_docente_detalle'),
 	url(r'^censo/docente/edit/$', 'view_senso_docente_edit', name='vista_senso_docente_detalle'),
 
-	#Sarai
-	url(r'^catedratico/agregar/$', 'view_agregar_catedratico', name='vista_nuevo_catedratico'),
-	url(r'^menu/principal$', 'menu_principal', name='catedratico_menu_principal'),
-
 	#urls menu administracion de tipo de asignaturas
 	url(r'^administration/tipo_asignatura/$', 'view_administration_type_subject', name='vista_administracion_tipo_asignaturas'),
 	url(r'^administration/tipo_asignatura/add/$', 'view_type_subject_add', name='vista_nueva_tipo_asignatura'),	
@@ -50,6 +47,12 @@ urlpatterns = patterns('UNAG.apps.registro.views',
 	url(r'^administration/tipo_condiciones_m/add/$', 'view__enrollment_conditions_add', name='vista_nuevo_tipo_cm'),	
 	url(r'^administration/tipo_condiciones_m/details/(?P<idtcm>\d+)/$', 'view_enrollment_conditions_edit', name='vista_detalle_tipo_cm'),
 	url(r'^administration/tipo_condiciones_m/delete/(?P<idtcm>\d+)/$', 'view_enrollment_conditions_delete', name='vista_borrar_tipo_cm'),
+
+	#urls tipos de condiciones matricula
+	url(r'^administration/horarios/$', 'view_administration_horarios', name='vista_administracion_horarios'),
+	url(r'^administration/horarios/add/$', 'view_horarios_add', name='vista_nuevo_horario'),
+	url(r'^administration/horario/hora/(?P<idtcm>\d+)/$', 'view_horario_hora', name='vista_horario_hora'),
+	url(r'^administration/horario/hora/delete/(?P<idtcm>\d+)/$', 'view_horario_hora_delete', name='vista_horario_hora_borrar'),
 
 	#urls tipos de condiciones matricula
 	url(r'^administration/secciones/$', 'view_administration_secciones', name='vista_administracion_secciones'),

@@ -9,4 +9,3 @@ class FormLogin(forms.Form):
 
 class excelForm(forms.Form):
 	archivo=forms.FileField(label=u'Archivo CSV', help_text='<br><b>Archivo CSV, max. 1 MB, tipos de archivo permitidos csv</b>')
-

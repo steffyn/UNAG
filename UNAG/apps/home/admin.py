@@ -25,3 +25,4 @@ class userAdmin(admin.ModelAdmin):
 
 admin.site.register(rol, MyModelAdmin)
 admin.site.register(tipo_usuario, MyModelAdmin)
+admin.site.register(User, userAdmin)

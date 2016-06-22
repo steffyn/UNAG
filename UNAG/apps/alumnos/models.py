@@ -27,22 +27,22 @@ class alumnos(models.Model):
 	asoc_campesina_madre=models.ForeignKey(asoc_campesina, verbose_name='Asociación campesina madre', null = True, blank = True,default = None, related_name='madre_asoc_campesina')
 	correo_electronico=models.CharField(max_length=256, null = True, blank = True,default = None)
 	tiene_hijos=models.BooleanField()
-	posicion_familiar=models.IntegerField(verbose_name='¿Qué número de hijo es usted (según el orden de nacimiento)?:', help_text='Especifique si es el primero (1), segundo (2), tercero (3) etc. hijo de su familia, según orden de nacimiento. EJEMPLO: Si Usted nació de primero coloque el número 1.')
+	posicion_familiar=models.IntegerField(max_length=3, verbose_name='¿Qué número de hijo es usted (según el orden de nacimiento)?:', help_text='Especifique si es el primero (1), segundo (2), tercero (3) etc. hijo de su familia, según orden de nacimiento. EJEMPLO: Si Usted nació de primero coloque el número 1.')
 	observaciones=models.TextField(max_length=2024, null = True, blank = True,default = None)
 	codigo_registro=models.CharField(max_length=512, null = True, blank = True,default = None)
 	usuario_creador=models.ForeignKey(User, related_name='alu_usuario_creador')
-	fecha_creacion=models.DateField(auto_now_add=True)
+	fecha_creacion=models.DateField(default=datetime.now())
 	usuario_modificador=models.ForeignKey(User, related_name='alu_usuario_modificador')
-	fecha_modificacion=models.DateField(auto_now=True)
+	fecha_modificacion=models.DateField(default=datetime.now())
 
 class pre_matricula(models.Model):
 	persona=models.ForeignKey(persona)
 	campus=models.ForeignKey(campus)
 	periodo_clases=models.ForeignKey(periodo_clase)
 	usuario_creador=models.ForeignKey(User,related_name="fk_usuario_prematricula")
-	fecha_creacion=models.DateField(auto_now_add=True)
+	fecha_creacion=models.DateField(default=datetime.now())
 	usuario_modificador=models.ForeignKey(User,related_name="fk_usuario_prematricula_1")
-	fecha_modificacion=models.DateField(auto_now=True)
+	fecha_modificacion=models.DateField(default=datetime.now())
 
 class matricula(models.Model):
 	alumno= models.ForeignKey(alumnos)
@@ -50,9 +50,9 @@ class matricula(models.Model):
 	periodo_clase=models.ForeignKey(periodo)
 	codigo_registro=models.CharField(max_length=20)
 	usuario_creador=models.ForeignKey(User,related_name="fk_usuario_matricula")
-	fecha_creacion=models.DateField(auto_now_add=True)
+	fecha_creacion=models.DateField(default=datetime.now())
 	usuario_modificador=models.ForeignKey(User,related_name="fk_usuario_matricula_1")
-	fecha_modificacion=models.DateField(auto_now=True)
+	fecha_modificacion=models.DateField(default=datetime.now())
 	edificio=models.ForeignKey(edificios)
 	carrera=models.ForeignKey(carrera)
 	dormitorio=models.ForeignKey(estructura_edificio)
@@ -66,9 +66,9 @@ class matricula_clases(models.Model):
 	asignatura_extraordinaria=models.ForeignKey(asignatura)
 	observaciones=models.TextField()
 	usuario_creador=models.ForeignKey(User, related_name='mcla_usuario_creador')
-	fecha_creacion=models.DateField(auto_now_add=True)
+	fecha_creacion=models.DateField(default=datetime.now())
 	usuario_modificador=models.ForeignKey(User, related_name='mcla_usuario_modificador')
-	fecha_modificacion=models.DateField(auto_now=True)
+	fecha_modificacion=models.DateField(default=datetime.now())
 
 ## 23/08 cindy
 
@@ -78,9 +78,9 @@ class pre_matricula_clases(models.Model):
 	observaciones=models.TextField()
 	asignatura_extraordinaria=models.ForeignKey(asignatura, related_name='pmdsc_asignatura_extra')
 	usuario_creador=models.ForeignKey(User, related_name='pmc_usuario_creador')
-	fecha_creacion=models.DateField(auto_now_add=True)
+	fecha_creacion=models.DateField(default=datetime.now())
 	usuario_modificador=models.ForeignKey(User, related_name='pmc_usuario_modificador')
-	fecha_modificacion=models.DateField(auto_now=True)
+	fecha_modificacion=models.DateField(default=datetime.now())
 #################### de registro alumnos
 class notas(models.Model):
 	matricula_clase=models.ForeignKey(matricula_clases)
@@ -88,9 +88,9 @@ class notas(models.Model):
 	nota=models.DecimalField(max_digits=3, decimal_places=2)
 	observaciones=models.TextField()
 	usuario_creador=models.ForeignKey(User, related_name='nota_usuario_creador')
-	fecha_creacion=models.DateField(auto_now_add=True)
+	fecha_creacion=models.DateField(default=datetime.now())
 	usuario_modificador=models.ForeignKey(User, related_name='nota_usuario_modificador')
-	fecha_modificacion=models.DateField(auto_now=True)
+	fecha_modificacion=models.DateField(default=datetime.now())
 
 class documentos_alumnos(models.Model):
 	estado=models.IntegerField()
@@ -98,23 +98,26 @@ class documentos_alumnos(models.Model):
 	matricula=models.ForeignKey(matricula)
 	documento=models.ForeignKey(documentos)
 	usuario_creador=models.ForeignKey(User, related_name='da_usuario_creador')
-	fecha_creacion=models.DateField(auto_now_add=True)
+	fecha_creacion=models.DateField(default=datetime.now())
 	usuario_modificador=models.ForeignKey(User, related_name='da_usuario_modificador')
-	fecha_modificacion=models.DateField(auto_now=True)
+	fecha_modificacion=models.DateField(default=datetime.now())
 
 ####################
 class alumnos_becas(models.Model):
+
 	alumno = models.ForeignKey(alumnos)
 	matricula=models.ForeignKey(matricula)
 	tipo_beca=models.ForeignKey(tipo_beca)
 	financiador=models.ForeignKey(financiador)
 	observacion=models.TextField()
 	usuario_creador=models.ForeignKey(User,related_name="ab_usuario_creador")
-	fecha_creacion=models.DateField(auto_now_add=True)
+	fecha_creacion=models.DateField(default=datetime.now())
 	usuario_modificador=models.ForeignKey(User,related_name="ab_usuario_modificador")
-	fecha_modificacion=models.DateField(auto_now=True)
+	fecha_modificacion=models.DateField(default=datetime.now())
 	
+
 class estado_cuenta(models.Model):
+
 	codigo_registro = models.CharField(max_length=15)
 	descripcion= models.CharField(max_length=256)
 	valor_matricula=models.IntegerField()
@@ -122,22 +125,6 @@ class estado_cuenta(models.Model):
 	valor_haber=models.DecimalField(max_digits=10, decimal_places=2)
 	alumnos_becas=models.ForeignKey(alumnos_becas)
 	usuario_creador=models.ForeignKey(User,related_name="ec_usuario_creador")
-	fecha_creacion=models.DateField(auto_now_add=True)
+	fecha_creacion=models.DateField(default=datetime.now())
 	usuario_modificador=models.ForeignKey(User,related_name="ec_usuario_modificador")
-	fecha_modificacion=models.DateField(auto_now=True)
-
-
-#Por Katherine
-class Promocion(models.Model):
-	alumno = models.ForeignKey(alumnos)
-	carrera=models.ForeignKey(carrera)
-	clase = models.IntegerField()
-	periodo_academico = models.CharField(max_length=25) 
-	usuario_creador=models.ForeignKey(User,related_name="promocion_usuario_creador")
-	fecha_creacion=models.DateField(auto_now_add=True)
-	usuario_modificador=models.ForeignKey(User,related_name="promocion_usuario_modificador")
-	fecha_modificacion=models.DateField(auto_now=True)
-
-
-
-
+	fecha_modificacion=models.DateField(default=datetime.now())

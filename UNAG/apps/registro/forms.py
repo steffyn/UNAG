@@ -4,6 +4,9 @@ from UNAG.apps.alumnos.models import *
 from UNAG.apps.general.models import *
 from UNAG.apps.registro.models import *
 from django.forms import ModelForm, formsets, fields
+from django.core.exceptions import ValidationError
+from django.db import models
+from django.forms.formsets import formset_factory
 from django.forms.widgets import RadioFieldRenderer
 from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
@@ -67,35 +70,6 @@ class DocenteForm(ModelForm):
 		model = docente_departamento
 		exclude = ('persona', 'activo', 'usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
 
-
-#CATEDRATICO(Sarai)
-class CatedraticoPersonaForm(ModelForm):
-	class Meta:
-		model = persona
-		exclude = ('aldea', 'caserio', 'barrio','telefono_fijo', 'fax', 'usuario', 'usuario_creador', 'fecha_creacion', 'usuario_modificador', 'fecha_modificacion')
-	tipo_persona = forms.ModelChoiceField(queryset = tipo_persona.objects.filter(pk__in=[3]), label=u'Tipo persona', widget=forms.Select())
-	titulos = forms.ModelMultipleChoiceField(queryset = Titulos.objects.exclude(grupo_grado__id=1).distinct('descripcion'), label=u'Títulos')
-	centros = forms.ModelMultipleChoiceField(queryset = centro.objects.filter(tipo_centro__id__in=[2]).distinct('descripcion'), label=u'Centros de Estudio')
-
-class CatedraticoPersonaEditForm(ModelForm):
-	class Meta:
-		model = persona
-		exclude = ('aldea', 'caserio', 'barrio','telefono_fijo', 'fax', 'usuario', 'usuario_creador', 'fecha_creacion', 'usuario_modificador', 'fecha_modificacion')
-	tipo_persona = forms.ModelChoiceField(queryset = tipo_persona.objects.filter(pk__in=[3,8,9,12,5,6,7]), label=u'Tipo persona', widget=forms.Select())
-	titulos = forms.ModelMultipleChoiceField(queryset = Titulos.objects.exclude(grupo_grado__id=1).distinct('descripcion'), label=u'Títulos')
-	centros = forms.ModelMultipleChoiceField(queryset = centro.objects.filter(tipo_centro__id__in=[2]).distinct('descripcion'), label=u'Centros de Estudio')
-
-class CatedraticoForm(ModelForm):
-	class Meta:
-		model = docente_departamento
-		exclude = ('persona', 'activo', 'usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
-
-#FIN
-
-
-
-
-
 class TipoAsignaturaForm(ModelForm):
 	class Meta:
 		model = tipo_asignatura
@@ -113,12 +87,39 @@ class SeccionForm(ModelForm):
 		exclude = ('usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
 	#jornada=forms.ModelChoiceField(queryset = jornada.objects.all(), label=u'Jornada')
 	#carrera=forms.ModelChoiceField(queryset = carrera.objects.all(), label=u'Carrera')
+	periodo_clase=forms.ModelChoiceField(queryset = periodo_clase.objects.filter(habilitar_ingreso=True), label=u'Período Clase', initial=periodo_clase.objects.filter(habilitar_ingreso=True).values('id'))
 	aula=forms.ModelChoiceField(queryset = estructura_edificio.objects.filter(edificio__tipo_edificio__descripcion__contains='Aula'), label=u'Aula')
+
+class HorarioForm(ModelForm):
+	class Meta:
+		model = horario
+		exclude = ('usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
+	periodo_clase=forms.ModelChoiceField(queryset = periodo_clase.objects.filter(habilitar_ingreso=True), label=u'Período Clase', initial=periodo_clase.objects.filter(habilitar_ingreso=True).values('id'))
 
 class HorarioHoraForm(ModelForm):
 	class Meta:
 		model = horario_hora
 		exclude = ('horario', 'usuario_creador', 'usuario_modificador', 'fecha_modificacion', 'fecha_creacion')
+
+	def validar(self, id_):
+		error=True
+		hi=  self.cleaned_data['hora_inicial']
+		hf=  self.cleaned_data['hora_final']
+		if(hf <= hi):
+			error=False
+			self._errors['hora_inicial']=self.error_class([u"La hora inicial debe ser mayor a la hora final."])
+		else:
+			for h in horario_hora.objects.filter(horario=horario.objects.get(pk=id_).id):
+				if(hi >= h.hora_inicial and hi <= h.hora_final):
+					error=False
+					self._errors['hora_inicial']=self.error_class([u"Esta hora se traslapa con la hora "+str(h.hora_inicial)+"-"+str(h.hora_final)])
+				elif(hf >= h.hora_inicial and hf <= h.hora_final):
+					error=False
+					self._errors['hora_inicial']=self.error_class([u"Esta hora se traslapa con la hora "+str(h.hora_inicial)+"-"+str(h.hora_final)])
+				elif(hi <= h.hora_inicial and hf >= h.hora_final):
+					error=False
+					self._errors['hora_inicial']=self.error_class([u"Esta hora se traslapa con la hora "+str(h.hora_inicial)+"-"+str(h.hora_final)])
+		return error
 
 class AsignaturaSeccionForm(ModelForm):
 	class Meta:

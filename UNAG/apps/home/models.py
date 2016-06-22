@@ -6,9 +6,9 @@ from datetime import datetime
 class rol(models.Model):
 	descripcion=models.CharField(max_length=512)
 	usuario_creador=models.ForeignKey(User, related_name='rol_usuario_creador')
-	fecha_creacion=models.DateField(auto_now_add=True)
+	fecha_creacion=models.DateField(default=datetime.now())
 	usuario_modificador=models.ForeignKey(User, related_name='rol_usuario_modificador')
-	fecha_modificacion=models.DateField(auto_now=True)
+	fecha_modificacion=models.DateField(default=datetime.now())
 
 	def __unicode__(self):
 		return self.descripcion
@@ -26,16 +26,16 @@ class rol(models.Model):
 class tipo_usuario(models.Model):
 	descripcion=models.CharField(max_length=512)
 	usuario_creador=models.ForeignKey(User, related_name='tu_usuario_creador')
-	fecha_creacion=models.DateField(auto_now_add=True)
+	fecha_creacion=models.DateField(default=datetime.now())
 	usuario_modificador=models.ForeignKey(User, related_name='tu_usuario_modificador')
-	fecha_modificacion=models.DateField(auto_now=True)
+	fecha_modificacion=models.DateField(default=datetime.now())
 
 	def __unicode__(self):
 		return self.descripcion
 
 class User(User):
 	
-	user = models.OneToOneField(User)
+	#user = models.OneToOneField(User)
 	
 	tipo_usuario = models.ForeignKey(tipo_usuario, null = True, blank = True,default = None)
 	codigo_registro = models.CharField(max_length = 15, null = True, blank = True,default = None)
@@ -43,7 +43,8 @@ class User(User):
 	direccion = models.CharField(max_length = 500, null = True, blank = True,default = None)
 	
 	objects = UserManager()
+
 	#user = models.ForeignKey(User, unique=True)
 
-	def __unicode__(self):
-		return self.user.username
+	# def __unicode__(self):
+	#	return self.user.username

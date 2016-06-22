@@ -2,11 +2,11 @@
 
 {% block container %}
 	<div class="row">
-		<legend>Secciones<a href="{% url 'vista_administracion_documentos' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
+		<legend>Secciones<a href="{% url 'vista_main_first' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
 		{% if perms.registro.add_seccion %}
 		<div class="col-lg-12 well">
 			<div class="btn-group btn-proup-sm">
-				<a title="Nuevo Documento" class="btn btn-default" href="{% url 'vista_nueva_seccion' %}">
+				<a title="Nueva Sección" class="btn btn-default" href="{% url 'vista_nueva_seccion' %}">
 					<span class="glyphicon glyphicon-plus">&nbsp;</span>Nuevo
 				</a>
 			</div>
@@ -36,15 +36,15 @@
 								<td>{{d.periodo_clase}}</td>
 								<td>
 									<center>
-										<a title="Ver" href="{% url 'vista_secciones_horario' d.pk %}" class="btn btn-info">
-											<span class="glyphicon glyphicon-dashboard">&nbsp;Horarios</span>
+										<a title="Asisgnar horario a esta sección" href="{% url 'vista_secciones_horario' d.pk %}" class="btn btn-info">
+											<span class="glyphicon glyphicon-dashboard">Asignar horario</span>
 										</a>
 									</center>
 								</td>
 								<td>
 									<center>
 										<a title="Ver" href="{% url 'vista_detalle_secciones' d.pk %}" class="btn btn-success">
-											<span class="glyphicon glyphicon-eye-open"></span>
+											<span class="glyphicon glyphicon-eye-open">&nbsp;Ver</span>
 										</a>
 									</center>
 								</td>								

@@ -13,4 +13,4 @@ class MyModelAdmin(admin.ModelAdmin):
 admin.site.register(jornada_laboral, MyModelAdmin)
 admin.site.register(tipo_docente, MyModelAdmin)
 admin.site.register(horario, MyModelAdmin)
-admin.site.register(horario_hora, MyModelAdmin)
+

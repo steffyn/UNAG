@@ -2,15 +2,17 @@
 
 
 {% block navlist %}
-	<ul  class = "nav nav-pills nav-stacked" > 
+	<ul  class = "nav nav-pills nav-stacked well" > 
   	<li class="active">
-      <a href = "#">Menú Principal</a>
+      <a href = "#">Men&uacute; Principal</a>
     </li>
+    <li class="disabled"><a href="#">RECURSO HUMANO</a></li>
      <li>
       <a href = "{% url 'vista_administracion_recursohumano' %}">
         <span class="glyphicon glyphicon-user">&nbsp;</span>Administrar recurso humano
       </a> 
     </li>
+    <li class="disabled"><a href="#">CAMPUS Y CARRERAS</a></li>
     <li>
   		<a href = "{% url 'vista_administracion_campus' %}">
         <span class="glyphicon glyphicon-map-marker">&nbsp;</span>Campus
@@ -27,7 +29,7 @@
           <span class="glyphicon glyphicon-road">&nbsp;</span>Carreras
       </a>
     </li>
-
+    <li class="disabled"><a href="#">ASIGNATURAS</a></li>
     <li>
       <a href = "{% url 'vista_administracion_tipo_asignaturas' %}">
         <span class="glyphicon glyphicon-file">&nbsp;</span>Tipo Asignaturas
@@ -46,6 +48,7 @@
       </a> 
     </li>
   -->
+  <li class="disabled"><a href="#">EDIFICIOS</a></li>
     <li>
       <a href="{% url 'vista_administracion_edificios' %}">
         <span class="glyphicon glyphicon-leaf">&nbsp;</span>Edificios
@@ -57,7 +60,7 @@
           <span class="glyphicon glyphicon-home">&nbsp;</span>Estructura del Edificio
         </a>
     </li>
-
+    <li class="disabled"><a href="#">DOCUMENTOS Y CONDICIONES</a></li>
      <li>
       <a href = "{% url 'vista_administracion_documentos' %}">
         <span class="glyphicon glyphicon-file">&nbsp;</span>Documentos
@@ -71,23 +74,26 @@
     </li>
 
     
+    <li class="disabled"><a href="#">HORARIOS Y SECCIONES</a></li>
     <li> 
-  		<a href = "{% url 'vista_administracion_centros' %}">     
-        <span class="glyphicon glyphicon-flag">&nbsp;</span>Centros de Estudio
+      <a href = "{% url 'vista_administracion_horarios' %}">     
+        <span class="glyphicon glyphicon-dashboard">&nbsp;</span>Horarios
       </a> 
     </li>
-    <!--
     <li> 
       <a href = "{% url 'vista_administracion_secciones' %}">     
         <span class="glyphicon glyphicon-compressed">&nbsp;</span>Secciones
       </a> 
     </li>
 
+   <li class="disabled"><a href="#">OTROS</a></li>
     <li> 
-      <a href = "{% url 'vista_administracion_secciones' %}">     
-        <span class="glyphicon glyphicon-dashboard">&nbsp;</span>Horarios
+      <a href = "{% url 'vista_administracion_centros' %}">     
+        <span class="glyphicon glyphicon-flag">&nbsp;</span>Centros de Estudio
       </a> 
     </li>
+<!--
+    
    -->
 <!--
     <li>
@@ -117,11 +123,11 @@
             <br/><br/>
              <legend><h1>Bienvenido :  {{user.username}} </h1></legend>
               <div class="alert alert-info">
-              <h2>  <span class="label label-primary"> Descripción: </span> </h2> <h3>El modulo de administraci&oacute;n le ayudará a  realizar operaciones de mantenimiento en el sistema.</h3>
+              <h2>  <span class="label label-info"> Descripción: </span> </h2> <h3>El modulo de administraci&oacute;n le ayudará a  realizar operaciones de mantenimiento en el sistema.</h3>
              <br/>
               
              <div >
-             <h2> <span class="label label-primary">Informaci&oacute;n Adicional :</span></h2>
+             <h2> <span class="label label-info">Informaci&oacute;n Adicional :</span></h2>
                 <h3>Utilice las opciones del Menu Izquierdo para ver o modificar informaci&oacute;n.</h3>
             </div>
           </div>

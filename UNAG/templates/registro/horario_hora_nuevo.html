@@ -8,21 +8,20 @@
 
 {% block container %}
 	<div class="container">
-		<legend>Nuevo Horario para:<a href="{% url 'vista_administracion_secciones' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
-		<div class="col-lg-8">
+		<legend>Asignar nueva hora a:<a href="{% url 'vista_administracion_horarios' %}" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-arrow-left">&nbsp;</span>ATRAS</a></legend>
+		<div class="col-lg-12">
 			<div class="alert alert-info">
-				{% for s in seccion %}
-					<p>Sección: <b>{{s.descripcion}}</b></p>
+				{% for s in horario %}
+					<p>Horario: <b>{{s.descripcion}}</b></p>
 					<p>Periodo: <b>{{s.periodo_clase}} AÑO {{s.periodo_clase.periodo.anio}}</b></p>
-					<p>Jornada: <b>{{s.jornada}}</b></p>
-					<p>Carrera: <b>{{s.carrera}}</b></p>
-					
+			
 				{% endfor %}
 			</div>
 		</div>
-		<div class="col-lg-8">
+		<div class="col-lg-12">
+			
 			<form id="frm_carrea" name="frm_carrera" action="." method="POST">{% csrf_token %}	
-				{% if formulario.errors %}				
+				{% if form_horario.errors %}				
 					<div class="alert alert-danger">
 							<h4>Formulario contiene errores!!</h4>
 					</div>
@@ -33,10 +32,24 @@
 					</div>-->
 				{% endif %}
 				{{form_horario.as_p}}
-				{{form_asignatura_seccion.as_p}}
 				<button type="submit" class="btn btn-primary">
-					<span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+					<span class="glyphicon glyphicon-save">&nbsp;</span>Asignar</button>
 			</form>
+		</div>
+		<div class="col-lg-12" style="margin-top: 50px;">
+			<div class="panel panel-info">
+				 <div class="panel-heading">Horas en este horario</div>
+				 <div class="panel-body">
+				 	{% if horario_hora %}				
+						{% for h in horario_hora %}
+				    		<p> {{h.hora_inicial}} - {{h.hora_final}}  &raquo;  <a href="{% url 'vista_horario_hora_borrar' h.pk %}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash">&nbsp;</span>Quitar</a></p>
+				   		{% endfor %}
+					{% else %}
+						Aún no se han ingresado horas...
+					{% endif %}
+				    
+				 </div>
+			</div>
 		</div>
 	</div>
 {% endblock %}

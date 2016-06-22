@@ -8,14 +8,14 @@ from django.core.mail import EmailMultiAlternatives #enviamos HTML
 from django.contrib.auth import login, logout, authenticate
 from django.conf.global_settings import PASSWORD_HASHERS as default_hashers
 from django.contrib.auth.hashers import (is_password_usable, 
-    check_password, make_password, PBKDF2PasswordHasher, 
+    check_password, make_password, PBKDF2PasswordHasher, load_hashers,
     PBKDF2SHA1PasswordHasher, get_hasher)
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from datetime import datetime
 from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib.auth.models import Group
-
+from django.contrib import messages
 from UNAG.apps.general.forms import *
 from UNAG.apps.alumnos.forms import *
 from UNAG.apps.registro.forms import *
@@ -356,122 +356,6 @@ def view_add_people_docente(request):
 		formulario_doc = DocenteForm()
 	return render_to_response('general/new_persona_docente.html', {'formulario':formulario, 'formulario_doc':formulario_doc, 'mensaje':mensaje, 'identidad':request.user.username[:-4], 'registro':user.codigo_registro}, context_instance=RequestContext(request))
 
-
-
-#Vista //Sarai
-def view_agregar_catedratico(request):
-	
-	#anio=datetime.now().strftime("%Y")
-	random_number_cuenta = User.objects.make_random_password(length=4, allowed_chars='0123456789')
-	url_error = '/catedratico/agregar/'
-	random_number = User.objects.make_random_password(length=8, allowed_chars='0123456789%!#qwertyuiopasdfghjklzxcvbnm')
-	mensaje=''
-	if request.method == 'POST':
-		formulario =DocentePersonaForm(request.POST, request.FILES)
-		formulario_doc = DocenteForm(request.POST, request.FILES)
-		print request.POST.get('tipo_docente')
-		if formulario.is_valid() and formulario_doc.is_valid():
-			num_cuenta=formulario.cleaned_data['identidad']+str(random_number_cuenta)
-			#crear un usuario inactivo para la persona
-			#user = User.objects.create_user(num_cuenta, formulario.cleaned_data['correo_electronico'], random_number)
-			#crear persona
-			identidad=formulario.cleaned_data['identidad']
-			try:
-				if User.objects.filter(username__istartswith=identidad).count() == 1:
-					user = User.objects.get(username__istartswith=identidad)
-					#crear persona
-					person = formulario.save(commit = False)
-					person.usuario=user
-					person.usuario_creador=request.user
-					person.fecha_creacion=datetime.now()
-					person.usuario_modificador=request.user
-					person.fecha_modificacion=datetime.now()
-					person.save() #guardar persona
-					print 'se creo persona'
-
-					#crear docente
-					form = formulario_doc.save(commit = False)
-					form.persona=person
-					form.activo=True
-					form.usuario_creador = request.user
-					form.fecha_creacion = datetime.now()
-					form.usuario_modificador = request.user
-					form.fecha_modificacion = datetime.now()
-
-					#asignar grupo segun tipo de docente
-					td=request.POST.get('tipo_docente')
-					grupo=""				
-
-					if td=='4':
-						objT=tipo_usuario.objects.get(id=14)
-						grupo = Group.objects.get(id=4)
-						user.groups.add(grupo)
-						user.tipo_usuario=objT
-					elif td=='2':
-						objT=tipo_usuario.objects.get(id=3)
-						grupo = Group.objects.get(id=1)
-						user.groups.add(grupo)
-						user.tipo_usuario=objT
-					elif td=='1':
-						objT=tipo_usuario.objects.get(id=12)
-						grupo = Group.objects.get(id=10)
-						user.groups.add(grupo)
-						user.tipo_usuario=objT
-					elif td=='3':
-						objT=tipo_usuario.objects.get(id=13)
-						grupo = Group.objects.get(id=11)
-						user.groups.add(grupo)
-						user.tipo_usuario=objT
-
-					#actualizar datos de usuario
-					user.first_name=formulario.cleaned_data['nombres']
-					user.last_name=formulario.cleaned_data['apellidos']
-					user.is_staff=False
-					user.is_active=True
-					user.is_superuser=False
-					user.date_joined=datetime.now()
-					user.email=formulario.cleaned_data['correo_electronico']
-
-					form.save()
-					print 'se creo docente'
-
-					# guardar many to many fields
-					formulario.save_m2m() 
-					formulario_doc.save_m2m()
-					print 'guardo titulos y centros y jornadas'
-
-					user.save()
-				else:
-					mensaje='No se encontró un usuario con esa identidad'
-					print 'error al crear persona'
-					return render_to_response('general/error.html', {'url': url_error}, context_instance=RequestContext(request))
-
-			except Exception, e:
-				User.objects.filter(id=user.id).delete()
-				mensaje='Ocurrió un error al guardar favor inténtelo nuevamente'
-				print 'error al crear persona'
-				return render_to_response('general/error.html', {'url': url_error}, context_instance=RequestContext(request))
-				
-			
-			#else:
-			#print 'error al crear persona'
-			#print 'eliminando usuario'+str(user.id)
-			#User.objects.filter(id=user.id).delete()
-			return render_to_response('general/exito.html', {'url': url_error, 'nombre':person.nombre_completo, 'usuario': user.username, 'password': "*******"} , context_instance=RequestContext(request))
-		else:
-			mensaje="Formulario contiene errores"
-	else:
-		formulario = DocentePersonaForm()
-		formulario_doc = DocenteForm()
-	return render_to_response('registro/nuevo_catedratico.html', {'formulario':formulario, 'formulario_doc': formulario_doc, 'mensaje':mensaje}, context_instance=RequestContext(request))
-
-		
-			
-def menu_principal(request):
-	return render(request,'registro/menu_principal_catedratico.html')
-
-#fin
-
 @permission_required('registro.change_docente_departamento', login_url='/censo/logout/')
 def view_persona_docente_edit(request):
 	try:
@@ -559,7 +443,6 @@ def view_senso_docente_edit(request):
 	except Exception, e:
 		print "Error al acceder a datos del usuario"
 		return HttpResponseRedirect(reverse('vista_index_docente'))
-
 
 def view_login_docente(request):
 	mensaje=""
@@ -737,6 +620,81 @@ def view_enrollment_conditions_delete(request,idtcm=None):
 		tipos_condiciones_matricula.objects.filter(id=idtcm).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_tipo_cm'))
 
+#administracion de Horarios
+
+@login_required
+def view_administration_horarios(request):
+	horarios_list = []
+	if horario.objects.filter(periodo_clase__habilitar_ingreso=True):
+		print 'hay horarios'
+		horarios_list = horario.objects.filter(periodo_clase__habilitar_ingreso=True)
+	ctx = {'horario': horarios_list}	
+	return render_to_response('registro/horario_index.html', ctx, context_instance=RequestContext(request))	
+
+@permission_required('registro.add_horario', login_url='/administration/')
+def view_horarios_add(request):
+	if request.method == 'POST':
+		formHorario = HorarioForm(request.POST)	
+		formHorarioHora = HorarioHoraForm(request.POST)		
+		if formHorario.is_valid():
+			print "salvando"
+			form = formHorario.save(commit = False)
+			form.usuario_creador = request.user
+			form.fecha_creacion = datetime.now()
+			form.usuario_modificador = request.user
+			form.fecha_modificacion = datetime.now()
+			form.save()
+			return HttpResponseRedirect(reverse('vista_horario_hora', args=[form.id]))
+		else:
+			ctx = {'formulario':formHorario, 'formulario_hora':formHorarioHora}
+			return render_to_response('registro/horario_nuevo.html', ctx, context_instance=RequestContext(request)) 
+	else:
+		formHorario = HorarioForm()
+		formHorarioHora = HorarioHoraForm()
+		ctx = {'formulario':formHorario, 'formulario_hora':formHorarioHora, 'ultimo': horario.objects.order_by('id').reverse()[:1]}
+		return render_to_response('registro/horario_nuevo.html', ctx, context_instance=RequestContext(request))	
+
+@login_required
+def view_horario_hora(request, idtcm=None):
+	horario_list = []
+	horario_hora_list = []
+	if horario.objects.filter(pk=idtcm):
+			id_horario=horario.objects.get(pk=idtcm)
+			horario_list = horario.objects.filter(pk=idtcm)
+			horario_hora_list = horario_hora.objects.filter(horario=idtcm).order_by('hora_inicial')
+	if request.method == 'POST':
+		
+		form_horario = HorarioHoraForm(request.POST)		
+		if form_horario.is_valid():
+			if form_horario.validar(idtcm):
+				print "si hizo post"
+				messages.add_message(request, messages.INFO, 'Error en la hroa')
+
+				print "salvando"
+				form = form_horario.save(commit = False)
+				form.horario=id_horario
+				form.usuario_creador = request.user
+				form.fecha_creacion = datetime.now()
+				form.usuario_modificador = request.user
+				form.fecha_modificacion = datetime.now()
+				form.save()
+			ctx = {'horario': horario_list, 'horario_hora': horario_hora_list, 'form_horario':form_horario}
+			return render_to_response('registro/horario_hora_nuevo.html', ctx, context_instance=RequestContext(request))
+		else:
+			ctx = {'horario': horario_list, 'horario_hora': horario_hora_list, 'form_horario':form_horario}
+			return render_to_response('registro/horario_hora_nuevo.html', ctx, context_instance=RequestContext(request)) 
+	else:
+		form_horario = HorarioHoraForm()
+		ctx = {'horario': horario_list, 'horario_hora': horario_hora_list, 'id':idtcm, 'form_horario':form_horario}	
+		return render_to_response('registro/horario_hora_nuevo.html', ctx, context_instance=RequestContext(request))	
+
+def view_horario_hora_delete(request,idtcm=None):
+
+	if idtcm:
+		print 'Entro A borrar horario'
+		id_horario=horario_hora.objects.get(pk=idtcm).horario
+		horario_hora.objects.filter(pk=idtcm).delete()	
+	return HttpResponseRedirect(reverse('vista_horario_hora', args=[id_horario.id]))
 
 #administracion de Secciones
 
@@ -771,7 +729,7 @@ def view__secciones_add(request):
 		ctx = {'formulario': formulario, 'seccion':seccion.objects.all(), 'ultimo': seccion.objects.order_by('id').reverse()[:1]}
 		return render_to_response('registro/seccion_nuevo.html', ctx, context_instance=RequestContext(request))	
 
-
+@permission_required('registro.change_seccion', login_url='/administration/')
 def view_secciones_edit(request, idtcm=None):
 
 		if request.method == 'POST':
@@ -782,16 +740,16 @@ def view_secciones_edit(request, idtcm=None):
 				form.usuario_modificador = request.user
 				form.fecha_modificacion = datetime.now()
 				form.save()
-				return HttpResponseRedirect(reverse('vista_administracion_tipo_cm'))
+				return HttpResponseRedirect(reverse('vista_administracion_secciones'))
 			else:
 				ctx = {'formulario': formulario}
-				return render_to_response('registro/tipos_condiciones_matricula_detalle.html', ctx, context_instance=RequestContext(request))
+				return render_to_response('registro/seccion_detalle.html', ctx, context_instance=RequestContext(request))
 		else:
 			print "editar-mostrar-data"
 			objTCM = seccion.objects.get(pk=idtcm)
 			formulario = SeccionForm(instance = objTCM)
 			ctx = {'formulario': formulario, 'id':idtcm}
-			return render_to_response('registro/tipos_condiciones_matricula_detalle.html', ctx, context_instance=RequestContext(request))	
+			return render_to_response('registro/seccion_detalle.html', ctx, context_instance=RequestContext(request))	
 
 @login_required
 def view_secciones_horario(request, idtcm=None):
@@ -825,7 +783,7 @@ def view_secciones_horario(request, idtcm=None):
 def view_secciones_delete(request,idtcm=None):
 
 	if idtcm:
-		seccion.objects.filter(id=idtcm).delete()
+		#seccion.objects.filter(id=idtcm).delete()
 		return HttpResponseRedirect(reverse('vista_administracion_secciones'))
 
 

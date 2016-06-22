@@ -63,7 +63,5 @@ urlpatterns = patterns('UNAG.apps.general.views',
 	url(r'^administration/people/add/recursohumano/docente$', 'view_add_recursohumano_docente', name='vista_nuevo_recursohumano_docente'),
 	url(r'^administration/people/recursohumano/recuperar$', 'view_recuperar_registro', name='vista_recuperar_registro'),
 
-	#por Katherine
-	url(r'^administration/ajax/ubicacion$', 'ajax_ubicacion', name='ajax_ubicacion'),
 )
 
