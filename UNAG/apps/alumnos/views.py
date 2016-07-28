@@ -74,7 +74,7 @@ def view_add_people_alu(request):
 		if formulario.is_valid() and formulario_alu.is_valid():
 			num_cuenta=formulario.cleaned_data['identidad']+str(random_number_cuenta)
 			#crear un usuario inactivo para la persona
-			user = User.objects.create_user(num_cuenta, formulario.cleaned_data['correo_electronico'],  make_password(random_number, 'seasalt', 'pbkdf2_sha256'))
+			user =User.objects.create_user(username=num_cuenta, password='registro',last_login=datetime.now())#make_pas
 			#crear persona
 
 			try:
@@ -113,6 +113,7 @@ def view_add_people_alu(request):
 				user.groups.add(grupo)
 				user.usuario.tipo_usuario=objT
 				user.date_joined=datetime.now()
+				user.last_login=datetime.now()
 				user.save()
 
 				print 'guardo titulos y centros y jornadas y usuario'
@@ -801,7 +802,8 @@ def alumno_registro(request):
 		if formulario.is_valid() and formulario_alu.is_valid():
 			num_cuenta=formulario.cleaned_data['identidad']
 			#crear un usuario inact ivo para la persona
-			user = User.objects.create_user(num_cuenta, formulario.cleaned_data['correo_electronico'], 'registro') #make_password(random_number, 'seasalt', 'pbkdf2_sha256')
+			user =User.objects.create_user(username=num_cuenta, password='registro',last_login=datetime.now())#make_password(random_number, 'seasalt', 'pbkdf2_sha256')
+			print user
 			try:
 				#crear persona
 				person = formulario.save(commit = False)
@@ -850,8 +852,9 @@ def alumno_registro(request):
 				user.is_active=False
 				user.is_superuser=False
 				user.groups.add(Group.objects.get(id=2))
-				user.usuario.tipo_usuario=TipoUsuario.objects.get(id=10)
+				user.tipo_usuario=TipoUsuario.objects.get(id=10)
 				user.date_joined=datetime.now()
+				user.last_login=datetime.now()
 				user.save()
 
 				exito = 'El Registro se guardó con éxito'

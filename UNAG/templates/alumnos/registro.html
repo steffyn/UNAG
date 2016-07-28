@@ -21,6 +21,7 @@
 {% endblock  %}
 
 {% block contenido_box %}
+
 	{% if exito %}
 		<div class="well">
 			<div align="center"> 
@@ -37,33 +38,171 @@
 		{% endif %}
 		<form id="frm_persona" role="form" name="frm_persona" action="." method="POST">
 			{% csrf_token %}
-				<div class="form-group">
-		            {{ formulario_alu.codigo_registro.errors }}
-		            {{ formulario_alu.codigo_registro.label_tag }}
-		            <div id="{{ formulario_alu.codigo_registro.html_name }}">
-		             		{{formulario_alu.codigo_registro}}
-		         	</div> {{ formulario_alu.codigo_registro.help_text }}
-		        </div>
+			
 
-		        <legend>
-		        </legend>
+					
+					<div  class="Highlighted"  style="">
+					<h4>Datos Generales</h4>
+					<hr/>
+					<table id="W0002DM" class="Table" cellspacing="10" cellpadding="10" style=" width: 700px;" >
+					<tbody>
+					<tr>
+						<td style="width:120px">
+							{{ formulario_alu.codigo_registro.label_tag }}
+						</td>
+						<td>
+						
+			            {{ formulario_alu.codigo_registro.errors }}
+			            <div id="{{ formulario_alu.codigo_registro.html_name }}">
+			             		{{formulario_alu.codigo_registro}}
+			         	</div> {{ formulario_alu.codigo_registro.help_text }}
+			        	
+		        		</td>
+		        		<td>&nbsp; &nbsp;&nbsp;&nbsp;</td>
+		        		<td style="width:150px">
+							{{ formulario.tipo_identificacion.label_tag }}
+						</td>
+		        		<td>
+		        			
+			            {% if formulario.tipo_identificacion.html_name == 'tipo_identificacion' %}
+							{{ formulario.tipo_identificacion.errors }}
+				           
+				            <div id="{{ formulario.tipo_identificacion.html_name }}">
+				             		{{ formulario.tipo_identificacion }}
+				         	</div> {{ formulario.tipo_identificacion.help_text }}
+					    {% endif %}
+			       
+		        		</td>
+		        		<td>&nbsp; &nbsp;&nbsp;&nbsp;</td>
+		        		<td style="width:100px">
+							  {{ formulario.identidad.label_tag }}
+						</td>
+		        		<td>
+		        		
+			            {% if formulario.identidad.html_name == 'identidad' %}
+							{{ formulario.identidad.errors }}
+				           
+				            <div id="{{ formulario.identidad.html_name }}">
+				             		{{ formulario.identidad }}
+				         	</div> {{ formulario.identidad.help_text }}
+					    {% endif %}
+			       
+		        		</td>
+					</tr>
+					
 				
-				{% for field in formulario %}
-					{% if field.html_name == 'pais_nacimiento' %}
-						<legend>Localización</legend>
-					{% endif %}
-					{% if field.html_name == 'titulos' %}
-						<legend>Datos Profesionales</legend>
-					{% endif %}
-					<div class="form-group">
-			            {{ field.errors }}
-			            {{ field.label_tag }}
-			            <div id="{{ field.html_name }}">
-			             		{{ field }}
-			         	</div> {{ field.help_text }}
+					<tr>
+			        
+			        <div class="form-group">
+			            {% if formulario.nombres.html_name == 'nombres' %}
+							{{ formulario.nombres.errors }}
+				            {{ formulario.nombres.label_tag }}
+				            <div id="{{ formulario.nombres.html_name }}">
+				             		{{ formulario.nombres }}
+				         	</div> {{ formulario.nombres.help_text }}
+					    {% endif %}
 			        </div>
-
-			        {% if field.html_name == 'departamento' %}
+			        <div class="form-group">
+			            {% if formulario.apellidos.html_name == 'apellidos' %}
+							{{ formulario.apellidos.errors }}
+				            {{ formulario.apellidos.label_tag }}
+				            <div id="{{ formulario.apellidos.html_name }}">
+				             		{{ formulario.apellidos }}
+				         	</div> {{ formulario.apellidos.help_text }}
+					    {% endif %}
+			        </div>
+			        <div class="form-group">
+			            {% if formulario.fecha_nacimiento.html_name == 'fecha_nacimiento' %}
+							{{ formulario.fecha_nacimiento.errors }}
+				            {{ formulario.fecha_nacimiento.label_tag }}
+				            <div id="{{ formulario.fecha_nacimiento.html_name }}">
+				             		{{ formulario.fecha_nacimiento }}
+				         	</div> {{ formulario.fecha_nacimiento.help_text }}
+					    {% endif %}
+			        </div>
+			        <div class="form-group">
+			            {% if formulario.genero.html_name == 'genero' %}
+							{{ formulario.genero.errors }}
+				            {{ formulario.genero.label_tag }}
+				            <div id="{{ formulario.genero.html_name }}">
+				             		{{ formulario.genero }}
+				         	</div> {{ formulario.genero.help_text }}
+					    {% endif %}
+			        </div>
+			        <div class="form-group">
+			            {% if formulario.estado_civil.html_name == 'estado_civil' %}
+							{{ formulario.estado_civil.errors }}
+				            {{ formulario.estado_civil.label_tag }}
+				            <div id="{{ formulario.estado_civil.html_name }}">
+				             		{{ formulario.estado_civil }}
+				         	</div> {{ formulario.estado_civil.help_text }}
+					    {% endif %}
+			        </div>
+			        <div class="form-group">
+			            {% if formulario.direccion.html_name == 'direccion' %}
+							{{ formulario.direccion.errors }}
+				            {{ formulario.direccion.label_tag }}
+				            <div id="{{ formulario.direccion.html_name }}">
+				             		{{ formulario.direccion }}
+				         	</div> {{ formulario.direccion.help_text }}
+					    {% endif %}
+			        </div>
+			        <div class="form-group">
+			            {% if formulario.correo_electronico.html_name == 'correo_electronico' %}
+							{{ formulario.correo_electronico.errors }}
+				            {{ formulario.correo_electronico.label_tag }}
+				            <div id="{{ formulario.correo_electronico.html_name }}">
+				             		{{ formulario.correo_electronico }}
+				         	</div> {{ formulario.correo_electronico.help_text }}
+					    {% endif %}
+			        </div>
+			        <div class="form-group">
+			            {% if formulario.celular.html_name == 'celular' %}
+							{{ formulario.celular.errors }}
+				            {{ formulario.celular.label_tag }}
+				            <div id="{{ formulario.celular.html_name }}">
+				             		{{ formulario.celular }}
+				         	</div> {{ formulario.celular.help_text }}
+					    {% endif %}
+			        </div>
+			        <div class="form-group">
+			            {% if formulario.telefono_fijo.html_name == 'telefono_fijo' %}
+							{{ formulario.telefono_fijo.errors }}
+				            {{ formulario.telefono_fijo.label_tag }}
+				            <div id="{{ formulario.telefono_fijo.html_name }}">
+				             		{{ formulario.telefono_fijo }}
+				         	</div> {{ formulario.telefono_fijo.help_text }}
+					    {% endif %}
+			        </div>
+			        <div class="form-group">
+			            {% if formulario.fax.html_name == 'fax' %}
+							{{ formulario.fax.errors }}
+				            {{ formulario.fax.label_tag }}
+				            <div id="{{ formulario.fax.html_name }}">
+				             		{{ formulario.fax }}
+				         	</div> {{ formulario.fax.help_text }}
+					    {% endif %}
+			        </div>
+			       
+			        <div class="form-group">
+			            {% if formulario.pais_residencia.html_name == 'pais_residencia' %}
+							{{ formulario.pais_residencia.errors }}
+				            {{ formulario.pais_residencia.label_tag }}
+				            <div id="{{ formulario.pais_residencia.html_name }}">
+				             		{{ formulario.pais_residencia }}
+				         	</div> {{ formulario.pais_residencia.help_text }}
+					    {% endif %}
+			        </div>
+			          {% if formulario.departamento.html_name == 'departamento' %}
+			          <div class="form-group">
+			            {% if formulario.departamento.html_name == 'departamento' %}
+							{{ formulario.departamento.errors }}
+				            {{ formulario.departamento.label_tag }}
+				            <div id="{{ formulario.departamento.html_name }}">
+				             		{{ formulario.departamento }}
+				         	</div> {{ formulario.departamento.help_text }}
+					    {% endif %}
+			        </div>
 				        <div class="form-group">
 				        	<label> Municipio: </label>
 				        	<select name="municipio" id="id_municipio" class="form-control">
@@ -89,20 +228,300 @@
 				        	</select>
 				        </div>
 			        {% endif %}
+			        <div class="form-group">
+			            {% if formulario.zona.html_name == 'zona' %}
+							{{ formulario.zona.errors }}
+				            {{ formulario.zona.label_tag }}
+				            <div id="{{ formulario.zona.html_name }}">
+				             		{{ formulario.zona }}
+				         	</div> {{ formulario.zona.help_text }}
+					    {% endif %}
+			        </div>
+			         <div class="form-group">
+			            {% if formulario.pais_nacimiento.html_name == 'pais_nacimiento' %}
+							{{ formulario.pais_nacimiento.errors }}
+				            {{ formulario.pais_nacimiento.label_tag }}
+				            <div id="{{ formulario.pais_nacimiento.html_name }}">
+				             		{{ formulario.pais_nacimiento }}
+				         	</div> {{ formulario.pais_nacimiento.help_text }}
+					    {% endif %}
+			        </div>
+			          <div class="form-group">
+			            {% if formulario.tipo_persona.html_name == 'tipo_persona' %}
+							{{ formulario.tipo_persona.errors }}
+				            {{ formulario.tipo_persona.label_tag }}
+				            <div id="{{ formulario.tipo_persona.html_name }}">
+				             		{{ formulario.tipo_persona }}
+				         	</div> {{ formulario.tipo_persona.help_text }}
+					    {% endif %}
+			        </div>
+							</tr>	
+				
+					</tbody>
+					</table>
+					</div>
+					<hr/>
+					<div  class="Highlighted"  style="">
+					<h4> Datos de Educación Previa</h4>
+					<hr/>
+					<table id="W0002DM" class="Table"  data-cellpadding="1" data-cellspacing="2" style=" width: 900px;" >
+					<tbody>
 
-				{% endfor %}
-				<legend>Datos de Familia</legend>
-				{% for field in formulario_alu %}
-					{% if field.html_name != 'codigo_registro' %}
-						<div class="form-group">
-				            {{ field.errors }}
-				            {{ field.label_tag }}
-				            <div id="{{ field.html_name }}">
-				             		{{ field }}
-				         	</div> {{ field.help_text }}
-				        </div>
-				    {% endif %}
-			    {% endfor %}
+					<div class="form-group">
+			          
+			          
+							{{ formulario.titulos.errors }}
+				            {{ formulario.titulos.label_tag }}
+				            <div id="{{ formulario.titulos.html_name }}">
+				             		{{ formulario.titulos }}
+				         	</div> {{ formulario.titulos.help_text }}
+					
+			        </div>
+			            <div class="form-group">
+			           
+							{{ formulario.centros.errors }}
+				            {{ formulario.centros.label_tag }}
+				            <div id="{{ formulario.centros.html_name }}">
+				             		{{ formulario.centros }}
+				         	</div> {{ formulario.centros.help_text }}
+					    
+			        </div>
+					
+					 <div class="form-group">
+		            {{ formulario_alu.promedio_graduacion.errors }}
+		            {{ formulario_alu.promedio_graduacion.label_tag }}
+		            <div id="{{ formulario_alu.promedio_graduacion.html_name }}">
+		             		{{formulario_alu.promedio_graduacion}}
+		         	</div> {{ formulario_alu.promedio_graduacion.help_text }}
+		        	</div>
+					
+
+					</tbody>
+					</table>
+					</div>
+					<hr/>
+						<div  class="Highlighted"  style="">
+					<h4>Datos del Padre</h4>
+					<hr/>
+					<table id="W0002DM" class="Table"  data-cellpadding="1" data-cellspacing="2" style=" width: 900px;" >
+					<tbody>
+
+					 <div class="form-group">
+		            {{ formulario_alu.identidad_padre.errors }}
+		            {{ formulario_alu.identidad_padre.label_tag }}
+		            <div id="{{ formulario_alu.identidad_padre.html_name }}">
+		             		{{formulario_alu.identidad_padre}}
+		         	</div> {{ formulario_alu.identidad_padre.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.nombre_padre.errors }}
+		            {{ formulario_alu.nombre_padre.label_tag }}
+		            <div id="{{ formulario_alu.nombre_padre.html_name }}">
+		             		{{formulario_alu.nombre_padre}}
+		         	</div> {{ formulario_alu.nombre_padre.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.profesion_padre.errors }}
+		            {{ formulario_alu.profesion_padre.label_tag }}
+		            <div id="{{ formulario_alu.profesion_padre.html_name }}">
+		             		{{formulario_alu.profesion_padre}}
+		         	</div> {{ formulario_alu.profesion_padre.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.telefono_padre.errors }}
+		            {{ formulario_alu.telefono_padre.label_tag }}
+		            <div id="{{ formulario_alu.telefono_padre.html_name }}">
+		             		{{formulario_alu.telefono_padre}}
+		         	</div> {{ formulario_alu.telefono_padre.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.asoc_campesina_padre.errors }}
+		            {{ formulario_alu.asoc_campesina_padre.label_tag }}
+		            <div id="{{ formulario_alu.asoc_campesina_padre.html_name }}">
+		             		{{formulario_alu.asoc_campesina_padre}}
+		         	</div> {{ formulario_alu.asoc_campesina_padre.help_text }}
+		        	</div>
+
+					
+
+					</tbody>
+					</table>
+					</div>
+					<hr/>
+			       	<div  class="Highlighted"  style="">
+					<h4>Datos de la Madre</h4>
+					<hr/>
+					<table id="W0002DM" class="Table"  data-cellpadding="1" data-cellspacing="2" style=" width: 900px;" >
+					<tbody>
+
+					 <div class="form-group">
+		            {{ formulario_alu.identidad_madre.errors }}
+		            {{ formulario_alu.identidad_madre.label_tag }}
+		            <div id="{{ formulario_alu.identidad_madre.html_name }}">
+		             		{{formulario_alu.identidad_madre}}
+		         	</div> {{ formulario_alu.identidad_madre.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.nombre_madre.errors }}
+		            {{ formulario_alu.nombre_madre.label_tag }}
+		            <div id="{{ formulario_alu.nombre_madre.html_name }}">
+		             		{{formulario_alu.nombre_madre}}
+		         	</div> {{ formulario_alu.nombre_madre.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.profesion_madre.errors }}
+		            {{ formulario_alu.profesion_madre.label_tag }}
+		            <div id="{{ formulario_alu.profesion_madre.html_name }}">
+		             		{{formulario_alu.profesion_madre}}
+		         	</div> {{ formulario_alu.profesion_madre.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.telefono_madre.errors }}
+		            {{ formulario_alu.telefono_madre.label_tag }}
+		            <div id="{{ formulario_alu.telefono_madre.html_name }}">
+		             		{{formulario_alu.telefono_madre}}
+		         	</div> {{ formulario_alu.telefono_madre.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.asoc_campesina_madre.errors }}
+		            {{ formulario_alu.asoc_campesina_madre.label_tag }}
+		            <div id="{{ formulario_alu.asoc_campesina_madre.html_name }}">
+		             		{{formulario_alu.asoc_campesina_madre}}
+		         	</div> {{ formulario_alu.asoc_campesina_madre.help_text }}
+		        	</div>
+
+					
+
+					</tbody>
+					</table>
+					</div>
+					<hr/>
+						<div  class="Highlighted"  style="">
+					<h4>Datos del Encargado</h4>
+					<hr/>
+					<table id="W0002DM" class="Table"  data-cellpadding="1" data-cellspacing="2" style=" width: 900px;" >
+					<tbody>
+
+					 <div class="form-group">
+		            {{ formulario_alu.identidad_encargado.errors }}
+		            {{ formulario_alu.identidad_encargado.label_tag }}
+		            <div id="{{ formulario_alu.identidad_encargado.html_name }}">
+		             		{{formulario_alu.identidad_encargado}}
+		         	</div> {{ formulario_alu.identidad_encargado.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.nombre_encargado.errors }}
+		            {{ formulario_alu.nombre_encargado.label_tag }}
+		            <div id="{{ formulario_alu.nombre_encargado.html_name }}">
+		             		{{formulario_alu.nombre_encargado}}
+		         	</div> {{ formulario_alu.nombre_encargado.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.profesion_encargado.errors }}
+		            {{ formulario_alu.profesion_encargado.label_tag }}
+		            <div id="{{ formulario_alu.profesion_encargado.html_name }}">
+		             		{{formulario_alu.profesion_encargado}}
+		         	</div> {{ formulario_alu.profesion_encargado.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.telefono_encargado.errors }}
+		            {{ formulario_alu.telefono_encargado.label_tag }}
+		            <div id="{{ formulario_alu.telefono_encargado.html_name }}">
+		             		{{formulario_alu.telefono_encargado}}
+		         	</div> {{ formulario_alu.telefono_encargado.help_text }}
+		        	</div>
+		        			
+					</tbody>
+					</table>
+					</div>
+					<hr/>
+					<div  class="Highlighted"  style="">
+					<h4>Datos Adicionales</h4>
+					<hr/>
+					<table id="W0002DM" class="Table"  data-cellpadding="1" data-cellspacing="2" style=" width: 900px;" >
+					<tbody>
+
+					 <div class="form-group">
+		            {{ formulario_alu.personas_en_casa.errors }}
+		            {{ formulario_alu.personas_en_casa.label_tag }}
+		            <div id="{{ formulario_alu.personas_en_casa.html_name }}">
+		             		{{formulario_alu.personas_en_casa}}
+		         	</div> {{ formulario_alu.personas_en_casa.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.ingreso_mensual_familiar.errors }}
+		            {{ formulario_alu.ingreso_mensual_familiar.label_tag }}
+		            <div id="{{ formulario_alu.ingreso_mensual_familiar.html_name }}">
+		             		{{formulario_alu.ingreso_mensual_familiar}}
+		         	</div> {{ formulario_alu.ingreso_mensual_familiar.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.tiene_hijos.errors }}
+		            {{ formulario_alu.tiene_hijos.label_tag }}
+		            <div id="{{ formulario_alu.tiene_hijos.html_name }}">
+		             		{{formulario_alu.tiene_hijos}}
+		         	</div> {{ formulario_alu.tiene_hijos.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.posicion_familiar.errors }}
+		            {{ formulario_alu.posicion_familiar.label_tag }}
+		            <div id="{{ formulario_alu.posicion_familiar.html_name }}">
+		             		{{formulario_alu.posicion_familiar}}
+		         	</div> {{ formulario_alu.posicion_familiar.help_text }}
+		        	</div>
+		        			 <div class="form-group">
+		            {{ formulario_alu.religion.errors }}
+		            {{ formulario_alu.religion.label_tag }}
+		            <div id="{{ formulario_alu.religion.html_name }}">
+		             		{{formulario_alu.religion}}
+		         	</div> {{ formulario_alu.religion.help_text }}
+		        	</div>
+		        			 <div class="form-group">
+		            {{ formulario_alu.idiomas.errors }}
+		            {{ formulario_alu.idiomas.label_tag }}
+		            <div id="{{ formulario_alu.idiomas.html_name }}">
+		             		{{formulario_alu.idiomas}}
+		         	</div> {{ formulario_alu.idiomas.help_text }}
+		        	</div>
+		        			 <div class="form-group">
+		            {{ formulario_alu.trabaja.errors }}
+		            {{ formulario_alu.trabaja.label_tag }}
+		            <div id="{{ formulario_alu.trabaja.html_name }}">
+		             		{{formulario_alu.trabaja}}
+		         	</div> {{ formulario_alu.trabaja.help_text }}
+		        	</div>
+		        	 <div class="form-group">
+		            {{ formulario_alu.observaciones.errors }}
+		            {{ formulario_alu.observaciones.label_tag }}
+		            <div id="{{ formulario_alu.observaciones.html_name }}">
+		             		{{formulario_alu.observaciones}}
+		         	</div> {{ formulario_alu.observaciones.help_text }}
+		        	</div> 
+		        	<div class="form-group">
+		            {{ formulario_alu.padecimientos.errors }}
+		            {{ formulario_alu.padecimientos.label_tag }}
+		            <div id="{{ formulario_alu.padecimientos.html_name }}">
+		             		{{formulario_alu.padecimientos}}
+		         	</div> {{ formulario_alu.padecimientos.help_text }}
+		        	</div> 
+		        	<div class="form-group">
+		            {{ formulario_alu.otros_padecimientos.errors }}
+		            {{ formulario_alu.otros_padecimientos.label_tag }}
+		            <div id="{{ formulario_alu.otros_padecimientos.html_name }}">
+		             		{{formulario_alu.otros_padecimientos}}
+		         	</div> {{ formulario_alu.otros_padecimientos.help_text }}
+		        	</div> 
+		        	<div class="form-group">
+		            {{ formulario_alu.beca.errors }}
+		            {{ formulario_alu.beca.label_tag }}
+		            <div id="{{ formulario_alu.beca.html_name }}">
+		             		{{formulario_alu.beca}}
+		         	</div> {{ formulario_alu.beca.help_text }}
+		        	</div>
+					</tbody>
+					</table>
+					</div>
+
 			<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
 		</form>
 	{% endif %}
@@ -168,9 +587,9 @@
 		$('.errorlist').removeClass("errorlist").addClass("alert alert-danger");
 		$('#myModal2').modal('hide')
 		$('input[name=tiene_hijos]').removeAttr("class")
+		$('input[name=trabaja]').removeAttr("class")
 		$('textarea').addClass('form-control')
 	});
-
 	
     $('#id_departamento').attr('onchange','enviar("d");');
 	$('#id_municipio').attr('onchange','enviar("m");');
