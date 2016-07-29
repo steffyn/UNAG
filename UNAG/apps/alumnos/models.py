@@ -23,16 +23,6 @@ class Padecimientos(models.Model):
 	def __unicode__(self):
 		return self.descripcion	
 
-class Becas(models.Model):
-	descripcion=models.CharField(max_length=128)
-	usuario_creador=models.ForeignKey(User, related_name='bc_usuario_creador')
-	fecha_creacion=models.DateField(auto_now_add=True)
-	usuario_modificador=models.ForeignKey(User, related_name='bc_usuario_modificador')
-	fecha_modificacion=models.DateField(auto_now=True)
-
-	def __unicode__(self):
-		return self.descripcion	
-
 class Idiomas(models.Model):
 	descripcion=models.CharField(max_length=128)
 	usuario_creador=models.ForeignKey(User, related_name='id_usuario_creador')
@@ -43,38 +33,28 @@ class Idiomas(models.Model):
 	def __unicode__(self):
 		return self.descripcion	
 
-class Etnias(models.Model):
-	descripcion=models.CharField(max_length=128)
-	usuario_creador=models.ForeignKey(User, related_name='et_usuario_creador')
-	fecha_creacion=models.DateField(auto_now_add=True)
-	usuario_modificador=models.ForeignKey(User, related_name='et_usuario_modificador')
-	fecha_modificacion=models.DateField(auto_now=True)
-
-	def __unicode__(self):
-		return self.descripcion	
-
 class Alumnos(models.Model):
 	persona=models.ForeignKey(Persona)
 	promedio_graduacion=models.DecimalField(max_digits=5, verbose_name=u'Promedio de graduacion (Obtenido en diversificado)', decimal_places=2, help_text='Puede ser un numero entero o decimal. Máx 2 digitos decimales.')
-	identidad_padre=models.CharField(max_length=18,verbose_name=u'Identidad')
-	nombre_padre=models.CharField(max_length=512, verbose_name=u'Nombre')
-	profesion_padre=models.CharField(max_length=1024, verbose_name=u'Profesion u Oficio', help_text='Indique a que se dedica su Padre, Madre o Encargado.')
-	telefono_padre=models.CharField(max_length=8, verbose_name=u'Telefono',  null = True, blank = True,default = None)
-	asoc_campesina_padre=models.ForeignKey(AsocCampesina, verbose_name=u'Asociacion campesina', null = True, blank = True,default = None, related_name='padre_asoc_campesina')
-	identidad_madre=models.CharField(max_length=18,verbose_name=u'Identidad')
+	identidad_padre=models.CharField(max_length=18,verbose_name=u'Identidad Padre')
+	nombre_padre=models.CharField(max_length=512, verbose_name=u'Nombre del Padre: ')
+	profesion_padre=models.CharField(max_length=1024, verbose_name=u'Profesion u Oficio del Padre:', help_text='Indique a que se dedica su Padre, Madre o Encargado.')
+	telefono_padre=models.CharField(max_length=8, verbose_name=u'Telefono del Padre: ',  null = True, blank = True,default = None)
+	asoc_campesina_padre=models.ForeignKey(AsocCampesina, verbose_name=u'Asociacion campesina del Padre: ', null = True, blank = True,default = None, related_name='padre_asoc_campesina')
+	identidad_madre=models.CharField(max_length=18,verbose_name=u'Identidad Madre')
 	nombre_madre=models.CharField(max_length=512, null = True, blank = True,default = None)
-	profesion_madre=models.CharField(max_length=1024, verbose_name=u'Profesion u Oficio', null = True, blank = True,default = None)
-	telefono_madre=models.CharField(max_length=8, verbose_name=u'Telefono', null = True, blank = True,default = None)
-	asoc_campesina_madre=models.ForeignKey(AsocCampesina, verbose_name=u'Asociacion campesina', null = True, blank = True,default = None, related_name='madre_asoc_campesina')
-	identidad_encargado=models.CharField(max_length=18,verbose_name=u'Identidad')
-	nombre_encargado=models.CharField(max_length=512, verbose_name=u'Nombre')
-	profesion_encargado=models.CharField(max_length=1024, verbose_name=u'Profesion u Oficio', help_text='Indique a que se dedica su Encargado.')
-	telefono_encargado=models.CharField(max_length=8, verbose_name=u'Telefono', null = True, blank = True,default = None)
-	personas_en_casa=models.IntegerField(verbose_name=u'¿Cuantas personas viven en su casa?')
+	profesion_madre=models.CharField(max_length=1024, verbose_name=u'Profesion madre', null = True, blank = True,default = None)
+	telefono_madre=models.CharField(max_length=8, verbose_name=u'Telefono madre', null = True, blank = True,default = None)
+	asoc_campesina_madre=models.ForeignKey(AsocCampesina, verbose_name=u'Asociacion campesina madre', null = True, blank = True,default = None, related_name='madre_asoc_campesina')
+	identidad_encargado=models.CharField(max_length=18,verbose_name=u'Identidad Encargado')
+	nombre_encargado=models.CharField(max_length=512, verbose_name=u'Nombre del Encargado: ')
+	profesion_encargado=models.CharField(max_length=1024, verbose_name=u'Profesion u Oficio del Encargado: ', help_text='Indique a que se dedica su Encargado.')
+	telefono_encargado=models.CharField(max_length=8, verbose_name=u'Telefono Encargado', null = True, blank = True,default = None)
+	personas_en_casa=models.IntegerField(verbose_name=u'¿Cuantas personas viven en su casa?:')
 	ingreso_mensual_familiar=models.DecimalField(max_digits=18, verbose_name=u'Ingreso mensual Familiar', decimal_places=2)
 	tiene_hijos=models.BooleanField(default=False)
-	posicion_familiar=models.IntegerField(verbose_name=u'¿Que numero de hijo es usted (segun el orden de nacimiento)?', help_text='Especifique si es el primero (1), segundo (2), tercero (3) etc. hijo de su familia, segun orden de nacimiento. EJEMPLO: Si Usted nacio de primero coloque el numero 1.')
-	religion=models.CharField(max_length=256, verbose_name=u'Religión a la que pertenece')
+	posicion_familiar=models.IntegerField(verbose_name=u'¿Que numero de hijo es usted (segun el orden de nacimiento)?:', help_text='Especifique si es el primero (1), segundo (2), tercero (3) etc. hijo de su familia, segun orden de nacimiento. EJEMPLO: Si Usted nacio de primero coloque el numero 1.')
+	religion=models.CharField(max_length=256, verbose_name=u'Religión a la que pertenece:')
 	idiomas=models.ManyToManyField(Idiomas, verbose_name = "Idiomas")
 	trabaja=models.BooleanField(default=False)
 	observaciones=models.TextField(max_length=2024, null = True, blank = True,default = None)
@@ -82,14 +62,12 @@ class Alumnos(models.Model):
 	otros_padecimientos=models.TextField(max_length=2024, null = True, blank = True,default = None)
 	antiguo=models.BooleanField(default=False)
 	estado=models.BooleanField(default=True)
-	beca=models.ForeignKey(Becas,related_name='alu_beca')
-	etnia=models.ForeignKey(Etnias, null = True, blank = True)
+	beca=models.IntegerField(verbose_name=u'Beca')
 	codigo_registro=models.CharField(max_length=512, null = True, blank = True,default = None)
 	usuario_creador=models.ForeignKey(User, related_name='alu_usuario_creador')
 	fecha_creacion=models.DateField(auto_now_add=True, null = True, blank = True)
 	usuario_modificador=models.ForeignKey(User, related_name='alu_usuario_modificador')
 	fecha_modificacion=models.DateField(auto_now=True, null = True, blank = True)
-
 		
 	class Meta:
 		db_table = 'alumnos_alumnos'
