@@ -887,12 +887,12 @@ def alumno_editar(request, id=None):
 			formulario_alumno.save()
 			return HttpResponseRedirect(reverse('alumno_lista'))
 		else:
-			ctx = {'persona': formulario_persona, 'alumno': formulario_alumno, 'id':id}
+			ctx = {'formulario': formulario_persona, 'formulario_alu': formulario_alumno, 'id':id}
 			return render(request, 'alumnos/editar.html', ctx)
 	else:
 		formulario_persona = PersonaAlumnoEditForm(instance = alumno.persona)
 		formulario_alumno = AlumnoForm(instance = alumno)
-		ctx = {'persona': formulario_persona, 'alumno': formulario_alumno, 'id':id}
+		ctx = {'formulario': formulario_persona, 'formulario_alu': formulario_alumno, 'id':id}
 		return render(request, 'alumnos/editar.html', ctx)
 
 def alumno_eliminar(request, id=None):

@@ -13,6 +13,42 @@
 	Detalle de Campus
 {% endblock  %}
 
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="/media/css/select2.min.css">
+	<style>
+
+	td{
+		padding: 5px 5px 5px 5px;
+		
+	}
+	
+	.otratabla{
+
+		padding-left: 0px;
+	}
+	input{
+		border-radius: 7px;
+		color:black;
+	}
+	
+	 input[type="text"]{
+      border-radius:5px;
+      -moz-border-radius:5px;
+      -webkit-border-radius:5px;
+    }
+    textarea{
+      border-radius:5px;
+      -moz-border-radius:5px;
+      -webkit-border-radius:5px;
+    }
+     input[type="email"]{
+      border-radius:5px;
+      -moz-border-radius:5px;
+      -webkit-border-radius:5px;
+    }
+
+	</style>
+{% endblock css %}
 {% block boton_box %}
 	{% if perms.general.change_campus %}
 		<a title="Nuevo Campus" class="btn btn-default" href="javascript:cambiarEstilo();">
@@ -28,26 +64,728 @@
 
 {% block contenido_box %}
 	<form method="POST" name="formulario" id="formulario" accept-charset="utf-8">
-	{% csrf_token %}
-		{% for field in persona %}
-			{% if field.html_name == 'pais_nacimiento' %}
-				<legend>Localización</legend>
-			{% endif %}
-			{% if field.html_name == 'titulos' %}
-				<legend>Datos Profesionales</legend>
-			{% endif %}
-			<div class="form-group">
-	            {{ field.errors }}
-	            {{ field.label_tag }}
-	            <div id="{{ field.html_name }}">
-	             		{{ field }}
-	         	</div> {{ field.help_text }}
-	        </div>
+			{% csrf_token %}
+			
+					<table width="100%">
+					<tbody>
+					<tr style="background-color: #dd4b39; color:white;">
+						<td colspan="8"><h4><strong>Datos Generales</strong></h4></td>
+					</tr>
+					
+					<tr>
+					<td  width="15%">
+							 {{ formulario_alu.codigo_registro.label_tag }}
+						</td>
+						<td   width="21%">
+						{{ formulario_alu.codigo_registro.errors }}
+			            <div id="{{ formulario_alu.codigo_registro.html_name }}" style="width:100px;" >
+			            	
+			           
+			             		{{formulario_alu.codigo_registro}}
+			         	</div> {{ formulario_alu.codigo_registro.help_text }}
+			        	
+		        		</td>
+						<td width="8%">
+							{{ formulario.tipo_identificacion.label_tag }}
+						</td>
+					
+		        		<td  width="21%%">
+		        			{{ formulario.tipo_identificacion.errors }}
+			        
+							<div id="{{ formulario.tipo_identificacion.html_name }}" >
+							
+				           
+				             		{{ formulario.tipo_identificacion }}
+				         	</div> {{ formulario.tipo_identificacion.help_text }}
+				
+			       
+		        		</td>
+		        	  <td  width="12%">
+		        	  	{{ formulario.identidad.label_tag }}
+		        	  </td>
+					
+		        		<td  width="21%">
+		        		
+			     
+							  {{ formulario.identidad.errors }}
+				            <div id="{{ formulario.identidad.html_name }}"  >
+				          
+				           
+				             		{{ formulario.identidad }}
+				         	</div> {{ formulario.identidad.help_text }}
+					
+		        		</td>
+		        		
+		        		
+					 
+					</tr>
+					<tr>
+						<td  width="15%">
+						{{ formulario.pais_nacimiento.label_tag }}
+					</td>
+					<td  width="21%">
+						{{ formulario.pais_nacimiento.errors }}
+				            
+				            <div id="{{ formulario.pais_nacimiento.html_name }}">
+				             		{{ formulario.pais_nacimiento }}
+				         	</div> {{ formulario.pais_nacimiento.help_text }}
+					</td>
+							
+					
+						<td width="8%">
+								{{ formulario.genero.label_tag }}
+							</td>
+					<td  width="21%">
+						    
+							{{ formulario.genero.errors }}
+				            
+				            <div id="{{ formulario.genero.html_name }}">
+				             		{{ formulario.genero }}
+				         	</div> {{ formulario.genero.help_text }}
+					
+					</td>
+					<td width="13%">
+						    {{ formulario.estado_civil.label_tag }}
+					</td>
+					<td  width="21%">
+						
+							{{ formulario.estado_civil.errors }}
+				        
+				            <div id="{{ formulario.estado_civil.html_name }}">
+				             		{{ formulario.estado_civil }}
+				         	</div> {{ formulario.estado_civil.help_text }}
+					</td>
+					</tr>
+				  
+					<tr>
+					
 
-		{% endfor %}
-		<legend>Datos de Familia</legend>
-		{{alumno.as_p}}
-	</form>
+						<td  width="15%" width="70px">
+							{{ formulario.nombres.label_tag }}
+						</td>
+							<td   width="21%">
+								 
+								{{ formulario.nombres.errors }}
+					            
+					            <div id="{{ formulario.nombres.html_name }}">
+					             		{{ formulario.nombres }}
+					         	</div> {{ formulario.nombres.help_text }}
+					
+				      
+							</td>
+							 <td width="8%">
+				         	 {{ formulario.apellidos.label_tag }}
+				         	</td>
+							<td  width="21%">
+								
+				        
+								{{ formulario.apellidos.errors }}
+					           
+					            <div id="{{ formulario.apellidos.html_name }}">
+					             		{{ formulario.apellidos }}
+					         	</div> {{ formulario.apellidos.help_text }}
+				
+							</td>
+							<td  width="13%" >
+							{{ formulario.fecha_nacimiento.label_tag }}
+							</td>
+							<td  width="21%">
+								{{ formulario.fecha_nacimiento.errors }}
+				           
+				            <div id="{{ formulario.fecha_nacimiento.html_name }}">
+				             		{{ formulario.fecha_nacimiento }}
+				         	</div> {{ formulario.fecha_nacimiento.help_text }}
+							</td>
+			      
+						</tr>
+						
+					
+					
+						<tr>	
+							<td   width="15%" class="titulo" >
+								{{ formulario.correo_electronico.label_tag }}
+							</td>
+							<td  width="21%">
+								{{ formulario.correo_electronico.errors }}
+						            
+						            <div id="{{ formulario.correo_electronico.html_name }}">
+						             		{{ formulario.correo_electronico }}
+						         	</div> {{ formulario.correo_electronico.help_text }}
+							   
+							</td>
+							<td  width="8%" class="titulo" >
+								 {{ formulario.celular.label_tag }}
+							</td>
+							<td  width="21%">
+								{{ formulario.celular.errors }}
+						           
+						            <div id="{{ formulario.celular.html_name }}">
+						             		{{ formulario.celular }}
+						         	</div> {{ formulario.celular.help_text }}
+							</td>
+							<td  width="13%" class="titulo" >
+								  {{ formulario.telefono_fijo.label_tag }}
+							</td>
+							<td  width="21%">
+								{{ formulario.telefono_fijo.errors }}
+						          
+						            <div id="{{ formulario.telefono_fijo.html_name }}">
+						             		{{ formulario.telefono_fijo }}
+						         	</div> {{ formulario.telefono_fijo.help_text }}
+							</td>
+							
+							   
+					       
+						</tr>
+					
+					
+						
+					
+						<tr>	
+						
+			            <td  width="15%">
+			            	{{ formulario.pais_residencia.label_tag }}
+			            </td>
+			            <td width="21%">
+			            	{{ formulario.pais_residencia.errors }}
+				            
+				            <div id="{{ formulario.pais_residencia.html_name }}">
+				             		{{ formulario.pais_residencia }}
+				         	</div> {{ formulario.pais_residencia.help_text }}
+			            </td>
+			            <td width="8%">
+			            	 {{ formulario.departamento.label_tag }}
+			            </td>
+			            <td width="21%">
+			            	{{ formulario.departamento.errors }}
+				           
+				            <div id="{{ formulario.departamento.html_name }}">
+				             		{{ formulario.departamento }}
+				         	</div> {{ formulario.departamento.help_text }}
+			            </td>
+			            <td width="12%">
+			            	<label> Municipio: </label>
+			            </td>
+			            <td width="21%">
+			            	
+				        	<select name="municipio" id="id_municipio" class="form-control">
+				        		<option value="">------------</option>
+				        	</select>
+			            </td>
+			             
+					       
+						</tr>
+					<tr>	
+					<td width="15%">
+			            	<label> Aldea: </label>
+			            </td>
+			            <td width="21%">
+			            	<select name="aldea" id="id_aldea" class="form-control">
+				        		<option value="">------------</option>
+				        	</select>
+			            </td>  
+					        <td width="8%">
+					        	<label> Caserio: </label>
+					        </td>
+					        <td width="21%">
+					        	<select name="caserio" id="id_caserio" class="form-control">
+				        		<option value="">------------</option>
+				        	</select>
+					        </td>
+					        <td width="12%">
+					        	<label> Barrio: </label>
+					        </td>
+					        <td width="21%">
+					        	<select name="barrio" id="id_barrio" class="form-control">
+				        		<option value="">------------</option>
+				        	</select>
+				        
+					        </td>
+					        
+					       
+      	       
+						</tr>
+						<tr>
+					        	 <td width="15%" >
+					        	  {{ formulario.zona.label_tag }}
+					        </td>
+					        <td width="21%">
+					        	{{ formulario.zona.errors }}
+				          
+				            <div id="{{ formulario.zona.html_name }}">
+				             		{{ formulario.zona }}
+				         	</div> {{ formulario.zona.help_text }}
+					        </td>
+					        <td width="8%">
+					        	  {{ formulario.tipo_persona.label_tag }}
+					        </td>
+					        <td width="21%">
+					        	{{ formulario.tipo_persona.errors }}
+				          
+				            <div id="{{ formulario.tipo_persona.html_name }}">
+				             		{{ formulario.tipo_persona }}
+				         	</div> {{ formulario.tipo_persona.help_text }}
+					        </td>
+					         <td width="12%">
+		        	  	{{ formulario.tipo_sangre.label_tag }}
+		        	  </td>
+					
+		        		<td  width="21%">
+		        		
+			     
+							  {{ formulario.tipo_sangre.errors }}
+				            <div id="{{ formulario.tipo_sangre.html_name }}"  >
+				          
+				           
+				             		{{ formulario.tipo_sangre }}
+				         	</div> {{ formulario.tipo_sangre.help_text }}
+					
+		        		</td>
+					        </tr>
+						<table class="table-responsive" width="100%">
+					<tbody>
+						<tr>	
+						<td  width="15%" class="titulo" width="60px">
+							 {{ formulario.direccion.label_tag }}
+						</td>
+						<td   width="85%">
+						
+				         
+								{{ formulario.direccion.errors }}
+					           
+					            <div id="{{ formulario.direccion.html_name }}">
+					             		{{ formulario.direccion }}
+					         	</div> {{ formulario.direccion.help_text }}
+				
+						</td>
+						</tr>
+					<tr >
+					</tbody>
+					</table>
+	
+				
+					</tbody>
+					</table>
+					
+					
+					
+					<table width="100%">
+					<tbody>
+					<tr style="background-color: #dd4b39; color:white;">
+						<td colspan="3"><h4><strong>Datos de Educación Previa</strong></h4></td>
+					</tr>
+					
+					<tr >
+						<td width="32%">
+							 {{ formulario_alu.promedio_graduacion.label_tag }}
+						</td>
+						
+						<td width="10%">
+						 {{ formulario_alu.promedio_graduacion.errors }}
+		           
+		            <div id="{{ formulario_alu.promedio_graduacion.html_name }}">
+		             		{{formulario_alu.promedio_graduacion}}
+		         	</div> 
+					</td>
+					<td width="58%">
+						{{ formulario_alu.promedio_graduacion.help_text }}
+					</td>
+					
+					
+					</tr>					
+					</tbody>
+					</table>
+					<table width="100%">
+					<tbody>
+							<tr>
+								<td width="12%">
+								 {{ formulario.titulos.label_tag }}
+								</td>
+								
+								<td width="31%">
+									{{ formulario.titulos.errors }}
+							           
+							            <div id="{{ formulario.titulos.html_name }}">
+							             		{{ formulario.titulos }}
+							         	</div>
+								</td>
+								<td  width="13%">
+									 {{ formulario.centros.label_tag }}
+								</td>
+								<td width="44%">
+									{{ formulario.centros.errors }}
+							           
+							            <div id="{{ formulario.centros.html_name }}">
+							             		{{ formulario.centros }}
+							         	</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				<table width="100%">
+					<tbody>
+					<tr style="background-color: #dd4b39; color:white;">
+						<td colspan="4"><h4><strong>Datos del Padre</strong></h4></td>
+					</tr>
+					
+					<tr >
+						<td width="12%">
+							 {{ formulario_alu.identidad_padre.label_tag }}
+						</td>
+						<td width="31%">
+							 {{ formulario_alu.identidad_padre.errors }}
+		           
+		            <div id="{{ formulario_alu.identidad_padre.html_name }}" style="width:150px;">
+		             		{{formulario_alu.identidad_padre}}
+		         	</div> {{ formulario_alu.identidad_padre.help_text }}
+						</td>
+						<td width="7%">
+							{{ formulario_alu.nombre_padre.label_tag }}
+						</td>
+						<td width="63%">
+							 {{ formulario_alu.nombre_padre.errors }}
+		            
+		            <div id="{{ formulario_alu.nombre_padre.html_name }}">
+		             		{{formulario_alu.nombre_padre}}
+		         	</div> {{ formulario_alu.nombre_padre.help_text }}
+						</td>
+		  
+					</tr>					
+					</tbody>
+					</table>
+					<table width="100%">
+					<tbody>
+					
+					<tr >
+						<td width="12%">
+							{{ formulario_alu.profesion_padre.label_tag }}
+						</td>
+						<td width="31%">
+							 {{ formulario_alu.profesion_padre.errors }}
+		            
+		            <div id="{{ formulario_alu.profesion_padre.html_name }}">
+		             		{{formulario_alu.profesion_padre}}
+		         	</div> {{ formulario_alu.profesion_padre.help_text }}
+						</td>
+						<td width="7%">
+							{{ formulario_alu.telefono_padre.label_tag }}
+						</td>
+						<td width="13%">
+							  {{ formulario_alu.telefono_padre.errors }}
+		            
+		            <div id="{{ formulario_alu.telefono_padre.html_name }}">
+		             		{{formulario_alu.telefono_padre}}
+		         	</div> {{ formulario_alu.telefono_padre.help_text }}
+						</td>
+						<td width="15%">
+							 {{ formulario_alu.asoc_campesina_padre.label_tag }}
+						</td>
+						<td width="27%">
+							{{ formulario_alu.asoc_campesina_padre.errors }}
+		           
+		            <div id="{{ formulario_alu.asoc_campesina_padre.html_name }}">
+		             		{{formulario_alu.asoc_campesina_padre}}
+		         	</div> {{ formulario_alu.asoc_campesina_padre.help_text }}
+						</td>
+					</tr>					
+					</tbody>
+					</table>
+					
+
+					 <table width="100%">
+					<tbody>
+					<tr style="background-color: #dd4b39; color:white;">
+						<td colspan="4"><h4><strong>Datos de la Madre</strong></h4></td>
+					</tr>
+					
+					<tr >
+						<td width="12%">
+							 {{ formulario_alu.identidad_madre.label_tag }}
+						</td>
+						<td width="31%">
+							 {{ formulario_alu.identidad_madre.errors }}
+		           
+		            <div id="{{ formulario_alu.identidad_madre.html_name }}" style="width:150px;">
+		             		{{formulario_alu.identidad_madre}}
+		         	</div> {{ formulario_alu.identidad_madre.help_text }}
+						</td>
+						<td width="7%">
+							{{ formulario_alu.nombre_madre.label_tag }}
+						</td>
+						<td width="63%">
+							 {{ formulario_alu.nombre_madre.errors }}
+		            
+		            <div id="{{ formulario_alu.nombre_madre.html_name }}">
+		             		{{formulario_alu.nombre_madre}}
+		         	</div> {{ formulario_alu.nombre_madre.help_text }}
+						</td>
+		  
+					</tr>					
+					</tbody>
+					</table>
+					<table width="100%">
+					<tbody>
+					
+					<tr >
+						<td width="12%">
+							{{ formulario_alu.profesion_madre.label_tag }}
+						</td>
+						<td width="31%">
+							 {{ formulario_alu.profesion_madre.errors }}
+		            
+		            <div id="{{ formulario_alu.profesion_madre.html_name }}">
+		             		{{formulario_alu.profesion_madre}}
+		         	</div> {{ formulario_alu.profesion_madre.help_text }}
+						</td>
+						<td width="7%">
+							{{ formulario_alu.telefono_madre.label_tag }}
+						</td>
+						<td width="13%">
+							  {{ formulario_alu.telefono_madre.errors }}
+		            
+		            <div id="{{ formulario_alu.telefono_madre.html_name }}">
+		             		{{formulario_alu.telefono_madre}}
+		         	</div> {{ formulario_alu.telefono_madre.help_text }}
+						</td>
+						<td width="15%">
+							 {{ formulario_alu.asoc_campesina_madre.label_tag }}
+						</td>
+						<td width="27%">
+							{{ formulario_alu.asoc_campesina_madre.errors }}
+		           
+		            <div id="{{ formulario_alu.asoc_campesina_madre.html_name }}">
+		             		{{formulario_alu.asoc_campesina_madre}}
+		         	</div> {{ formulario_alu.asoc_campesina_madre.help_text }}
+						</td>
+					</tr>					
+					</tbody>
+					</table>
+					
+					<table width="100%">
+					<tbody>
+					<tr style="background-color: #dd4b39; color:white;">
+						<td colspan="4"><h4><strong>Datos del Encargado</strong></h4></td>
+					</tr>
+					
+					<tr >
+						<td width="12%">
+							 {{ formulario_alu.identidad_encargado.label_tag }}
+						</td>
+						<td width="31%">
+							 {{ formulario_alu.identidad_encargado.errors }}
+		           
+		            <div id="{{ formulario_alu.identidad_encargado.html_name }}" style="width:150px;">
+		             		{{formulario_alu.identidad_encargado}}
+		         	</div> {{ formulario_alu.identidad_encargado.help_text }}
+						</td>
+						<td width="7%">
+							{{ formulario_alu.nombre_encargado.label_tag }}
+						</td>
+						<td width="63%">
+							 {{ formulario_alu.nombre_encargado.errors }}
+		            
+		            <div id="{{ formulario_alu.nombre_encargado.html_name }}">
+		             		{{formulario_alu.nombre_encargado}}
+		         	</div> {{ formulario_alu.nombre_encargado.help_text }}
+						</td>
+		  
+					</tr>					
+					</tbody>
+					</table>
+					<table width="100%">
+					<tbody>
+					
+					<tr >
+						<td width="12%">
+							{{ formulario_alu.profesion_encargado.label_tag }}
+						</td>
+						<td width="31%">
+							 {{ formulario_alu.profesion_encargado.errors }}
+		            
+		            <div id="{{ formulario_alu.profesion_encargado.html_name }}">
+		             		{{formulario_alu.profesion_encargado}}
+		         	</div> {{ formulario_alu.profesion_encargado.help_text }}
+						</td>
+						<td width="7%">
+							{{ formulario_alu.telefono_encargado.label_tag }}
+						</td>
+						<td width="13%">
+							  {{ formulario_alu.telefono_encargado.errors }}
+		            
+		            <div id="{{ formulario_alu.telefono_encargado.html_name }}">
+		             		{{formulario_alu.telefono_encargado}}
+		         	</div> {{ formulario_alu.telefono_encargado.help_text }}
+						</td>
+						<td width="15%">
+							 
+						</td>
+						<td width="27%">
+							
+						</td>
+					</tr>					
+					</tbody>
+					</table>
+					
+
+		           	<table width="100%">
+					<tbody>
+					<tr style="background-color: #dd4b39; color:white;">
+						<td colspan="4"><h4><strong>Datos Adicionales</strong></h4></td>
+					</tr>
+					
+					<tr >
+				
+					<td width="25%">
+						  {{ formulario_alu.etnia.label_tag }}
+					</td>
+					<td  width="25%">
+						 {{ formulario_alu.etnia.errors }}
+		          
+		            <div id="{{ formulario_alu.etnia.html_name }}">
+		             		{{formulario_alu.etnia}}
+		         	</div> {{ formulario_alu.etnia.help_text }}
+					</td >
+					<td width="20%">
+						{{ formulario_alu.idiomas.label_tag }}
+					</td>
+					<td  width="30%">
+						 {{ formulario_alu.idiomas.errors }}
+		            
+		            <div id="{{ formulario_alu.idiomas.html_name }}">
+		             		{{formulario_alu.idiomas}}
+		         	</div> {{ formulario_alu.idiomas.help_text }}
+					</td>
+		        			
+					</tr>
+					<tr>
+					<td width="25%">
+						{{ formulario_alu.beca.label_tag }}
+					</td>
+					<td>
+						{{ formulario_alu.beca.errors }}
+		            
+		            <div id="{{ formulario_alu.beca.html_name }}">
+		             		{{formulario_alu.beca}}
+		         	</div> {{ formulario_alu.beca.help_text }}
+					</td>
+							<td width="20%">
+						{{ formulario_alu.religion.label_tag }}
+					</td>
+					<td  width="30%">
+						{{ formulario_alu.religion.errors }}
+		            
+		            <div id="{{ formulario_alu.religion.html_name }}">
+		             		{{formulario_alu.religion}}
+		         	</div> {{ formulario_alu.religion.help_text }}
+					</td>
+					</tr>	
+					<tr>
+						<td width="25%">
+							{{ formulario_alu.personas_en_casa.label_tag }}
+						</td>
+						<td  width="25%">
+							 {{ formulario_alu.personas_en_casa.errors }}
+		            
+		            <div id="{{ formulario_alu.personas_en_casa.html_name }}">
+		             		{{formulario_alu.personas_en_casa}}
+		         	</div> {{ formulario_alu.personas_en_casa.help_text }}
+						</td>
+						<td width="20%">
+							 {{ formulario_alu.ingreso_mensual_familiar.label_tag }}
+						</td>
+						<td  width="30%">
+							 {{ formulario_alu.ingreso_mensual_familiar.errors }}
+		           
+		            <div id="{{ formulario_alu.ingreso_mensual_familiar.html_name }}">
+		             		{{formulario_alu.ingreso_mensual_familiar}}
+		         	</div> {{ formulario_alu.ingreso_mensual_familiar.help_text }}
+						</td>
+					</tr>		
+						<tr>
+					<td colspan="1" width="25%">
+						  {{ formulario_alu.posicion_familiar.label_tag }}
+					</td>
+					<td colspan="1" width="25%">
+						{{ formulario_alu.posicion_familiar.errors }}
+		          
+		            <div id="{{ formulario_alu.posicion_familiar.html_name }}">
+		             		{{formulario_alu.posicion_familiar}}
+		         	</div> {{ formulario_alu.posicion_familiar.help_text }}
+					</td>
+					<td>
+						
+						{{ formulario_alu.tiene_hijos.errors }}
+					 {{ formulario_alu.tiene_hijos.label_tag }}
+					
+					  {{ formulario_alu.trabaja.errors }}
+		           	 {{ formulario_alu.trabaja.label_tag }}
+		       
+					</td>
+					<td >
+					 <div id="{{ formulario_alu.tiene_hijos.html_name }}">
+		             		{{formulario_alu.tiene_hijos}}
+		         	</div> {{ formulario_alu.tiene_hijos.help_text }}
+						     <div id="{{ formulario_alu.trabaja.html_name }}">
+		             		{{formulario_alu.trabaja}}
+		         	</div> {{ formulario_alu.trabaja.help_text }}
+
+					</td>
+					</tr>	
+					<tr>
+						
+						<td  width="25%">
+							{{ formulario_alu.padecimientos.label_tag }}
+		         
+						</td>
+						
+						<td  width="25%">
+						        {{ formulario_alu.padecimientos.errors }}
+		          
+		            <div id="{{ formulario_alu.padecimientos.html_name }}">
+		             		{{formulario_alu.padecimientos}}
+		         	</div> {{ formulario_alu.padecimientos.help_text }}
+				
+						</td>
+						
+						<td  width="20%">
+							{{ formulario_alu.otros_padecimientos.label_tag }}  
+						</td>
+					
+						<td  width="30%">
+							
+  						{{ formulario_alu.otros_padecimientos.errors }}
+		            
+		            <div id="{{ formulario_alu.otros_padecimientos.html_name }}">
+		             		{{formulario_alu.otros_padecimientos}}
+		         	</div> {{ formulario_alu.otros_padecimientos.help_text }}
+						</td>
+					</tr>
+					<tr>
+					<td >
+						{{ formulario_alu.observaciones.label_tag }}
+					</td>
+						<td colspan="3">
+							 
+		           			 {{ formulario_alu.observaciones.errors }}
+		            <div id="{{ formulario_alu.observaciones.html_name }}">
+		             		{{formulario_alu.observaciones}}
+		         	</div> {{ formulario_alu.observaciones.help_text }}
+
+						</td>
+					</tr>
+					</tbody>
+					</table>
+			
+
+		        	   
+		        	
+		        	
+		          
+
+		        	
+
+			<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</button>
+		</form>
 	
 {% endblock %}
 
@@ -68,4 +806,78 @@
 		}
 	});
 </script>
+
+{% include "utilidades/waiting_ajax.html" %}
+<script src="/media/js/select2.min.js"></script>
+<script type="text/javascript">
+	
+	function width_select(){
+		$( ".select2" ).each(function( index ) {
+	 		$( this ).css('width', '100%'); // Aqui lo que hace es seleccionar todos los SELECTs con clase de 'select2', si le quita esto, en el modal los SELECTs salen super pequenios.
+		});
+	}
+
+	$("select").select2();
+	width_select();
+
+	function enviar(bandera){
+		var bandera=bandera;
+		var id_departamento=$("#id_departamento").val();
+		var id_municipio=$("#id_municipio").val();
+		var id_aldea=$("#id_aldea").val();
+		var id_caserio=$("#id_caserio").val();
+
+		var sendInfo = $('#frm_persona').serialize();
+
+		if (bandera=='d'){
+			name='municipio';
+			sendInfo+="&bandera="+bandera+"&id="+id_departamento+"&name="+name;
+			$('#id_aldea, #id_caserio, #id_barrio').empty();
+
+		}else if(bandera=='m'){
+			name='aldea';
+			sendInfo+="&bandera="+bandera+"&id="+id_municipio+"&name="+name;
+
+			$('#id_aldea, #id_caserio, #id_barrio').empty();
+		}else if(bandera=='a'){
+			name='caserio';
+			sendInfo+="&bandera="+bandera+"&id="+id_aldea+"&name="+name;
+
+			$(' #id_caserio, #id_barrio').empty();
+		}else if(bandera=='c'){
+			name='barrio';
+			sendInfo+="&bandera="+bandera+"&id="+id_caserio+"&name="+name;
+		}
+		
+		$.post(
+        "{% url 'ajax_ubicacion' %}", // url to post
+        sendInfo, //argumentos
+        function(data){ // response callback
+        	data = jQuery.parseJSON(data)
+            $('#id_'+name).select2({
+			  data: data
+			})
+			width_select()
+        });
+	}
+
+	$(document).ready(function(){
+		$('input').removeClass("errorlist").addClass("form-control");
+
+		$('label').addClass("control-label");
+		$('.errorlist').removeClass("errorlist").addClass("alert alert-danger");
+		$('#myModal2').modal('hide')
+		$('input[name=tiene_hijos]').removeAttr("class")
+		$('input[name=trabaja]').removeAttr("class")
+		$('textarea').addClass('form-control')
+		$('textarea').attr('rows','3')
+	});
+	
+    $('#id_departamento').attr('onchange','enviar("d");');
+	$('#id_municipio').attr('onchange','enviar("m");');
+	$('#id_aldea').attr('onchange','enviar("a");');
+	$('#id_caserio').attr('onchange','enviar("c");');
+	$('input').addClass("form-control");
+	</script>
+
 {% endblock %}
